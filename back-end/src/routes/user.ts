@@ -17,7 +17,7 @@ userRouter.get('/', async (req: Request, res: Response) => {
   } catch (error) {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    res.status(500).send(error.message);
+    res.status(500).send(error?.message);
   }
 })
 
@@ -43,7 +43,7 @@ userRouter.post('/', async (req: Request, res: Response) => {
     const result = await collections.users?.insertOne(newUser);
 
     result
-      ? res.status(201).send(`Successfully created a new game with id ${result.insertedId}`)
+      ? res.status(201).send(`Successfully created a new user with id ${result.insertedId}`)
       : res.status(500).send("Failed to add a new user.")
 
   } catch (error) {
