@@ -1,8 +1,10 @@
 // External Dependencies
 import express, { Request, Response, Router } from "express";
 import { ObjectId } from "mongodb";
+
 import { collections } from "../services/db.service";
-import User from "../models/user";
+import User, { IUser } from "../models/user";
+import { encrypt, decrypt } from "../services/encrypt.service";
 
 // Global Config
 export const userRouter: Router = express.Router();
@@ -29,7 +31,10 @@ userRouter.get("/:id", async (req: Request, res: Response) => {
       const user = (await collections.users?.findOne(query)) as unknown as User;
 
       if (user) {
-          res.status(200).send(user);
+          res.status(200).send({
+            ...user,
+            password: decrypt(user.password)
+          });
       }
   } catch (error) {
       res.status(404).send(`Unable to find matching document with id: ${req.params.id}`);
@@ -39,8 +44,11 @@ userRouter.get("/:id", async (req: Request, res: Response) => {
 // POST
 userRouter.post('/', async (req: Request, res: Response) => {
   try {
-    const newUser = req.body as User;
-    const result = await collections.users?.insertOne(newUser);
+    const newUser = req.body as IUser;
+    const result = await collections.users?.insertOne({
+      ...newUser,
+      password: encrypt(newUser.password)
+    });
 
     result
       ? res.status(201).send(`Successfully created a new user with id ${result.insertedId}`)

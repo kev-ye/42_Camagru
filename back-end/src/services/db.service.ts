@@ -7,8 +7,10 @@ export const collections: { users?: mongoDB.Collection } = {};
 
 // Initialize Connection
 export async function connectToDB () {
+  // init env
   dotenv.config();
 
+  // database information
   const dbInfo = {
     dbConn: String(process.env.DB_CONN),
     dbName: String(process.env.DB_NAME),
@@ -24,8 +26,8 @@ export async function connectToDB () {
           description: "'username' is required and is a string"
         },
       password: {
-          bsonType: "string",
-          description: "'password' is required and is a string"
+          bsonType: "object",
+          description: "'password' is required and is a object (encryption)"
         },
       email: {
           bsonType: "string",
@@ -35,16 +37,16 @@ export async function connectToDB () {
     }
   };
 
+  // connect to database
   const client: mongoDB.MongoClient = new mongoDB.MongoClient(dbInfo.dbConn);
-
   await client.connect();
 
+  // check & create & apply collection json schema
   const db: mongoDB.Db = client.db(dbInfo.dbName);
-
   db.listCollections({ name: dbInfo.userCollectionName })
     .next(async (error, collInfo) => {
       if (collInfo) {
-        console.log(`debug: collection exist: ${collInfo.name} :apply validator jasonSchema`);
+        console.log(`debug: collection exist: ${collInfo.name}: apply validator jasonSchema`);
         await db.command({
           "collMod": collInfo.name,
           "validator": {
@@ -54,7 +56,7 @@ export async function connectToDB () {
         collections.users = db.collection(collInfo.name);
       }
       else {
-        console.log('debug: collection dont exist: create & apply validator jasonSchema');
+        console.log(`debug: collection dont exist: create ${dbInfo.userCollectionName} & apply validator jasonSchema`);
         collections.users = await db.createCollection(dbInfo.userCollectionName, {
           "validator": {
             $jsonSchema: dbInfo.schema
