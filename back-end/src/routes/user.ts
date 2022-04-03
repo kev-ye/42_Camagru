@@ -3,6 +3,8 @@ import express, { Request, Response, Router } from "express";
 import { collections } from "../services/db.service";
 import User, { IUser } from "../models/user";
 import { encrypt, decrypt } from "../services/encrypt.service";
+import { generateToken } from "../services/auth.service";
+import { IJwtData } from "../models/data";
 import { sendMail } from "../services/mail.service";
 
 export const userRouter: Router = express.Router();
@@ -47,12 +49,19 @@ userRouter.post('/', async (req: Request, res: Response) => {
     const result = await collections.users?.insertOne({
       ...newUser,
       password: encrypt(newUser.password),
-      verified: false,
+      _activated: false,
     });
 
     if (result) {
-      // sendMail(newUser.email);
-      res.status(201).send(`Successfully created a new user: ${result}`);
+      const data: IJwtData = {
+        username: newUser.username,
+        _id: newUser._id,
+        _activated: newUser._activated
+      }
+      const activeToken = generateToken(data);
+
+      sendMail(newUser.email, `http://localhost:3000/api/auth/active/verify?token=${activeToken}`);
+      res.status(201).send(`Successfully created a new user: ${newUser.username}`);
     } else res.status(500).send("Failed to create a new user.");
 
   } catch (error) {

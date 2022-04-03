@@ -5,8 +5,8 @@ export interface IUser {
   username: string,
   password: string,
   email: string,
-  verified: boolean,
-  id?: ObjectId
+  _activated?: boolean,
+  _id?: ObjectId
 }
 
 export default class User {
@@ -14,7 +14,7 @@ export default class User {
     public username: string,
     public password: IEncryption,
     public email: string,
-    public verified: boolean,
-    public id?: ObjectId
+    public _activated?: boolean,
+    public _id?: ObjectId
   ) {}
 }

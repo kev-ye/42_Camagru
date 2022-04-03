@@ -12,3 +12,7 @@ export function generateToken(data: IJwtData) {
 export function verifyToken(token: string) {
   return jwt.verify(token, String(process.env.JWT_SECRET) || "");
 }
+
+export function decodeToken(token: string) {
+  return jwt.decode(token) as IJwtData;
+}

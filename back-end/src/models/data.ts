@@ -2,5 +2,6 @@ import { ObjectId } from "mongodb";
 
 export interface IJwtData {
   username: string,
-  id: ObjectId
+  _id?: ObjectId,
+  _activated?: boolean
 }

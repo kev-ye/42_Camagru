@@ -17,7 +17,7 @@ export async function connectToDB () {
     userCollectionName: String(process.env.DB_USER_COLL_NAME),
     schema: {
       bsonType: "object",
-      required: ["username", "password", "email", "verified"],
+      required: ["username", "password", "email"],
       additionalProperties: false,
       properties: {
         _id: {},
@@ -33,9 +33,9 @@ export async function connectToDB () {
           bsonType: "string",
           description: "'email' is required and is a string"
         },
-        verified: {
+        _activated: {
           bsonType: "bool",
-          description: "'verified' is required and is a boolean"
+          description: "'verified' is a boolean"
         }
       }
     }
