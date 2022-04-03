@@ -1,14 +1,14 @@
 import express, { Request, Response, Router } from "express";
-import { ObjectId } from "mongodb";
 
 import { collections } from "../services/db.service";
 import User, { IUser } from "../models/user";
 import { encrypt, decrypt } from "../services/encrypt.service";
+import { sendMail } from "../services/mail.service";
 
 export const userRouter: Router = express.Router();
 userRouter.use(express.json());
 
-// GET
+// dev: get all users
 userRouter.get('/', async (req: Request, res: Response) => {
   try {
     const users = (await collections.users?.find({}).toArray()) as unknown as User[];
@@ -21,36 +21,39 @@ userRouter.get('/', async (req: Request, res: Response) => {
   }
 })
 
-userRouter.get("/:id", async (req: Request, res: Response) => {
-  const id = req?.params?.id;
+// dev: get user by id
+userRouter.get("/:username", async (req: Request, res: Response) => {
+  const username = req?.params?.username;
 
   try {
-      const query = { _id: new ObjectId(id) };
-      const user = (await collections.users?.findOne(query)) as unknown as User;
+    const query = { username: String(username) };
+    const user = (await collections.users?.findOne(query)) as unknown as User;
 
-      if (user) {
-          res.status(200).send({
-            ...user,
-            password: decrypt(user.password)
-          });
-      }
+    user
+      ? res.status(200).send({
+          ...user,
+          password: decrypt(user.password)
+        })
+      : res.status(404).send(`User with username: ${username} not found`);
   } catch (error) {
-      res.status(404).send(`Unable to find matching document with id: ${req.params.id}`);
+    res.status(404).send(`Unable to find matching document with username: ${req.params.username}`);
   }
 });
 
-// POST
+// insert new user
 userRouter.post('/', async (req: Request, res: Response) => {
   try {
     const newUser = req.body as IUser;
     const result = await collections.users?.insertOne({
       ...newUser,
-      password: encrypt(newUser.password)
+      password: encrypt(newUser.password),
+      verified: false,
     });
 
-    result
-      ? res.status(201).send(`Successfully created a new user with id ${result.insertedId}`)
-      : res.status(500).send("Failed to add a new user.")
+    if (result) {
+      // sendMail(newUser.email);
+      res.status(201).send(`Successfully created a new user: ${result}`);
+    } else res.status(500).send("Failed to create a new user.");
 
   } catch (error) {
     console.error(error);
@@ -60,19 +63,22 @@ userRouter.post('/', async (req: Request, res: Response) => {
   }
 })
 
-// PUT
-userRouter.put('/:id', async (req: Request, res: Response) => {
-  const id = req?.params?.id;
+// update user
+userRouter.put('/:username', async (req: Request, res: Response) => {
+  const username = req?.params?.username;
 
   try {
-    const updateUser: User = req.body as User;
-    const query = {_id: new ObjectId(id)};
-
+    const user = req.body as IUser;
+    const updateUser = {
+      ...user,
+      password: encrypt(user.password)
+    }
+    const query = { username: String(username) };
     const result = await collections.users?.updateOne(query, { $set: updateUser });
 
     result
-      ? res.status(200).send(`Successfully updated user with id ${id}`)
-      : res.status(304).send(`User with id: ${id} not updated`);
+      ? res.status(200).send(`Successfully updated user with username ${username}`)
+      : res.status(304).send(`User with username: ${username} not updated`);
 
   } catch (error) {
     console.error(error);
@@ -81,26 +87,3 @@ userRouter.put('/:id', async (req: Request, res: Response) => {
     res.status(400).send(error.message);
   }
 })
-
-// DELETE
-userRouter.delete("/:id", async (req: Request, res: Response) => {
-  const id = req?.params?.id;
-
-  try {
-    const query = { _id: new ObjectId(id) };
-    const result = await collections.users?.deleteOne(query);
-
-    if (result && result.deletedCount) {
-        res.status(202).send(`Successfully removed user with id ${id}`);
-    } else if (!result) {
-        res.status(400).send(`Failed to remove user with id ${id}`);
-    } else if (!result.deletedCount) {
-        res.status(404).send(`User with id ${id} does not exist`);
-    }
-  } catch (error) {
-    console.error(error);
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    res.status(400).send(error.message);
-  }
-});

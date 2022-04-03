@@ -14,7 +14,7 @@ export const sendMail = (to: string) => {
   const mailOptions = {
     from: String(process.env.G_USER),
     to: to,
-    Subject: 'Camagru verification',
+    subject: 'Camagru verification',
     text: 'test text'
   }
 

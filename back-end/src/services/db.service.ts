@@ -17,21 +17,25 @@ export async function connectToDB () {
     userCollectionName: String(process.env.DB_USER_COLL_NAME),
     schema: {
       bsonType: "object",
-      required: ["username", "password", "email"],
+      required: ["username", "password", "email", "verified"],
       additionalProperties: false,
       properties: {
-      _id: {},
-      username: {
+        _id: {},
+        username: {
           bsonType: "string",
           description: "'username' is required and is a string"
         },
-      password: {
+        password: {
           bsonType: "object",
           description: "'password' is required and is a object (encryption)"
         },
-      email: {
+        email: {
           bsonType: "string",
           description: "'email' is required and is a string"
+        },
+        verified: {
+          bsonType: "bool",
+          description: "'verified' is required and is a boolean"
         }
       }
     }

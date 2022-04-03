@@ -5,7 +5,7 @@ import * as fs from "fs";
 const path = './localSecret.txt';
 
 const algorithm = 'aes-256-cbc'; // Using AES encryption
-const secretKey = fs.readFileSync(path); // local secret by crypto.rndomBytes(32)
+const secretKey = fs.readFileSync(path); // local secret by crypto.randomBytes(32)
 const iv = crypto.randomBytes(16);
 
 export interface IEncryption {
