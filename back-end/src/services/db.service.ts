@@ -24,7 +24,6 @@ export async function connectToDB () {
         _id: {},
         username: {
           bsonType: "string",
-          // unique: true,
           description: "'username' is required and is a string"
         },
         password: {
