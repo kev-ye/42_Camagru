@@ -3,7 +3,7 @@ import express, { Request, Response, Router } from "express";
 import { collections } from "../services/db.service";
 import User, { IUser } from "../models/user";
 import { encrypt, decrypt } from "../services/encrypt.service";
-import { generateToken } from "../services/auth.service";
+import {authWithJwt, generateToken} from "../services/auth.service";
 import { IJwtData } from "../models/data";
 import { sendMail } from "../services/mail.service";
 
@@ -43,7 +43,7 @@ userRouter.get("/:username", async (req: Request, res: Response) => {
 });
 
 // insert new user
-userRouter.post('/', async (req: Request, res: Response) => {
+userRouter.post('/create', async (req: Request, res: Response) => {
   try {
     const newUser = req.body as IUser;
     const result = await collections.users?.insertOne({
@@ -73,7 +73,7 @@ userRouter.post('/', async (req: Request, res: Response) => {
 })
 
 // update user
-userRouter.put('/:username', async (req: Request, res: Response) => {
+userRouter.put('/update/:username', authWithJwt, async (req: Request, res: Response) => {
   const username = req?.params?.username;
 
   try {

@@ -1,6 +1,6 @@
 import { collections } from "./db.service";
 
-// requirements
+// Requirements
 export async function requireUniqueUserName(userName: string): Promise<boolean> {
   return await uniqueUserName(userName) && requireUserName(userName);
 }

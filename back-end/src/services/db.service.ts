@@ -16,6 +16,7 @@ export async function connectToDB () {
     dbName: String(process.env.DB_NAME),
     userCollectionName: String(process.env.DB_USER_COLL_NAME),
     schema: {
+      title: "users",
       bsonType: "object",
       required: ["username", "password", "email"],
       additionalProperties: false,
@@ -23,6 +24,7 @@ export async function connectToDB () {
         _id: {},
         username: {
           bsonType: "string",
+          // unique: true,
           description: "'username' is required and is a string"
         },
         password: {
