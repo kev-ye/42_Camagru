@@ -19,7 +19,7 @@ authRouter.post("/login", async (req: Request, res: Response) => {
     return ;
   }
 
-  const user = await collections.users?.findOne({ username }) as unknown as User;
+  const user = await collections.users?.findOne({ username: String(username) }) as unknown as User;
   if (!user || decrypt(user.password) !== String(password)) {
     res.status(400).send({});
     return ;
