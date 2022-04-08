@@ -1,16 +1,15 @@
-import AbstractView from "./AbstractView.js";
+import AbstractView from "./AbstractView";
 
 export default class extends AbstractView {
   constructor() {
     super();
 
-    this.setTitle("User");
+    this.setTitle("");
   }
 
   async getHtml() {
     return `
       <h1>User</h1>
-      <p>Just a text</p>
     `;
   }
 }
