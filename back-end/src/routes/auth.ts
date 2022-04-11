@@ -15,13 +15,13 @@ authRouter.use(express.json());
 authRouter.post("/login", async (req: Request, res: Response) => {
   const { username, password } = req.body;
   if (!username || !password) {
-    res.status(400).send({});
+    res.status(200).send({});
     return ;
   }
 
   const user = await collections.users?.findOne({ username: String(username) }) as unknown as User;
   if (!user || decrypt(user.password) !== String(password)) {
-    res.status(400).send({});
+    res.status(200).send({});
     return ;
   }
 
@@ -35,7 +35,7 @@ authRouter.post("/verify", authWithJwt, async (req: Request, res: Response) => {
   const user = await collections.users?.findOne({ _id: new ObjectId(decode._id) }) as unknown as User;
   user._activated
     ? res.status(200).send({ "activated": true })
-    : res.status(400).send({ "activated": false })
+    : res.status(200).send({ "activated": false })
 })
 
 // JWT account active
@@ -58,6 +58,6 @@ authRouter.get("/active/verify", authWithJwt,async (req: Request, res: Response)
   user._activated = true;
   const result = await collections.users?.updateOne({ _id: new ObjectId(decode._id) }, { $set: user });
   result
-    ? res.status(200).send({ "active": true })
-    : res.status(400).send({ "active": false })
+    ? res.status(200).send({ "activated": true })
+    : res.status(200).send({ "activated": false })
 })

@@ -2,20 +2,26 @@ export default class {
   constructor() {};
 
   async get (url) {
-    const httpRequest = new XMLHttpRequest();
+    console.log('here');
+    return await fetch(url, {
+      method: 'get'
+    })
+    .then(res => res.json())
+    .then(data => data);
+  }
 
-    console.log('GET url:', url);
-    
-    httpRequest.open('GET', url, true);
-    httpRequest.send();
+  async post (url, body, header) {
+    const newH = {
+      ...header,
+      'Content-Type': 'application/json',
+    };
 
-    httpRequest.onreadystatechange = () => {
-      if (httpRequest.readyState === 4 && httpRequest.status === 200) {
-        const json = httpRequest.responseText;
-        console.log('result:', JSON.parse(json)[0]);
-        return JSON.parse(json)[0];
-      }
-      return null;
-    }
-  };
+    return await fetch(url, {
+      method: 'post',
+      body: JSON.stringify(body),
+      headers: newH
+    })
+    .then(res => res.json())
+    .then(data => data);
+  }
 }

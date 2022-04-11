@@ -1,6 +1,6 @@
 import Gallery from "./views/Gallery.js";
 import User from "./views/User.js";
-import Setting from "./views/Setting.js"
+import Nav from "./views/nav.js";
 
 const navigateTo = url => {
   history.pushState(null, null, url);
@@ -10,8 +10,7 @@ const navigateTo = url => {
 const router = async () => {
   const routes = [
     { path: "/", view: Gallery },
-    { path: "/user", view: User },
-    { path: "/setting", view: Setting }
+    { path: "/user", view: User }
   ];
 
   const potentialMatches = routes.map(route => {
@@ -32,7 +31,8 @@ const router = async () => {
 
   const view = new match.route.view();
 
-  // document.querySelector('#app').innerHTML = await view.getHtml();
+  const nav = new Nav();
+  document.getElementById('nav').innerHTML = await nav.getHtml().then(res => res);
   document.getElementById('app').innerHTML = await view.getHtml();
 }
 

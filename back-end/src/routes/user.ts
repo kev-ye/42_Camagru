@@ -60,14 +60,14 @@ userRouter.post('/create', async (req: Request, res: Response) => {
       // const activeToken = generateToken(jwtData(newUser));
 
       // sendMail(newUser.email, `http://localhost:3000/api/auth/active/verify?token=${activeToken}`);
-      res.status(201).send({ "create": true });
-    } else res.status(500).send({ "create": false });
+      res.status(200).send({ "created": true });
+    } else res.status(500).send({ "created": false });
 
   } catch (error) {
     console.error(error);
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    res.status(400).send({ "create": false });
+    res.status(400).send({ "created": false });
   }
 })
 
@@ -87,13 +87,13 @@ userRouter.put('/update/:username', authWithJwt, async (req: Request, res: Respo
     console.log(result);
 
     result
-      ? res.status(200).send({ "update": true })
-      : res.status(304).send({ "update": false });
+      ? res.status(200).send({ "updated": true })
+      : res.status(304).send({ "updated": false });
 
   } catch (error) {
     console.error(error);
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    res.status(400).send({ "update": false });
+    res.status(400).send({ "updated": false });
   }
 })
