@@ -5,7 +5,6 @@ const { createProxyMiddleware } = require('http-proxy-middleware');
 const app = express();
 
 app.use('/api', createProxyMiddleware({ target: 'http://localhost:3000', changeOrigin: true }));
-
 app.use("/static", express.static(path.resolve(__dirname, "front-end", "static")))
 
 app.get("/*", (req, res) => {
