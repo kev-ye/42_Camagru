@@ -42,11 +42,11 @@ Deployment:
 # Tech
 
 Authorized languages:
-- Server: All (I choose Javascript)
+- Server: All
 - Client: HTML + CSS + Javascript
 
 Authorized frameworks:
-- Server: Limited to standard PHP library functions (We can use Javascript)
+- Server: Limited to standard PHP library functions
 - Client: CSS frameworks tolerated, as long as it does not add JavaScript
 
 Containerization (deployment)
