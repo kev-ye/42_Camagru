@@ -11,12 +11,8 @@ export default class {
   close() {}
 
   // action about accept button (if exist)
-  async accept(callback) {
-    callback();
-  }
+  async accept() {}
 
   // action about cancel button (if exist)
-  async cancel(callback) {
-    callback();
-  }
+  async cancel() {}
 }
