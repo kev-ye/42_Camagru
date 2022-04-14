@@ -1,3 +1,4 @@
+/* Modal global set */
 .modal {
   display: none;
   position: fixed;
@@ -6,34 +7,93 @@
   left: 0;
   width: 100%;
   height: 100%;
+  overflow: auto;
   background: rgba(0, 0, 0, 0.3);
 }
 
 .modal-content {
   background: #fefefe;
-  margin: 15% auto;
+  margin: 5% auto 15% auto;
   padding: 20px;
-  border: 1px solid #888;
-  width: 80%;
-  height: 20%;
+  border: none;
+  border-radius: 20px;
+  width: 50%;
+}
+
+.close-container {
   position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 .close {
   position: absolute;
+  right: 25px;
   top: 0;
-  right: 10px;
-  color: #aaa;
+  color: #000;
   font-size: 28px;
   font-weight: bold;
 }
 
 .close:hover,
 .close:focus {
-  color:  black;
-  text-decoration: none;
+  color:  red;
   cursor: pointer;
+}
+
+button {
+  cursor: pointer;
+}
+
+button:hover {
+  opacity: 0.8;
+}
+
+/* Login modal set */
+
+.login-container {
+  padding: 16px;
+}
+
+input[type=text].login-input,
+input[type=password].login-input {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+.login-acceptbtn {
+  background-color: #04AA6D;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 20px;
+  width: 100%;
+}
+
+.login-cancelbtn {
+  width: auto;
+  color: white;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 20px;
+  background-color: #F44336;
+}
+
+span.psw {
+  float: right;
+  padding-top: 16px;
+}
+
+@media screen and (max-width: 470px) {
+  span.psw {
+    display: block;
+    float: none;
+  }
+
+  .login-cancelbtn {
+    width: 100%;
+  }
 }

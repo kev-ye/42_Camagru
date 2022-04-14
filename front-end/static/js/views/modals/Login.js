@@ -1,29 +1,44 @@
 import Modal from "./AbstractModal.js"
 
 export default class extends Modal {
-  constructor() {
+  constructor(buttonId) {
     super();
 
-    this.init();
+    this.init(buttonId);
   }
 
-  init() {
+  init(buttonId) {
     const app = document.getElementById('app');
     const dialog = document.createElement('div');
 
     dialog.innerHTML = `
-      <div id="myModal" class="modal">
-        <div class="modal-content">
-          <span class="close">&times;</span>
-          <p>testing</p>
-        </div>
+      <div id="loginModal" class="modal">
+        <form class="modal-content">
+          <div class="close-container">
+            <span class="close">&times;</span>
+          </div>
+          <div class="login-container">
+            <label for="uname"><b>Username</b></label>
+            <input type="text" placeholder="Enter Username" name="uname" class="login-input" required>
+
+            <label for="psw"><b>Password</b></label>
+            <input type="password" placeholder="Enter Password" name="psw" class="login-input" required>
+
+            <button type="submit" class="login-acceptbtn">Sign in</button>
+          </div>
+
+          <div class="login-container">
+            <button type="button" class="login-cancelbtn">Cancel</button>
+            <span class="psw">Forgot <a href="#">password?</a></span>
+          </div>
+        </form>
       </div>
     `;
 
     app.appendChild(dialog);
 
-    this.modal = document.getElementById('myModal');
-    this.btn = document.getElementById('test');
+    this.modal = document.getElementById('loginModal');
+    this.btn = document.getElementById(buttonId);
     this.span = document.querySelector('.close');
   }
 
@@ -35,7 +50,7 @@ export default class extends Modal {
 
   close() {
     this.span.onclick = () => {
-      this.modal.style.display = "block";
+      this.modal.style.display = "none";
     };
 
     window.onclick = (e) => {
