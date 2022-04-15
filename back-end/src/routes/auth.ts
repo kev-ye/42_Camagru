@@ -1,12 +1,13 @@
 import express, { Router, Response, Request } from "express"
 
 import { collections } from "../services/db.service";
-import { generateToken, decodeToken } from "../services/auth.service";
+import { generateToken, decodeToken, verifyToken } from "../services/auth.service";
 import { sendMail } from "../services/mail.service";
 import User from "../models/user";
 import { decrypt } from "../services/encrypt.service";
 import { ObjectId } from "mongodb";
 import { authWithJwt, jwtData } from "../services/auth.service";
+import { verify } from "crypto";
 
 export const authRouter: Router = express.Router();
 authRouter.use(express.json());
@@ -45,15 +46,16 @@ authRouter.post("/active", authWithJwt, async (req: Request, res: Response) => {
   const user = await collections.users?.findOne({ _id: new ObjectId(decode._id) }) as unknown as User;
   if (!user) res.status(400).send({});
   else {
-    const activeToken = generateToken(jwtData(user));
+    const activeToken = generateToken(jwtData(user), 60 * 5);
     sendMail(user.email, `http://localhost:3000/api/auth/active/verify?token=${activeToken}`);
     res.status(200).send({ "token": true });
   }
 })
 
-authRouter.get("/active/verify", authWithJwt,async (req: Request, res: Response) => {
+authRouter.get("/active/verify", authWithJwt, async (req: Request, res: Response) => {
   const token = String(req.query.token);
   const decode = decodeToken(token);
+  console.log('decode:', decode);
   const user = await collections.users?.findOne({ _id: new ObjectId(decode._id) }) as unknown as User;
   user._activated = true;
   const result = await collections.users?.updateOne({ _id: new ObjectId(decode._id) }, { $set: user });

@@ -13,7 +13,7 @@ export default class {
   async post (url, body, header) {
     const newH = {
       ...header,
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     };
 
     return await fetch(url, {

@@ -1,4 +1,7 @@
 import Modal from "./AbstractModal.js"
+import HttpClient from "../../Common/HttpClient.js";
+
+const http = new HttpClient();
 
 export default class extends Modal {
   constructor(buttonId) {
@@ -13,16 +16,16 @@ export default class extends Modal {
 
     dialog.innerHTML = `
       <div id="loginModal" class="modal">
-        <form id="login-form" class="modal-content" method="post">
+        <form name="login-form" id="login-form" class="modal-content" method="post">
           <div class="close-container">
             <span class="close">&times;</span>
           </div>
           <div class="login-container">
             <label for="uname"><b>Username</b></label>
-            <input id="loginUsername" type="text" placeholder="Enter Username" name="uname" class="login-input" required>
+            <input id="loginUsername" type="text" placeholder="Enter Username" name="login-username" class="login-input" required>
 
             <label for="psw"><b>Password</b></label>
-            <input id="loginPassword" type="password" placeholder="Enter Password" name="psw" class="login-input" required>
+            <input id="loginPassword" type="password" placeholder="Enter Password" name="login-psw" class="login-input" required>
 
             <button type="submit" class="login-acceptbtn">Sign in</button>
           </div>
@@ -71,12 +74,36 @@ export default class extends Modal {
     this.loginForm.onsubmit = (e) => {
       e.preventDefault();
 
-      const username = document.getElementById('loginUsername');
-      const password = document.getElementById('loginPassword');
+      const u = String(document.forms["login-form"]["login-username"].value);
+      const p = String(document.forms["login-form"]["login-psw"].value);
 
-      console.log('username:', username.value);
-      console.log('password:', password.value);
-      // last time here
+      // if (this.validateForm(u, p)) {
+        const res = http.post('/api/auth/login', {
+          "username": u,
+          "password": p
+        });
+
+        console.log(res);
+
+        // location.reload();
+      // }
     }
+  }
+
+  validateForm(u, p) {
+    const uRegex = /^[a-zA-Z0-9]{6,16}$/;
+    const pRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[a-zA-Z0-9]{8,16}$/;
+
+    if (!u || !uRegex.test(u)) {
+      // alert("Username must contain letters or numbers, length between 6-16");
+      return false;
+    }
+
+    if (!p || !pRegex.test(p)) {
+      // alert("Password must contain a combination of uppercase and lowercase letters and numbers, no special characters, length between 8-16");
+      return false;
+    }
+
+    return true;
   }
 }

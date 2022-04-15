@@ -8,8 +8,9 @@ import { NextFunction, Request, Response } from "express";
 dotenv.config();
 
 // Jwt
-export function generateToken(data: IJwtData) {
-  return jwt.sign(data, String(process.env.JWT_SECRET) || "", {expiresIn: "24h"});
+export function generateToken(data: IJwtData, time?: string | number) {
+  console.log('time:', time);
+  return jwt.sign(data, String(process.env.JWT_SECRET) || "", { expiresIn: time || "24h"});
 }
 
 export function verifyToken(token: string) {
@@ -18,6 +19,10 @@ export function verifyToken(token: string) {
 
 export function decodeToken(token: string) {
   return jwt.decode(token) as IJwtData;
+}
+
+export function deleteToken(token: string) {
+
 }
 
 export function jwtData(user: User | IUser) {
