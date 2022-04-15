@@ -1,6 +1,6 @@
 import Gallery from "./views/Gallery.js";
 import User from "./views/User.js";
-import Nav from "./views/Navigator.js";
+import Nav from "./views/Nav.js";
 
 const navigateTo = url => {
   history.pushState(null, null, url);

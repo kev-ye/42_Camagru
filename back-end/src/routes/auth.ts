@@ -55,7 +55,6 @@ authRouter.post("/active", authWithJwt, async (req: Request, res: Response) => {
 authRouter.get("/active/verify", authWithJwt, async (req: Request, res: Response) => {
   const token = String(req.query.token);
   const decode = decodeToken(token);
-  console.log('decode:', decode);
   const user = await collections.users?.findOne({ _id: new ObjectId(decode._id) }) as unknown as User;
   user._activated = true;
   const result = await collections.users?.updateOne({ _id: new ObjectId(decode._id) }, { $set: user });

@@ -11,7 +11,6 @@ export default class extends AbstractView {
     return `
       <h1>Welcome to Camagru gallery</h1>
       <p>this is a text</p>
-      <button id='login'>login</button>
     `;
   }
 }

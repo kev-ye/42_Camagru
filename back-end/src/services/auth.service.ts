@@ -9,7 +9,6 @@ dotenv.config();
 
 // Jwt
 export function generateToken(data: IJwtData, time?: string | number) {
-  console.log('time:', time);
   return jwt.sign(data, String(process.env.JWT_SECRET) || "", { expiresIn: time || "24h"});
 }
 

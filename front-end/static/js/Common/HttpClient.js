@@ -22,6 +22,9 @@ export default class {
       headers: newH
     })
     .then(res => res.json())
-    .then(data => data);
+    .catch(e => {
+      console.log('Log: Error:', e);
+      return {};
+    })
   }
 }

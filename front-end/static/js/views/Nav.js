@@ -12,16 +12,17 @@ export default class extends AbstractView {
     return await isLogin().then((res) => {
       return res
         ? `
-          <nav>
-            <a href="/" class="nav__link" data-link>Gallery</a>
-            <a href="/user" class="nav__link" data-link>User</a>
+          <nav class="nav-container">
+            <a href="/" data-link>Gallery</a>
+            <a href="/user" data-link>User</a>
+            <button id="user-exit">Exit</button>
           </nav>
           `
         : `
-          <nav>
-            <a href="/" class="nav__link" data-link>Gallery</a>
-            <a href="/sign_in" class="nav__link" data-link>Sign up</a>
-            <a href="/sign_up" class="nav__link" data-link>Sign up</a>
+          <nav class="nav-container">
+            <a href="/" data-link>Gallery</a>
+            <button id="sign-in">Sign in</button>
+            <button id="sign-up">Sign up</button>
           </nav>
           `
     });

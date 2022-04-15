@@ -1,8 +1,6 @@
 import Modal from "./AbstractModal.js"
 import HttpClient from "../../Common/HttpClient.js";
 
-const http = new HttpClient();
-
 export default class extends Modal {
   constructor(buttonId) {
     super();
@@ -52,6 +50,8 @@ export default class extends Modal {
     this.loginBtn.onclick = () => {
       this.modal.style.display = "block";
     };
+
+    this.loginBtn.onclick();
   }
 
   close() {
@@ -71,22 +71,28 @@ export default class extends Modal {
   }
 
   async accept(e) {
-    this.loginForm.onsubmit = (e) => {
+    this.loginForm.onsubmit = async (e) => {
       e.preventDefault();
 
       const u = String(document.forms["login-form"]["login-username"].value);
       const p = String(document.forms["login-form"]["login-psw"].value);
 
       // if (this.validateForm(u, p)) {
-        const res = http.post('/api/auth/login', {
+        const http = new HttpClient();
+        const res = await http.post('/api/auth/login', {
           "username": u,
           "password": p
         });
 
-        console.log(res);
-
-        // location.reload();
+        if (res && res.token) {
+          localStorage.setItem('__token__', res.token);
+          location.reload();
+        }
+        else
+          alert('Username or password wrong');
       // }
+      // else
+      //   alert('Username or password wrong');
     }
   }
 
