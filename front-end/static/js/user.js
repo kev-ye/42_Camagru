@@ -1,12 +1,9 @@
 import Login from "./views/modals/Login.js"
 
 const login = async (e) => {
-  const login = new Login(e.target.id);
-
-  login.open();
-  login.close();
+  const login = new Login(e.target.id, e);
   await login.accept(e);
-} 
+}
 
 const exit = async () => {
   localStorage.removeItem('__token__');

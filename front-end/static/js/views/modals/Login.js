@@ -2,76 +2,45 @@ import Modal from "./AbstractModal.js"
 import HttpClient from "../../Common/HttpClient.js";
 
 export default class extends Modal {
-  constructor(buttonId) {
+   constructor(buttonId, e) {
     super();
 
-    this.init(buttonId);
-  }
+    this.init({
+      modal: 'loginModal',
+      openBtn: buttonId,
+      cancelBtn: '.login-cancelbtn',
+      cancelSpan: '.close',
+      template: `
+        <div id="loginModal" class="modal">
+          <form name="login-form" id="login-form" class="modal-content" method="post">
+            <div class="close-container">
+              <span class="close">&times;</span>
+            </div>
+            <div class="login-container">
+              <label for="uname"><b>Username</b></label>
+              <input id="loginUsername" type="text" placeholder="Enter Username" name="login-username" class="login-input" required>
 
-  init(buttonId) {
-    const app = document.getElementById('app');
-    const dialog = document.createElement('div');
+              <label for="psw"><b>Password</b></label>
+              <input id="loginPassword" type="password" placeholder="Enter Password" name="login-psw" class="login-input" required>
 
-    dialog.innerHTML = `
-      <div id="loginModal" class="modal">
-        <form name="login-form" id="login-form" class="modal-content" method="post">
-          <div class="close-container">
-            <span class="close">&times;</span>
-          </div>
-          <div class="login-container">
-            <label for="uname"><b>Username</b></label>
-            <input id="loginUsername" type="text" placeholder="Enter Username" name="login-username" class="login-input" required>
+              <button type="submit" class="login-acceptbtn">Sign in</button>
+            </div>
 
-            <label for="psw"><b>Password</b></label>
-            <input id="loginPassword" type="password" placeholder="Enter Password" name="login-psw" class="login-input" required>
-
-            <button type="submit" class="login-acceptbtn">Sign in</button>
-          </div>
-
-          <div class="login-container">
-            <button type="button" class="login-cancelbtn">Cancel</button>
-            <span class="psw">Forgot <a href="#">password?</a></span>
-          </div>
-        </form>
-      </div>
-    `;
-
-    app.appendChild(dialog);
-
-    this.modal = document.getElementById('loginModal');
-    this.loginBtn = document.getElementById(buttonId);
-    this.cancelBtn = document.querySelector('.login-cancelbtn');
-    this.cancelSpan = document.querySelector('.close');
-    
-    this.loginForm = document.getElementById('login-form');
-  }
-
-  open() {
-    this.loginBtn.onclick = () => {
-      this.modal.style.display = "block";
-    };
-
-    this.loginBtn.onclick();
-  }
-
-  close() {
-    this.cancelSpan.onclick = () => {
-      this.modal.style.display = "none";
-    };
-
-    this.cancelBtn.onclick  = () => {
-      this.modal.style.display = "none";
-    };
-
-    window.onclick = (e) => {
-      if (e.target === this.modal) {
-        this.modal.style.display = "none";
-      }
-    }
+            <div class="login-container">
+              <button type="button" class="login-cancelbtn">Cancel</button>
+              <span class="psw">Forgot <a href="#">password?</a></span>
+            </div>
+          </form>
+        </div>
+      `
+    });
+    this.open();
+    this.close();
   }
 
   async accept(e) {
-    this.loginForm.onsubmit = async (e) => {
+    this.modalForm = document.getElementById('login-form');
+    this.modalForm.onsubmit = async (e) => {
       e.preventDefault();
 
       const u = String(document.forms["login-form"]["login-username"].value);
@@ -90,9 +59,9 @@ export default class extends Modal {
         }
         else
           alert('Username or password wrong');
-      // }
-      // else
-      //   alert('Username or password wrong');
+    //   }
+    //   else
+    //     alert('Username or password wrong');
     }
   }
 
