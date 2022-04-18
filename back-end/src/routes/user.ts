@@ -14,11 +14,11 @@ userRouter.get('/', async (req: Request, res: Response) => {
   try {
     const users = (await collections.users?.find({}).toArray()) as unknown as User[];
 
-    res.status(200).send(users);
+    res.send(users);
   } catch (error) {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    res.status(500).send(error?.message);
+    res.send(error?.message);
   }
 })
 
@@ -31,13 +31,13 @@ userRouter.get("/:username", async (req: Request, res: Response) => {
     const user = (await collections.users?.findOne(query)) as unknown as User;
 
     user
-      ? res.status(200).send({
+      ? res.send({
           ...user,
           password: decrypt(user.password)
         })
-      : res.status(404).send(`User with username: ${username} not found`);
+      : res.send(`User with username: ${username} not found`);
   } catch (error) {
-    res.status(404).send(`Unable to find matching document with username: ${req.params.username}`);
+    res.send(`Unable to find matching document with username: ${req.params.username}`);
   }
 });
 
@@ -47,7 +47,7 @@ userRouter.post('/create', async (req: Request, res: Response) => {
     const newUser = req.body as IUser;
     const user = await collections.users?.findOne({ username: String(newUser.username) }) as unknown as User;
     if (user) {
-      res.status(500).send({ "create": false })
+      res.send({ "create": false })
       return ;
     }
     const result = await collections.users?.insertOne({
@@ -57,17 +57,17 @@ userRouter.post('/create', async (req: Request, res: Response) => {
     });
 
     if (result) {
-      // const activeToken = generateToken(jwtData(newUser));
+      const activeToken = generateToken(jwtData(newUser), 60 * 5);
 
       // sendMail(newUser.email, `http://localhost:3000/api/auth/active/verify?token=${activeToken}`);
-      res.status(200).send({ "created": true });
-    } else res.status(500).send({ "created": false });
+      res.send({ "created": true });
+    } else res.send({ "created": false });
 
   } catch (error) {
     console.error(error);
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    res.status(400).send({ "created": false });
+    res.send({ "created": false });
   }
 })
 
@@ -87,13 +87,13 @@ userRouter.put('/update/:username', authWithJwt, async (req: Request, res: Respo
     console.log(result);
 
     result
-      ? res.status(200).send({ "updated": true })
-      : res.status(304).send({ "updated": false });
+      ? res.send({ "updated": true })
+      : res.send({ "updated": false });
 
   } catch (error) {
     console.error(error);
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    res.status(400).send({ "updated": false });
+    res.send({ "updated": false });
   }
 })

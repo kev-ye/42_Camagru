@@ -1,8 +1,14 @@
-import Login from "./views/modals/Login.js"
+import SignIn from "./views/modals/SignIn.js"
+import SignUp from "./views/modals/SignUp.js";
 
-const login = async (e) => {
-  const login = new Login(e.target.id, e);
-  await login.accept(e);
+const signIn = async (e) => {
+  const $signIn = new SignIn();
+  await $signIn.accept(e);
+}
+
+const signUp = async (e) => {
+  const $signUp = new SignUp();
+  await $signUp.accept(e);
 }
 
 const exit = async () => {
@@ -12,7 +18,20 @@ const exit = async () => {
 
 document.addEventListener("DOMContentLoaded", () => {
   document.body.addEventListener("click", e => {
-    if (e.target && e.target.id === 'sign-in') login(e);
-    if (e.target && e.target.id === 'user-exit') exit();
+    if (e.target) {
+      switch(e.target.id) {
+        case 'sign-in':
+          signIn(e);
+          break ;
+        case 'sign-up':
+          signUp(e);
+          break ;
+        case 'user-exit':
+          exit();
+          break ;
+        default:
+          break ;
+      }
+    }
   })
 })

@@ -33,7 +33,7 @@ const router = async () => {
 
   const nav = new Nav();
   document.getElementById('nav').innerHTML = await nav.getHtml().then(res => res);
-  document.getElementById('app').innerHTML = await view.getHtml();
+  document.getElementById('app').innerHTML = await view.getHtml().then();
 }
 
 window.addEventListener("popstate", router);

@@ -1,4 +1,5 @@
 /* Modal global set */
+
 .modal {
   display: none;
   position: fixed;
@@ -24,7 +25,17 @@
   position: relative;
 }
 
-.close {
+.modal-title-container {
+  text-align: center;
+}
+
+hr.modal-separator {
+  margin: 10px 3%;
+  border: 1px solid #000;
+}
+
+.signIn-close,
+.signUp-close {
   position: absolute;
   right: 25px;
   top: 0;
@@ -33,8 +44,10 @@
   font-weight: bold;
 }
 
-.close:hover,
-.close:focus {
+.signIn-close:hover,
+.signIn-close:focus,
+.signUp-close:hover,
+.signUp-close:focus {
   color:  red;
   cursor: pointer;
 }
@@ -47,23 +60,26 @@ button:hover {
   opacity: 0.8;
 }
 
-/* Login modal set */
+/* signIn + SignUp modal set */
 
-.login-container {
+.signIn-container,
+.signUp-container {
   padding: 16px;
 }
 
-input[type=text].login-input,
-input[type=password].login-input {
+input[type=text].signIn-input,
+input[type=password].signIn-input,
+input[type=text].signUp-input,
+input[type=password].signUp-input {
   width: 100%;
   padding: 12px 20px;
   margin: 8px 0;
   display: inline-block;
-  border: 1px solid #ccc;
+  border: 2px solid #000;
   box-sizing: border-box;
 }
 
-.login-acceptbtn {
+.signIn-acceptbtn {
   background-color: #04AA6D;
   color: white;
   padding: 14px 20px;
@@ -73,12 +89,32 @@ input[type=password].login-input {
   width: 100%;
 }
 
-.login-cancelbtn {
+.signIn-cancelbtn {
   width: auto;
   color: white;
   padding: 10px 18px;
   border: none;
   border-radius: 20px;
+  background-color: #F44336;
+}
+
+.signUp-button-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.signUp-acceptbtn,
+.signUp-cancelbtn {
+  background-color: #04AA6D;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 20px;
+  width: 30%;
+}
+
+.signUp-cancelbtn {
   background-color: #F44336;
 }
 
@@ -93,7 +129,7 @@ span.psw {
     float: none;
   }
 
-  .login-cancelbtn {
+  .signIn-cancelbtn {
     width: 100%;
   }
 }

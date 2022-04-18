@@ -14,7 +14,7 @@ export default class {
     this.openBtn = document.getElementById(setting.openBtn || '');
     this.cancelBtn = document.querySelector(setting.cancelBtn || '');
 
-    this.cancelSpan = document.querySelector('.close');
+    this.cancelSpan = document.querySelector(setting.close || '');
   }
 
   // open dialog
