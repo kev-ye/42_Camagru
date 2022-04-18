@@ -20,10 +20,6 @@ export function decodeToken(token: string) {
   return jwt.decode(token) as IJwtData;
 }
 
-export function deleteToken(token: string) {
-
-}
-
 export function jwtData(user: User | IUser) {
   return {
     username: user.username,

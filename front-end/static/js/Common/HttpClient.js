@@ -27,4 +27,22 @@ export default class {
       return {};
     })
   }
+
+  async put (url, body, header) {
+    const newH = {
+      ...header,
+      "Content-Type": "application/json",
+    };
+
+    return await fetch(url, {
+      method: 'put',
+      body: JSON.stringify(body),
+      headers: newH
+    })
+    .then(res => res.json())
+    .catch(e => {
+      console.log('Log: Error:', e);
+      return {};
+    })
+  }
 }

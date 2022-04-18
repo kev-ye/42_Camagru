@@ -1,14 +1,14 @@
 import SignIn from "./views/modals/SignIn.js"
 import SignUp from "./views/modals/SignUp.js";
 
-const signIn = async (e) => {
+const signIn = async () => {
   const $signIn = new SignIn();
-  await $signIn.accept(e);
+  await $signIn.accept();
 }
 
-const signUp = async (e) => {
+const signUp = async () => {
   const $signUp = new SignUp();
-  await $signUp.accept(e);
+  await $signUp.accept();
 }
 
 const exit = async () => {
@@ -21,10 +21,10 @@ document.addEventListener("DOMContentLoaded", () => {
     if (e.target) {
       switch(e.target.id) {
         case 'sign-in':
-          signIn(e);
+          signIn();
           break ;
         case 'sign-up':
-          signUp(e);
+          signUp();
           break ;
         case 'user-exit':
           exit();

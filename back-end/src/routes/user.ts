@@ -82,13 +82,12 @@ userRouter.put('/update/:username', authWithJwt, async (req: Request, res: Respo
       password: encrypt(user.password)
     }
     const query = { username: String(username) };
-    const result = await collections.users?.updateOne(query, { $set: updateUser });
+    const ifUser = await collections.users?.findOne(query) as unknown as User;
 
-    console.log(result);
-
-    result
-      ? res.send({ "updated": true })
-      : res.send({ "updated": false });
+    if (ifUser) {
+      await collections.users?.updateOne(query, { $set: updateUser });
+      res.send({ "updated": true });
+    } else res.send({ "updated": false });
 
   } catch (error) {
     console.error(error);

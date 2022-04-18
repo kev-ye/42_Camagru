@@ -1,6 +1,7 @@
 import Gallery from "./views/Gallery.js";
 import User from "./views/User.js";
 import Nav from "./views/Nav.js";
+import Reset from "./views/Reset.js";
 
 const navigateTo = url => {
   history.pushState(null, null, url);
@@ -10,7 +11,8 @@ const navigateTo = url => {
 const router = async () => {
   const routes = [
     { path: "/", view: Gallery },
-    { path: "/user", view: User }
+    { path: "/user", view: User },
+    { path: "/reset", view: Reset }
   ];
 
   const potentialMatches = routes.map(route => {
@@ -29,11 +31,14 @@ const router = async () => {
     };
   }
 
+  const nav = new Nav();
   const view = new match.route.view();
 
-  const nav = new Nav();
   document.getElementById('nav').innerHTML = await nav.getHtml().then(res => res);
   document.getElementById('app').innerHTML = await view.getHtml().then();
+
+  if (location.pathname === '/reset')
+    view.reset();
 }
 
 window.addEventListener("popstate", router);

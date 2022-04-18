@@ -47,7 +47,7 @@ export default class extends AbstractModal {
     this.close();
   }
 
-  async accept(e) {
+  async accept() {
     this.modalForm = document.getElementById('signUp-form');
     this.modalForm.onsubmit = async (e) => {
       e.preventDefault();

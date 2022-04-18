@@ -4,8 +4,6 @@ import { isLogin } from "../service/auth.js";
 export default class extends AbstractView {
   constructor() {
     super();
-
-    this.setTitle("");
   };
 
   async getHtml() {

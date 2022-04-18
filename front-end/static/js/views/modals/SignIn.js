@@ -26,10 +26,10 @@ export default class extends AbstractModal {
 
             <div class="signIn-container">
               <label for="signIn-username"><b>Username</b></label>
-              <input id="loginUsername" type="text" placeholder="Enter Username" name="signIn-username" class="signIn-input" required>
+              <input type="text" placeholder="Enter Username" name="signIn-username" class="signIn-input" required>
 
               <label for="signIn-psw"><b>Password</b></label>
-              <input id="loginPassword" type="password" placeholder="Enter Password" name="signIn-psw" class="signIn-input" required>
+              <input type="password" placeholder="Enter Password" name="signIn-psw" class="signIn-input" required>
 
               <button type="submit" class="signIn-acceptbtn">Sign in</button>
             </div>
@@ -61,7 +61,7 @@ export default class extends AbstractModal {
           "password": p
         }).then(data => {
           if (data && data.token) {
-            localStorage.setItem('__token__', res.token);
+            localStorage.setItem('__token__', data.token);
             location.reload();
           }
           else

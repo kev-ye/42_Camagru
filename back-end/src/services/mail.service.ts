@@ -1,7 +1,7 @@
 import { createTransport } from "nodemailer";
 import * as dotenv from "dotenv"
 
-export function sendMail (to: string, content: string) {
+export function sendMail (to: string, content: string, subject?: string) {
   dotenv.config();
 
   const transporter = createTransport({
@@ -14,7 +14,7 @@ export function sendMail (to: string, content: string) {
   const mailOptions = {
     from: String(process.env.G_USER),
     to: to,
-    subject: 'Camagru verification',
+    subject: subject || 'Camagru verification',
     text: content
   }
 
