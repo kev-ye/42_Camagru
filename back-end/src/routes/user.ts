@@ -3,7 +3,7 @@ import express, { Request, Response, Router } from "express";
 import { collections } from "../services/db.service";
 import User, { IUser } from "../models/user";
 import { encrypt, decrypt } from "../services/encrypt.service";
-import { authWithJwt, generateToken, jwtData } from "../services/auth.service";
+import { authWithJwt, generateToken, decodeToken, jwtData } from "../services/auth.service";
 import { sendMail } from "../services/mail.service";
 
 export const userRouter: Router = express.Router();
@@ -22,8 +22,8 @@ userRouter.get('/', async (req: Request, res: Response) => {
   }
 })
 
-// dev: get user by id
-userRouter.get("/:username", async (req: Request, res: Response) => {
+// dev: get user by name
+userRouter.get("/dev/:username", async (req: Request, res: Response) => {
   const username = req?.params?.username;
 
   try {
@@ -41,13 +41,32 @@ userRouter.get("/:username", async (req: Request, res: Response) => {
   }
 });
 
+// get user info
+userRouter.get("/user", authWithJwt, async (req: Request, res: Response) => {
+  const token = req.headers.authorization?.split(" ")[1];
+  const decode = decodeToken(String(token));
+
+  try {
+    const user = await collections.users?.findOne({ username: String(decode.username) }) as unknown as User;
+    user
+      ? res.send({
+          "info": true,
+          "username": user.username,
+          "email": user.email
+        })
+      : res.send({});
+  } catch (error) {
+    res.send({});
+  }
+});
+
 // insert new user
 userRouter.post('/create', async (req: Request, res: Response) => {
   try {
     const newUser = req.body as IUser;
     const user = await collections.users?.findOne({ username: String(newUser.username) }) as unknown as User;
     if (user) {
-      res.send({ "create": false })
+      res.send({})
       return ;
     }
     const result = await collections.users?.insertOne({
@@ -61,13 +80,13 @@ userRouter.post('/create', async (req: Request, res: Response) => {
 
       // sendMail(newUser.email, `http://localhost:3000/api/auth/active/verify?token=${activeToken}`);
       res.send({ "created": true });
-    } else res.send({ "created": false });
+    } else res.send({});
 
   } catch (error) {
     console.error(error);
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    res.send({ "created": false });
+    res.send({});
   }
 })
 
@@ -87,12 +106,12 @@ userRouter.put('/update/:username', authWithJwt, async (req: Request, res: Respo
     if (ifUser) {
       await collections.users?.updateOne(query, { $set: updateUser });
       res.send({ "updated": true });
-    } else res.send({ "updated": false });
+    } else res.send({});
 
   } catch (error) {
     console.error(error);
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    res.send({ "updated": false });
+    res.send({});
   }
 })

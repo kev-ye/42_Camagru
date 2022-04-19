@@ -35,7 +35,13 @@ const router = async () => {
   const view = new match.route.view();
 
   document.getElementById('nav').innerHTML = await nav.getHtml().then(res => res);
-  document.getElementById('app').innerHTML = await view.getHtml().then();
+  document.getElementById('app').innerHTML = await view.getHtml().then(res => {
+    if (res) return res;
+    else {
+      alert('You are not login');
+      location.pathname = '/';
+    }
+  });
 
   if (location.pathname === '/reset')
     view.reset();

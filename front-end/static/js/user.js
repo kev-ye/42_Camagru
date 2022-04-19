@@ -14,6 +14,7 @@ const signUp = async () => {
 
 const exit = async () => {
   localStorage.removeItem('__token__');
+  location.pathname = '/';
   location.reload();
 }
 

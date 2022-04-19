@@ -43,11 +43,11 @@ authRouter.post("/verify", authWithJwt, async (req: Request, res: Response) => {
     const user = await collections.users?.findOne({ _id: new ObjectId(decode._id) }) as unknown as User;
     user._activated
       ? res.send({ "activated": true })
-      : res.send({ "activated": false })
+      : res.send({})
   } catch (error) {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    res.send({ "activated": false });
+    res.send({});
   }
 })
 
@@ -68,7 +68,7 @@ authRouter.post("/active", authWithJwt, async (req: Request, res: Response) => {
   } catch (error) {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    res.send({ "token": false });
+    res.send({});
   }
 })
 
@@ -79,7 +79,7 @@ authRouter.get("/active/verify", authWithJwt, async (req: Request, res: Response
   try {
     const user = await collections.users?.findOne({ username: String(decode.username) }) as unknown as User;
     if (!user) {
-      res.send({ "activated": false });
+      res.send({});
       return ;
     }
     else user._activated = true;
@@ -87,11 +87,11 @@ authRouter.get("/active/verify", authWithJwt, async (req: Request, res: Response
     const result = await collections.users?.updateOne({ username: String(decode.username) }, { $set: user });
     result
       ? res.send({ "activated": true })
-      : res.send({ "activated": false })
+      : res.send({})
   } catch (error) {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    res.send({ "activated": false });
+    res.send({});
   }
 })
 
@@ -101,7 +101,7 @@ authRouter.post("/reset/send", async (req: Request, res: Response) => {
 
   try {
     const user = await collections.users?.findOne({ username: String(username) }) as unknown as User;
-    if (!user) res.send({ "send": false });
+    if (!user) res.send({});
     else {
       const resetToken = generateToken(jwtData(user), 60 * 5);
       sendMail(user.email, `click this link: http://localhost:5050/reset?token=${resetToken}`, 'Camagru password reset');
@@ -110,7 +110,7 @@ authRouter.post("/reset/send", async (req: Request, res: Response) => {
   } catch (error) {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    res.send({ "send": false });
+    res.send({});
   }
 })
 
@@ -121,12 +121,12 @@ authRouter.put("/reset/change", authWithJwt, async (req: Request, res: Response)
   try {
     const user = await collections.users?.findOne({ username: String(decode.username) }) as unknown as User;
     if (!user) {
-      res.send({ "reset": false });
+      res.send({});
       return ;
     }
     else {
       const password = String(req.body.password);
-      if (!password) res.send({ "reset": false });
+      if (!password) res.send({});
       else {
         user.password = encrypt(password);
         await collections.users?.updateOne({ username: String(decode.username) }, { $set: user });
@@ -136,6 +136,6 @@ authRouter.put("/reset/change", authWithJwt, async (req: Request, res: Response)
   } catch (error) {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    res.send({ "reset": false });
+    res.send({});
   }
 })

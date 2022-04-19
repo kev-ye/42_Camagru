@@ -1,13 +1,20 @@
 export default class {
   constructor() {};
 
-  async get (url) {
-    console.log('here');
+  async get (url, header) {
+    const newH = {
+      ...header
+    };
+
     return await fetch(url, {
-      method: 'get'
+      method: 'get',
+      headers: newH
     })
     .then(res => res.json())
-    .then(data => data);
+    .catch(e => {
+      console.log('Log: Get: Error:', e);
+      return {};
+    })
   }
 
   async post (url, body, header) {
@@ -23,7 +30,7 @@ export default class {
     })
     .then(res => res.json())
     .catch(e => {
-      console.log('Log: Error:', e);
+      console.log('Log: Post: Error:', e);
       return {};
     })
   }
@@ -41,7 +48,7 @@ export default class {
     })
     .then(res => res.json())
     .catch(e => {
-      console.log('Log: Error:', e);
+      console.log('Log: Put: Error:', e);
       return {};
     })
   }
