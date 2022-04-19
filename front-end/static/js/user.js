@@ -4,6 +4,7 @@ import SignUp from "./views/modals/SignUp.js";
 const signIn = async () => {
   const $signIn = new SignIn();
   await $signIn.accept();
+  $signIn.forgetPassword();
 }
 
 const signUp = async () => {
@@ -25,6 +26,9 @@ document.addEventListener("DOMContentLoaded", () => {
           break ;
         case 'sign-up':
           signUp();
+          break ;
+        case 'forget':
+          forget();
           break ;
         case 'user-exit':
           exit();

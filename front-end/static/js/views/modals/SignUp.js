@@ -8,14 +8,14 @@ export default class extends AbstractModal {
     this.init({
       modal: 'signUpModal',
       openBtn: 'sign-up',
-      cancelBtn: '.signUp-cancelbtn',
-      close: '.signUp-close',
+      cancelBtn: 'signUp-cancelbtn',
+      close: 'signUp-close',
       template: `
       <div id="signUpModal" class="modal">
         <form name="signUp-form" id="signUp-form" class="modal-content" method="post">
 
           <div class="close-container">
-            <span class="signUp-close">&times;</span>
+            <span id="signUp-close" class="common-close">&times;</span>
           </div>
 
           <div class="modal-title-container">
@@ -24,22 +24,22 @@ export default class extends AbstractModal {
 
           <hr class="modal-separator">
 
-          <div class="signUp-container">
+          <div class="common-modal-main-container">
             <label for="signUp-username"><b>Username</b></label>
-            <input id="signUpUsername" type="text" placeholder="Enter Username" name="signUp-username" class="signUp-input" required>
+            <input id="signUpUsername" type="text" placeholder="Enter Username" name="signUp-username" class="common-input" required>
 
             <label for="signUp-psw"><b>Password</b></label>
-            <input id="signUpPassword" type="password" placeholder="Enter Password" name="signUp-psw" class="signUp-input" required>
+            <input id="signUpPassword" type="password" placeholder="Enter Password" name="signUp-psw" class="common-input" required>
 
             <label for="signUp-email"><b>Email</b></label>
-            <input id="signUpemail" type="text" placeholder="Enter email" name="signUp-email" class="signUp-input" required>
+            <input id="signUpemail" type="text" placeholder="Enter email" name="signUp-email" class="common-input" required>
 
             <div class="signUp-button-container">
-              <button type="submit" class="signUp-acceptbtn">Sign in</button>
-              <button type="button" class="signUp-cancelbtn">Cancel</button>
+              <button type="submit" class="signUp-acceptbtn">Sign up</button>
+              <button type="button" id="signUp-cancelbtn" class="signUp-cancelbtn">Cancel</button>
             </div>
           </div>
-        </form>
+        </form> 
       </div>
       `
     });
@@ -52,25 +52,27 @@ export default class extends AbstractModal {
     this.modalForm.onsubmit = async (e) => {
       e.preventDefault();
 
-      const u = String(document.forms["signUp-form"]["signUp-username"].value);
-      const p = String(document.forms["signUp-form"]["signUp-psw"].value);
-      const m = String(document.forms["signUp-form"]["signUp-email"].value);
+      const u = document.forms["signUp-form"]["signUp-username"];
+      const p = document.forms["signUp-form"]["signUp-psw"];
+      const m = document.forms["signUp-form"]["signUp-email"];
 
-      if (this.validateForm(u, p, m)) {
+      // if (this.validateForm(u, p, m)) {
         const http = new HttpClient();
         await http.post('/api/users/create', {
-          "username": u,
-          "password": p,
-          "email": m
+          "username": String(u.value),
+          "password": String(p.value),
+          "email": String(m.value)
         }).then(data => {
           if (data && data.created) {
             alert(`User ${u} created.\nA confirmation send to ${m}`);
+            this.cleanInput(u, p, m);
+            this.hide();
           }
           else {
             alert(`User ${u} already exist!`);
           }
         });
-      }
+      // }
     }
   }
 
@@ -95,5 +97,11 @@ export default class extends AbstractModal {
     }
 
     return true;
+  }
+
+  cleanInput(u, p, m) {
+    u.value = "";
+    p.value = "";
+    m.value = "";
   }
 }

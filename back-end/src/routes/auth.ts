@@ -100,7 +100,7 @@ authRouter.post("/reset/send", async (req: Request, res: Response) => {
   const username = String(req.body.username);
 
   try {
-    const user = await collections.users?.findOne({ username: username }) as unknown as User;
+    const user = await collections.users?.findOne({ username: String(username) }) as unknown as User;
     if (!user) res.send({ "send": false });
     else {
       const resetToken = generateToken(jwtData(user), 60 * 5);

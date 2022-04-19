@@ -1,4 +1,5 @@
 import AbstractModal from "./AbstractModal.js"
+import Forget from "./Forget.js"
 import HttpClient from "../../Common/HttpClient.js";
 
 export default class extends AbstractModal {
@@ -8,14 +9,14 @@ export default class extends AbstractModal {
     this.init({
       modal: 'signInModal',
       openBtn: 'sign-in',
-      cancelBtn: '.signIn-cancelbtn',
-      close: '.signIn-close',
+      cancelBtn: 'signIn-cancelbtn',
+      close: 'signIn-close',
       template: `
         <div id="signInModal" class="modal">
           <form name="signIn-form" id="signIn-form" class="modal-content" method="post">
 
             <div class="close-container">
-              <span class="signIn-close">&times;</span>
+              <span id="signIn-close" class="common-close">&times;</span>
             </div>
 
             <div class="modal-title-container">
@@ -24,19 +25,19 @@ export default class extends AbstractModal {
 
             <hr class="modal-separator">
 
-            <div class="signIn-container">
+            <div class="common-modal-main-container">
               <label for="signIn-username"><b>Username</b></label>
-              <input type="text" placeholder="Enter Username" name="signIn-username" class="signIn-input" required>
+              <input type="text" placeholder="Enter Username" name="signIn-username" class="common-input" required>
 
               <label for="signIn-psw"><b>Password</b></label>
-              <input type="password" placeholder="Enter Password" name="signIn-psw" class="signIn-input" required>
+              <input type="password" placeholder="Enter Password" name="signIn-psw" class="common-input" required>
 
               <button type="submit" class="signIn-acceptbtn">Sign in</button>
             </div>
 
-            <div class="signIn-container">
-              <button type="button" class="signIn-cancelbtn">Cancel</button>
-              <span class="psw">Forgot <a href="#">password?</a></span>
+            <div class="common-main-container">
+              <button type="button" id="signIn-cancelbtn" class="signIn-cancelbtn">Cancel</button>
+              <span class="psw">Forgot <a id="forget-password" href="">password?</a></span>
             </div>
           </form>
         </div>
@@ -46,7 +47,7 @@ export default class extends AbstractModal {
     this.close();
   }
 
-  async accept(e) {
+  async accept() {
     this.modalForm = document.getElementById('signIn-form');
     this.modalForm.onsubmit = async (e) => {
       e.preventDefault();
@@ -56,6 +57,7 @@ export default class extends AbstractModal {
 
       // if (this.validateForm(u, p)) {
         const http = new HttpClient();
+      
         await http.post('/api/auth/login', {
           "username": u,
           "password": p
@@ -70,6 +72,17 @@ export default class extends AbstractModal {
     //   }
     //   else
     //     alert('Username or password wrong');
+    }
+  }
+
+  async forgetPassword() {
+    this.forget = document.getElementById('forget-password');
+    this.forget.onclick = (e) => {
+      e.preventDefault();
+      this.modal.style.display = "none";
+
+      const $forget = new Forget();
+      $forget.sendReset();
     }
   }
 
