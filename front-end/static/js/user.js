@@ -4,7 +4,7 @@ import SignUp from "./views/modals/SignUp.js";
 const signIn = async () => {
   const $signIn = new SignIn();
   await $signIn.accept();
-  $signIn.forgetPassword();
+  await $signIn.forgetPassword();
 }
 
 const signUp = async () => {
@@ -15,7 +15,9 @@ const signUp = async () => {
 const exit = async () => {
   localStorage.removeItem('__token__');
   location.pathname = '/';
-  location.reload();
+  Promise.resolve(null).then(() => {
+    location.reload();
+  })
 }
 
 document.addEventListener("DOMContentLoaded", () => {

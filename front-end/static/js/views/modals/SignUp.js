@@ -1,5 +1,6 @@
 import AbstractModal from "./AbstractModal.js";
 import HttpClient from "../../Common/HttpClient.js";
+import { createNewUser } from "../../service/user.js";
 
 export default class extends AbstractModal {
   constructor() {
@@ -57,20 +58,17 @@ export default class extends AbstractModal {
       const m = document.forms["signUp-form"]["signUp-email"];
 
       // if (this.validateForm(u, p, m)) {
-        const http = new HttpClient();
-        await http.post('/api/users/create', {
-          "username": String(u.value),
-          "password": String(p.value),
-          "email": String(m.value)
-        }).then(data => {
-          if (data && data.created) {
-            alert(`User ${u} created.\nA confirmation send to ${m}`);
+        await createNewUser(
+          String(u.value),
+          String(p.value),
+          String(m.value)
+        ).then(created => {
+          if (created) {
+            alert(`User ${String(u.value)} created.\nA confirmation send to ${String(m.value)}`);
             this.cleanInput(u, p, m);
             this.hide();
           }
-          else {
-            alert(`User ${u} already exist!`);
-          }
+          else alert(`User ${String(u.value)} already exist!`);
         });
       // }
     }

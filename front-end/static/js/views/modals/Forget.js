@@ -1,5 +1,6 @@
 import AbstractModal from "./AbstractModal.js";
 import HttpClient from "../../Common/HttpClient.js";
+import { sendResetPassword } from "../../service/auth.js";
 
 export default class extends AbstractModal {
   constructor() {
@@ -49,12 +50,10 @@ export default class extends AbstractModal {
       
       const u = document.forms["forget-form"]["forget-username"];
 
-      if (this.validateForm(u)) {
-        const http = new HttpClient();
-
-        await http.post('/api/auth/reset/send', { "username": String(u) })
-          .then(data => {
-            if (data && data.send) {
+      if (this.validateForm(String(u.value))) {
+        await sendResetPassword(String(u))
+          .then(res => {
+            if (res) {
               alert('Send! Check your email');
               u.value = "";
               this.hide();

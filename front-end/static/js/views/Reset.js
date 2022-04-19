@@ -1,5 +1,5 @@
-import HttpClient from "../Common/HttpClient.js";
 import AbstractView from "./AbstractView.js";
+import { resetPassword } from "../service/auth.js";
 
 export default class extends AbstractView {
   constructor() {
@@ -36,17 +36,11 @@ export default class extends AbstractView {
         return ;
       }
       // if (this.validateForm(p)) {
-        const http = new HttpClient();
-        await http.put(`/api/auth/reset/change?token=${token}`, {
-          "password": p
-        }).then(data => {
-          if (data && data.reset) {
-            alert(`Password has been changed`);
-            location = '/';
-          }
-          else {
-            alert(`Something wrong!`);
-          }
+        await resetPassword(token, p).then(res => {
+          if (res) alert(`Password has been changed`);
+          else alert(`Something wrong!`);
+
+          location.pathname = '/';
         })
       // }
     }

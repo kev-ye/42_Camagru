@@ -1,6 +1,7 @@
 import AbstractModal from "./AbstractModal.js"
 import Forget from "./Forget.js"
 import HttpClient from "../../Common/HttpClient.js";
+import { userSignIn } from "../../service/auth.js";
 
 export default class extends AbstractModal {
    constructor() {
@@ -56,18 +57,12 @@ export default class extends AbstractModal {
       const p = String(document.forms["signIn-form"]["signIn-psw"].value);
 
       // if (this.validateForm(u, p)) {
-        const http = new HttpClient();
-      
-        await http.post('/api/auth/login', {
-          "username": u,
-          "password": p
-        }).then(data => {
-          if (data && data.token) {
-            localStorage.setItem('__token__', data.token);
+        await userSignIn(u, p).then(token => {
+          if (token) {
+            localStorage.setItem('__token__', token);
             location.reload();
           }
-          else
-            alert('Username or password wrong');
+          else alert('Username or password wrong');
         })
     //   }
     //   else
@@ -77,12 +72,12 @@ export default class extends AbstractModal {
 
   async forgetPassword() {
     this.forget = document.getElementById('forget-password');
-    this.forget.onclick = (e) => {
+    this.forget.onclick = async (e) => {
       e.preventDefault();
       this.modal.style.display = "none";
 
       const $forget = new Forget();
-      $forget.sendReset();
+      await $forget.sendReset();
     }
   }
 

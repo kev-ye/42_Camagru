@@ -10,20 +10,27 @@ export default class extends AbstractView {
   }
 
   async getHtml() {
-    return await isLogin().then(res => {
+    return await isLogin().then(async res => {
       if (res) {
+        const user = await this.getUserInfo().then();
         return `
           <h1>User</h1>
-          <p>Just a text</p>
+
+          <hr>
+
+          <ul>
+            <li><b>Username: </b>${user.username}</li>
+            <li><b>Email: </b>${user.email}</li>
+          </ul>
         `;
       } else return '';
-    })
+    });
   }
 
   async getUserInfo() {
     return await userInfo().then(res => {
       if (res) return res;
       else return {};
-    })
+    });
   }
 }
