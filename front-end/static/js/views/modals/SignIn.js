@@ -1,6 +1,5 @@
 import AbstractModal from "./AbstractModal.js"
 import Forget from "./Forget.js"
-import HttpClient from "../../Common/HttpClient.js";
 import { userSignIn } from "../../service/auth.js";
 
 export default class extends AbstractModal {

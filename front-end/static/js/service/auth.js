@@ -7,8 +7,7 @@ const urlAuth = '/api/auth';
 
 export async function isLogin() {
   const token = localStorage.getItem('__token__');
-  if (!token)
-    return false;
+  if (!token) return false;
   
   const checkLogin = await http.post(`${urlAuth}/verify`, {}, {
     'authorization': `Bearer ${token}`
@@ -17,12 +16,34 @@ export async function isLogin() {
   return checkLogin ? Object.values(checkLogin)[0] : false;
 }
 
+export async function tokenVerify() {
+  const query = location.search;
+  const param = new URLSearchParams(query);
+  const token = param.get('token');
+
+  if (!token) return false;
+
+  const verify = await http.get(`${urlAuth}/tokenVerify`, {
+    'authorization': `Bearer ${token}`
+  }).then(token => token);
+
+  return verify ? Object.values(verify)[0] : false;
+}
+
 export async function resetPassword(token, p) {
   const res = await http.put(`${urlAuth}/reset/change?token=${token}`, {
     "password": p
   }).then(data => data);
 
   return res ? Object.values(res)[0] : false;
+}
+
+export async function accountConfirmation(token) {
+  const res = await http.post(`${urlAuth}/active`, {
+    'authorization': `Bearer ${token}`
+  }).then(data => data);
+
+  return res ? res : {};
 }
 
 /* Modals */

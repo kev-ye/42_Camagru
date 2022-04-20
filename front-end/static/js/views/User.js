@@ -19,9 +19,15 @@ export default class extends AbstractView {
           <hr>
 
           <ul>
-            <li><b>Username: </b>${user.username}</li>
-            <li><b>Email: </b>${user.email}</li>
+            <li>
+              <b>Username: </b>${user.username}<span id="username-edit" class="material-icons">edit</span>
+            </li>
+            <li>
+              <b>Email: </b>${user.email}<span id="email-edit" class="material-icons">edit</span>
+            </li>
           </ul>
+
+          <button id="password-edit">new password</button>
         `;
       } else return '';
     });

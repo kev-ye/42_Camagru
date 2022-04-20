@@ -1,5 +1,5 @@
 import AbstractView from "./AbstractView.js";
-import { resetPassword } from "../service/auth.js";
+import { tokenVerify, resetPassword } from "../service/auth.js";
 
 export default class extends AbstractView {
   constructor() {
@@ -9,15 +9,22 @@ export default class extends AbstractView {
   }
 
   async getHtml() {
-    return `
-      <h1>Reset password</h1>
-      <form name="new-password-form" id="new-password-form" method="post">
-        <label for="new-password">New password</label>
-        <input type="password" placeholder="Enter new password" name="new-password" class="newpassword-input" required>
-
-        <button type="submit" class="newpasswprd">Reset</button>
-      </form>
-    `;
+    return await tokenVerify().then(res => {
+      return res
+        ? `
+          <h1>Reset password</h1>
+    
+          <hr>
+    
+          <form name="new-password-form" id="new-password-form" method="post">
+            <label for="new-password">New password</label>
+            <input type="password" placeholder="Enter new password" name="new-password" class="newpassword-input" required>
+    
+            <button type="submit" class="newpasswprd">Reset</button>
+          </form>
+        `
+        : '';
+    })
   }
 
   async reset() {
@@ -33,6 +40,7 @@ export default class extends AbstractView {
       
       if (!token) {
         alert('Something wrong!');
+        location = '/';
         return ;
       }
       // if (this.validateForm(p)) {
@@ -40,7 +48,7 @@ export default class extends AbstractView {
           if (res) alert(`Password has been changed`);
           else alert(`Something wrong!`);
 
-          location.pathname = '/';
+          location = '/';
         })
       // }
     }

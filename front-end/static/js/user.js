@@ -14,7 +14,7 @@ const signUp = async () => {
 
 const exit = async () => {
   localStorage.removeItem('__token__');
-  location.pathname = '/';
+  location = '/';
   Promise.resolve(null).then(() => {
     location.reload();
   })
@@ -29,9 +29,6 @@ document.addEventListener("DOMContentLoaded", () => {
           break ;
         case 'sign-up':
           signUp();
-          break ;
-        case 'forget':
-          forget();
           break ;
         case 'user-exit':
           exit();

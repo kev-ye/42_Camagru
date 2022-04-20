@@ -34,7 +34,7 @@ export async function authWithJwt(req: Request, res: Response, next: NextFunctio
   try {
     verifyToken(token);
   } catch (e) {
-    res.status(200).send({ "token": false })
+    res.send({})
     return ;
   }
   next();

@@ -15,14 +15,14 @@ export default class extends AbstractView {
             <a href="/user" data-link>User</a>
             <button id="user-exit">Exit</button>
           </nav>
-          `
+        `
         : `
           <nav class="nav-container">
             <a href="/" data-link>Gallery</a>
             <button id="sign-in">Sign in</button>
             <button id="sign-up">Sign up</button>
           </nav>
-          `
+        `
     });
   }
 }

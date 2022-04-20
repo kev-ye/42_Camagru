@@ -49,7 +49,7 @@ authRouter.post("/verify", authWithJwt, async (req: Request, res: Response) => {
     // @ts-ignore
     res.send({});
   }
-})
+});
 
 // JWT account active
 authRouter.post("/active", authWithJwt, async (req: Request, res: Response) => {
@@ -63,14 +63,17 @@ authRouter.post("/active", authWithJwt, async (req: Request, res: Response) => {
       const activeToken = generateToken(jwtData(user), 60 * 5);
     
       sendMail(user.email, `http://localhost:3000/api/auth/active/verify?token=${activeToken}`);
-      res.send({ "token": true });
+      res.send({
+        "token": true,
+        "email": user.email
+      });
     }
   } catch (error) {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     res.send({});
   }
-})
+});
 
 authRouter.get("/active/verify", authWithJwt, async (req: Request, res: Response) => {
   const token = String(req.query.token);
@@ -93,7 +96,7 @@ authRouter.get("/active/verify", authWithJwt, async (req: Request, res: Response
     // @ts-ignore
     res.send({});
   }
-})
+});
 
 // Reset password
 authRouter.post("/reset/send", async (req: Request, res: Response) => {
@@ -112,7 +115,7 @@ authRouter.post("/reset/send", async (req: Request, res: Response) => {
     // @ts-ignore
     res.send({});
   }
-})
+});
 
 authRouter.put("/reset/change", authWithJwt, async (req: Request, res: Response) => {
   const resetToken = String(req.query.token);
@@ -138,4 +141,9 @@ authRouter.put("/reset/change", authWithJwt, async (req: Request, res: Response)
     // @ts-ignore
     res.send({});
   }
-})
+});
+
+// Jwt utils
+authRouter.get("/tokenVerify", authWithJwt, (req: Request, res: Response) => {
+  res.send({ "token": true });
+});
