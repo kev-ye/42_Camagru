@@ -12,14 +12,6 @@ const signUp = async () => {
   await $signUp.accept();
 }
 
-const exit = async () => {
-  localStorage.removeItem('__token__');
-  location = '/';
-  Promise.resolve(null).then(() => {
-    location.reload();
-  })
-}
-
 document.addEventListener("DOMContentLoaded", () => {
   document.body.addEventListener("click", e => {
     if (e.target) {
@@ -29,9 +21,6 @@ document.addEventListener("DOMContentLoaded", () => {
           break ;
         case 'sign-up':
           signUp();
-          break ;
-        case 'user-exit':
-          exit();
           break ;
         default:
           break ;

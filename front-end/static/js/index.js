@@ -49,20 +49,39 @@ const router = async () => {
     }
   });
 
+  if (location.pathname === '/user')
+    await view.usernameEdit().then();
+
   if (location.pathname === '/reset')
-    view.reset();
+    await view.reset().then();
 
   if (location.pathname === '/confirmation')
-    view.confirmation();
+    await view.confirmation().then();
+}
+
+const exit = async () => {
+  localStorage.removeItem('__token__');
+  alert('You are logout!');
+  location = '/';
 }
 
 window.addEventListener("popstate", router);
 
 document.addEventListener("DOMContentLoaded", () => {
   document.body.addEventListener("click", e => {
-    if (e.target.matches("[data-link]")) {
-      e.preventDefault();
-      navigateTo(e.target.href);
+    if (e.target) {
+      if (e.target.matches("[data-link]")) {
+        e.preventDefault();
+        navigateTo(e.target.href);
+      }
+
+      switch(e.target.id) {
+        case 'user-exit':
+          exit();
+          break ;
+        default:
+          break ;
+      }
     }
   });
   router().then();
