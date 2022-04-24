@@ -8,7 +8,7 @@ const urlAuth = '/api/auth';
 export async function isLogin() {
   const token = localStorage.getItem('__token__');
   if (!token) return false;
-  
+
   const checkLogin = await http.post(`${urlAuth}/verify`, {}, {
     'authorization': `Bearer ${token}`
   }).then(data => data);

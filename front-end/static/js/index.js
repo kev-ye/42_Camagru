@@ -49,8 +49,10 @@ const router = async () => {
     }
   });
 
-  if (location.pathname === '/user')
-    await view.usernameEdit().then();
+  if (location.pathname === '/user') {
+    await view.globalUserInfoEditControl().then();
+    await view.userInfoEdit().then();
+  }
 
   if (location.pathname === '/reset')
     await view.reset().then();

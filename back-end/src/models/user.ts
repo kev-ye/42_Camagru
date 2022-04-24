@@ -5,6 +5,7 @@ export interface IUser {
   username: string,
   password: string,
   email: string,
+  _oldPassword?: string,
   _activated?: boolean,
   _id?: ObjectId
 }

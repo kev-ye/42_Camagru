@@ -1,9 +1,10 @@
 import express, { Request, Response, Router } from "express";
 
-import { collections } from "../services/db.service";
 import User, { IUser } from "../models/user";
-import { encrypt, decrypt } from "../services/encrypt.service";
 import { authWithJwt, generateToken, decodeToken, jwtData } from "../services/auth.service";
+import { collections } from "../services/db.service";
+import { encrypt, decrypt } from "../services/encrypt.service";
+import { requireEmail, requirePassword, requireUniqueUserInfo } from "../services/user.service";
 import { sendMail } from "../services/mail.service";
 
 export const userRouter: Router = express.Router();
@@ -64,9 +65,13 @@ userRouter.get("/user", authWithJwt, async (req: Request, res: Response) => {
 userRouter.post('/create', async (req: Request, res: Response) => {
   try {
     const newUser = req.body as IUser;
-    const user = await collections.users?.findOne({ username: String(newUser.username) }) as unknown as User;
-    if (user) {
-      res.send({})
+
+    if (!(await requireUniqueUserInfo(
+      String(newUser.username),
+      String(newUser.password),
+      String(newUser.email),
+    ))) {
+      res.send({});
       return ;
     }
     const result = await collections.users?.insertOne({
@@ -96,16 +101,51 @@ userRouter.put('/update/:username', authWithJwt, async (req: Request, res: Respo
 
   try {
     const user = req.body as IUser;
+    const encryptPsw = (await collections.users?.findOne() as unknown as User).password;
+    const decryptPsw = decrypt(encryptPsw);
+
+    if (!user.password) user.password = decryptPsw;
+  
+    if (user._oldPassword && user.password && user._oldPassword !== decryptPsw) {
+        res.send({});
+        return ;
+    }
+
+    if (String(username) === String(user.username)) {
+      if (!requirePassword(String(user.password)) || !(requireEmail(String(user.email)))) {
+        res.send({});
+        return ;
+      }
+    }
+    else {
+      if (!(await requireUniqueUserInfo(
+        String(user.username),
+        String(user.password),
+        String(user.email),
+      ))) {
+        res.send({});
+        return ;
+      }
+    }
+
     const updateUser = {
       ...user,
       password: encrypt(user.password)
-    }
+    };
+    delete updateUser._oldPassword;
+
     const query = { username: String(username) };
     const ifUser = await collections.users?.findOne(query) as unknown as User;
 
     if (ifUser) {
       await collections.users?.updateOne(query, { $set: updateUser });
-      res.send({ "updated": true });
+      res.send({
+        "updated": true,
+        "token": generateToken(jwtData({
+          ...ifUser,
+          ...updateUser
+        }))
+      });
     } else res.send({});
 
   } catch (error) {

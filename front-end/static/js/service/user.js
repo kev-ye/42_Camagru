@@ -14,7 +14,25 @@ export async function userInfo() {
     'authorization': `Bearer ${token}`
   }).then(data => data);
 
-  return userInfo ? userInfo : {};
+  return Object.entries(userInfo).length === 0 ? undefined : userInfo;
+}
+
+export async function updateUser(u, p, oldP, m) {
+  const token = localStorage.getItem('__token__');
+
+  const user = await userInfo().then(info => info);
+  if (Object.entries(user).length === 0) return {};
+
+  const updateInfo = await http.put(`${urlUser}/update/${user.username}`, {
+    "username": u ? u : user.username,
+    "password": p ? p : undefined,
+    "email": m ? m : user.email,
+    "_oldPassword": oldP ? oldP : undefined
+  }, {
+    'authorization': `Bearer ${token}`
+  }).then(res => res);
+
+  return Object.entries(updateInfo).length === 0 ? undefined : updateInfo;
 }
 
 /* Modals */
@@ -26,5 +44,5 @@ export async function createNewUser(u, p, m) {
     "email": m
   }).then(data => data);
 
-  return res ? res.created : '';
+  return res ? res.created : false;
 }
