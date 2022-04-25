@@ -1,3 +1,35 @@
 /* #open-camera {
   width: 50%;
 } */
+
+.camera-container {
+  text-align: center;
+}
+
+.open-camera {
+  width: 80%;
+  border-radius: 10px;
+}
+
+.image-collect-container {
+  text-align: left;
+  margin: auto;
+  height: 100px;
+  width: 80%;
+  border: 2px solid black;
+  border-radius: 10px;
+  white-space: nowrap;
+  overflow-y: hidden;
+}
+
+.image-collect-thumbnail-container {
+  height: 80px;
+  margin: 5px 5px;
+  display: inline-block;
+  overflow: hidden;
+}
+
+.image-collect-thumbnail {
+  border-radius: 10px;
+  height: 100%;
+}
