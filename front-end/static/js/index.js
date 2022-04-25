@@ -3,6 +3,7 @@ import User from "./views/User.js";
 import Nav from "./views/Nav.js";
 import Reset from "./views/Reset.js";
 import Confirmation from "./views/Confirmation.js";
+import Montage from "./views/montage.js";
 
 const navigateTo = url => {
   history.pushState(null, null, url);
@@ -13,6 +14,7 @@ const router = async () => {
   const routes = [
     { path: "/", view: Gallery },
     { path: "/user", view: User },
+    { path: "/montage", view: Montage },
     { path: "/reset", view: Reset },
     { path: "/confirmation", view: Confirmation }
   ];

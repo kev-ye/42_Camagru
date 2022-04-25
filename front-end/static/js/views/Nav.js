@@ -12,6 +12,7 @@ export default class extends AbstractView {
         ? `
           <nav class="nav-container">
             <a href="/" data-link>Gallery</a>
+            <a href="/montage" data-link>Montage</a>
             <a href="/user" data-link>User</a>
             <button id="user-exit">Exit</button>
           </nav>

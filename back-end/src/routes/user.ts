@@ -146,9 +146,11 @@ userRouter.put('/update/:username', authWithJwt, async (req: Request, res: Respo
           ...updateUser
         }))
       });
-    } else res.send({});
+    }
+    else res.send({});
 
-  } catch (error) {
+  }
+  catch (error) {
     console.error(error);
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore

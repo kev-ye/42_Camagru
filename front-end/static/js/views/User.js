@@ -134,7 +134,6 @@ export default class extends AbstractView {
           if (!res) alert('Username already exist!');
           else {
             alert(`${info} updated!`);
-            localStorage.removeItem('__token__');
             localStorage.setItem('__token__', res.token);
             await this.cancel(info);
           }
