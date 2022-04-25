@@ -51,16 +51,23 @@ const router = async () => {
     }
   });
 
-  if (location.pathname === '/user') {
-    await view.globalUserInfoEditControl().then();
-    await view.userInfoEdit().then();
+  switch (location.pathname) {
+    case '/user':
+      await view.globalUserInfoEditControl().then();
+      await view.userInfoEdit().then();
+      break ;
+    case '/reset':
+      await view.reset().then();
+      break ;
+    case '/confirmation':
+      await view.confirmation().then();
+      break ;
+    case '/montage':
+      await view.openCamera();
+      break ;
+    default :
+      break ;
   }
-
-  if (location.pathname === '/reset')
-    await view.reset().then();
-
-  if (location.pathname === '/confirmation')
-    await view.confirmation().then();
 }
 
 const exit = async () => {
