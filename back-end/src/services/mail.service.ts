@@ -5,7 +5,9 @@ export function sendMail (to: string, content: string, subject?: string) {
   dotenv.config();
 
   const transporter = createTransport({
-    service: 'outllook',
+    host: 'smtp.outlook.com',
+    port: 587,
+    secure: false,
     auth: {
       user: String(process.env.MAIL_USER),
       pass: String(process.env.MAIL_PASS)

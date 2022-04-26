@@ -13,7 +13,15 @@ export async function isLogin() {
     'authorization': `Bearer ${token}`
   }).then(data => data);
 
-  return checkLogin ? Object.values(checkLogin)[0] : false;
+  return Object.entries(checkLogin).length !== 0 ? checkLogin : undefined;
+}
+
+export async function haveAccess() {
+  const access = await isLogin().then(data => data);
+
+  if (!access) return false;
+  
+  return Object.values(access)[0];
 }
 
 export async function tokenVerify() {
@@ -27,7 +35,7 @@ export async function tokenVerify() {
     'authorization': `Bearer ${token}`
   }).then(token => token);
 
-  return verify ? Object.values(verify)[0] : false;
+  return Object.entries(verify).length !== 0 ? Object.values(verify)[0] : false;
 }
 
 export async function resetPassword(token, p) {
@@ -35,15 +43,15 @@ export async function resetPassword(token, p) {
     "password": p
   }).then(data => data);
 
-  return res ? Object.values(res)[0] : false;
+  return Object.entries(res).length !== 0 ? Object.values(res)[0] : false;
 }
 
 export async function accountConfirmation(token) {
-  const res = await http.post(`${urlAuth}/active`, {
+  const res = await http.post(`${urlAuth}/active`, {}, {
     'authorization': `Bearer ${token}`
   }).then(data => data);
 
-  return res ? res : {};
+  return Object.entries(res).length !== 0 ? res : undefined;
 }
 
 /* Modals */
@@ -52,7 +60,7 @@ export async function sendResetPassword(u) {
   const res = await http.post(`${urlAuth}/reset/send`, { "username": u })
     .then(data => data);
 
-  return res ? Object.values(res)[0] : false;
+  return Object.entries(res).length !== 0 ? Object.values(res)[0] : false;
 }
 
 export async function userSignIn(u, p) {
@@ -61,5 +69,5 @@ export async function userSignIn(u, p) {
     "password": p
   }).then(data => data);
 
-  return res ? res.token : '';
+  return Object.entries(res).length !== 0 ? res.token : '';
 }

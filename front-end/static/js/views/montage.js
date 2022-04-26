@@ -1,4 +1,4 @@
-import { isLogin } from "../service/auth.js";
+import { haveAccess } from "../service/auth.js";
 import AbstractView from "./AbstractView.js";
 
 export default class extends AbstractView {
@@ -9,7 +9,7 @@ export default class extends AbstractView {
   }
 
   async getHtml() {
-    return await isLogin().then(async res => {
+    return await haveAccess().then(async res => {
       if (res) {
         return `
           <h1>Montage</h1>

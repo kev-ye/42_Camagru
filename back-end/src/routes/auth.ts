@@ -43,7 +43,7 @@ authRouter.post("/verify", authWithJwt, async (req: Request, res: Response) => {
     const user = await collections.users?.findOne({ _id: new ObjectId(decode._id) }) as unknown as User;
     user._activated
       ? res.send({ "activated": true })
-      : res.send({})
+      : res.send({ "activated": false })
   } catch (error) {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore

@@ -4,6 +4,7 @@ import Nav from "./views/Nav.js";
 import Reset from "./views/Reset.js";
 import Confirmation from "./views/Confirmation.js";
 import Montage from "./views/montage.js";
+import { isLogin } from "./service/auth.js";
 
 const navigateTo = url => {
   history.pushState(null, null, url);
@@ -39,19 +40,41 @@ const router = async () => {
   const view = new match.route.view();
   const noNavPath = ['/reset', '/confirmation'];
 
+  let pageAction = true;
+
   if (!noNavPath.find(path => path === location.pathname)) {
     document.getElementById('nav').innerHTML = await nav.getHtml().then(res => res);
   }
-  document.getElementById('app').innerHTML = await view.getHtml().then(res => {
+  document.getElementById('app').innerHTML = await view.getHtml().then(async res => {
     if (res) return res;
     else {
-      if (location.pathname === '/reset') alert('You don\'t have access to this page!')
-      else alert('You are not login');
-      location = '/';
+      await isLogin().then(res => {
+        if (res) {
+          if (['/reset', '/confirmation'].find(el => el === location.pathname)) {
+            alert('You don\'t have permission to this page');
+            pageAction = false;
+            location = '/';
+          }
+          else if (['/user', '/montage'].find(el => el === location.pathname)) {
+            alert('Your account isn\'t confirmed!');
+            pageAction = false;
+            location = '/confirmation'
+          }
+          else {
+            pageAction = false;
+            location = '/';
+          }
+        }
+        else {
+          pageAction = false;
+          alert('You don\'t have permission to this page');
+          location = '/';
+        }
+      });
     }
   });
 
-  switch (location.pathname) {
+  switch (pageAction && location.pathname) {
     case '/user':
       await view.globalUserInfoEditControl().then();
       await view.userInfoEdit().then();

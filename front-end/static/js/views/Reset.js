@@ -1,5 +1,5 @@
 import AbstractView from "./AbstractView.js";
-import { tokenVerify, resetPassword } from "../service/auth.js";
+import { tokenVerify, resetPassword, isLogin } from "../service/auth.js";
 
 export default class extends AbstractView {
   constructor() {
@@ -9,22 +9,28 @@ export default class extends AbstractView {
   }
 
   async getHtml() {
-    return await tokenVerify().then(res => {
-      return res
-        ? `
-          <h1>Reset password</h1>
-    
-          <hr>
-    
-          <form name="new-password-form" id="new-password-form" method="post">
-            <label for="new-password">New password</label>
-            <input type="password" placeholder="Enter new password" name="new-password" class="newpassword-input" required>
-    
-            <button type="submit" class="newpasswprd">Reset</button>
-          </form>
-        `
-        : '';
+    return await isLogin().then(async data => {
+      if (!data) {
+        return await tokenVerify().then(res => {
+          return res
+            ? `
+              <h1>Reset password</h1>
+        
+              <hr>
+        
+              <form name="new-password-form" id="new-password-form" method="post">
+                <label for="new-password">New password</label>
+                <input type="password" placeholder="Enter new password" name="new-password" class="newpassword-input" required>
+        
+                <button type="submit" class="newpasswprd">Reset</button>
+              </form>
+            `
+            : '';
+        })
+      }
+      else return '';
     })
+    
   }
 
   async reset() {

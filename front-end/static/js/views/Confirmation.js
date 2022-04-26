@@ -10,7 +10,7 @@ export default class extends AbstractView {
 
   async getHtml() {
     return await isLogin().then(res => {
-      return res
+      return Object.values(res)[0] === false
         ? `
           <h1>Confirmation</h1>
 
