@@ -47,7 +47,7 @@ const router = async () => {
   }
   document.getElementById('app').innerHTML = await view.getHtml().then(async res => {
     if (res) return res;
-    else {
+    else {          pageAction = false;
       await isLogin().then(res => {
         pageAction = false;
         if (res) {
@@ -95,6 +95,8 @@ const exit = async () => {
   alert('You are logout!');
   location = '/';
 }
+
+// Event
 
 window.addEventListener("popstate", router);
 
