@@ -83,7 +83,7 @@ userRouter.post('/create', async (req: Request, res: Response) => {
     if (result) {
       const activeToken = generateToken(jwtData(newUser), 60 * 5);
 
-      // sendMail(newUser.email, `http://localhost:3000/api/auth/active/verify?token=${activeToken}`);
+      sendMail(newUser.email, `http://localhost:3000/api/auth/active/verify?token=${activeToken}`);
       res.send({ "created": true });
     } else res.send({});
 

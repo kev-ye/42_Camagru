@@ -5,14 +5,14 @@ export function sendMail (to: string, content: string, subject?: string) {
   dotenv.config();
 
   const transporter = createTransport({
-    service: 'gmail',
+    service: 'outllook',
     auth: {
-      user: String(process.env.G_USER),
-      pass: String(process.env.G_PASS)
+      user: String(process.env.MAIL_USER),
+      pass: String(process.env.MAIL_PASS)
     }
   });
   const mailOptions = {
-    from: String(process.env.G_USER),
+    from: String(process.env.MAIL_USER),
     to: to,
     subject: subject || 'Camagru verification',
     text: content
