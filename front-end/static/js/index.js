@@ -49,24 +49,21 @@ const router = async () => {
     if (res) return res;
     else {
       await isLogin().then(res => {
+        pageAction = false;
         if (res) {
           if (['/reset', '/confirmation'].find(el => el === location.pathname)) {
             alert('You don\'t have permission to this page');
-            pageAction = false;
             location = '/';
           }
           else if (['/user', '/montage'].find(el => el === location.pathname)) {
             alert('Your account isn\'t confirmed!');
-            pageAction = false;
             location = '/confirmation'
           }
           else {
-            pageAction = false;
             location = '/';
           }
         }
         else {
-          pageAction = false;
           alert('You don\'t have permission to this page');
           location = '/';
         }
