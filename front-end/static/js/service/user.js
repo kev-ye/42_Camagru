@@ -8,7 +8,7 @@ const urlUser = '/api/users'
 export async function userInfo() {
   const token = localStorage.getItem('__token__');
   if (!token)
-    return {};
+    return undefined;
 
   const userInfo = await http.get(`${urlUser}/user`, {
     'authorization': `Bearer ${token}`
@@ -19,6 +19,8 @@ export async function userInfo() {
 
 export async function updateUser(u, p, oldP, m) {
   const token = localStorage.getItem('__token__');
+  if (!token)
+    return undefined;
 
   const user = await userInfo().then(info => info);
   if (Object.entries(user).length === 0) return {};

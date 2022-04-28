@@ -1,4 +1,5 @@
 import { haveAccess } from "../service/auth.js";
+import { uploadImage } from "../service/upload.js";
 import AbstractView from "./AbstractView.js";
 
 export default class extends AbstractView {
@@ -27,6 +28,8 @@ export default class extends AbstractView {
               <ul id="image-collect" class="image-collect-container"></ul>
             </div>
           </div>
+
+          <button id="collect-publish">Publish</button>
         `;
       }
       else return '';
@@ -36,6 +39,7 @@ export default class extends AbstractView {
   async openCamera() {
     const openCamera = document.getElementById('open-camera');
     const snapBtn = document.getElementById('button-snap');
+    const publishBtn = document.getElementById('collect-publish')
   
     await navigator.mediaDevices.getUserMedia({
       audio: false,
@@ -52,6 +56,10 @@ export default class extends AbstractView {
 
         snapBtn.onclick = () => {
           this.createNewThumbnails(openCamera, imageInfo);
+        }
+
+        publishBtn.onclick = () => {
+          this.uploadThumbnails();
         }
       });
     })
@@ -101,6 +109,16 @@ export default class extends AbstractView {
 
   async uploadThumbnails() {
     const imageCollect = document.getElementById('image-collect');
+    const collect = Array.from(imageCollect.children);
+    let images = [];
+
+    collect.forEach(image => {
+      images.push(image.children[1].toDataURL('image/jpeg', 1.0));
+    })
+  
+    const res = await uploadImage(images).then(data => data);
+
+    if (!res) alert('Some upload failed!');
 
     // need create a request in back,
     // user readSyncFile to create a image file by dataUrl

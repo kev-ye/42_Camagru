@@ -1,6 +1,6 @@
 import express, { Request, Response, Router } from "express";
 
-import User, { IUser } from "../models/user";
+import { User, IUser } from "../models/user";
 import { authWithJwt, generateToken, decodeToken, jwtData } from "../services/auth.service";
 import { collections } from "../services/db.service";
 import { encrypt, decrypt } from "../services/encrypt.service";

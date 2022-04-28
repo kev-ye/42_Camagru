@@ -10,7 +10,7 @@ export interface IUser {
   _id?: ObjectId
 }
 
-export default class User {
+export class User {
   constructor(
     public username: string,
     public password: IEncryption,

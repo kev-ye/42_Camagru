@@ -3,7 +3,7 @@ import express, { Router, Response, Request } from "express"
 import { collections } from "../services/db.service";
 import { generateToken, decodeToken } from "../services/auth.service";
 import { sendMail } from "../services/mail.service";
-import User from "../models/user";
+import { User } from "../models/user";
 import { decrypt, encrypt } from "../services/encrypt.service";
 import { ObjectId } from "mongodb";
 import { authWithJwt, jwtData } from "../services/auth.service";
