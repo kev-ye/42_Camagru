@@ -108,13 +108,17 @@ function fileSchema() {
   return {
     title: "files",
     bsonType: "object",
-    required: ["path"],
+    required: ["path", "user"],
     additionalProperties: false,
     properties: {
       _id: {},
       _date: {
         bsonType: "date",
         description: "'date' is a Date"
+      },
+      user: {
+        bsonType: "string",
+        description: "'user' is required and is a string"
       },
       path: {
         bsonType: "string",

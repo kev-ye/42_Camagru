@@ -72,6 +72,9 @@ const router = async () => {
   });
 
   switch (pageAction && location.pathname) {
+    case '/':
+      await view.getAllCollect().then();
+      break ;
     case '/user':
       await view.globalUserInfoEditControl().then();
       await view.userInfoEdit().then();

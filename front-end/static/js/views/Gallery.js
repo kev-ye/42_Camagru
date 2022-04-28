@@ -1,3 +1,4 @@
+import { getAllImage } from "../service/file.js";
 import AbstractView from "./AbstractView.js"
 
 export default class extends AbstractView {
@@ -9,8 +10,17 @@ export default class extends AbstractView {
 
   async getHtml() {
     return `
-      <h1>Welcome to Camagru gallery</h1>
-      <p>this is a text</p>
+      <h1>Gallery</h1>
+
+      <hr>
+
+      <ul id="gallery-collect"><ul>
     `;
+  }
+
+  async getAllCollect() {
+    const res = await getAllImage().then(res => res);
+
+    console.log(res);
   }
 }

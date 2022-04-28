@@ -1,5 +1,5 @@
 import { haveAccess } from "../service/auth.js";
-import { uploadImage } from "../service/upload.js";
+import { uploadImage } from "../service/file.js";
 import AbstractView from "./AbstractView.js";
 
 export default class extends AbstractView {
@@ -103,8 +103,6 @@ export default class extends AbstractView {
     }
 
     imageInfo.imageIdx++;
-
-    // console.log(imageCanvas.toDataURL('image/jpeg', 1.0));
   }
 
   async uploadThumbnails() {
@@ -119,8 +117,9 @@ export default class extends AbstractView {
     const res = await uploadImage(images).then(data => data);
 
     if (!res) alert('Some upload failed!');
-
-    // need create a request in back,
-    // user readSyncFile to create a image file by dataUrl
+    else {
+      alert('Upload success!');
+      imageCollect.innerHTML = '';
+    }
   }
 }
