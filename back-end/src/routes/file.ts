@@ -1,17 +1,28 @@
 import express, { Router, Request, Response } from "express";
-import { promises } from "fs";
+import { promises} from "fs";
+
+import { IFile } from "../models/file";
 
 import { authWithJwt, decodeToken } from "../services/auth.service";
-import { createFolder, uploadFile } from "../services/file.service";
+import { createFolder, getAllFileContent, uploadFile } from "../services/file.service";
 
 export const uploadRouter: Router = express.Router();
 uploadRouter.use(express.json({ limit: '50mb' }));
 
 uploadRouter.get("/", async (req: Request, res: Response) => {
-	const mainDir = await promises.readdir("upload");
+	try {
+		const mainDir = await promises.readdir("upload");
+		let data: IFile[] = [];
 
-	console.log(mainDir);
-	res.send({ "send": true });
+		for (const dir of mainDir) {
+			await getAllFileContent(`upload/${dir}`, data);
+		}
+
+		res.send({ "files": data });
+	}
+	catch(e) {
+		res.send({ "files": [] });
+	}
 });
 
 uploadRouter.post("/upload", authWithJwt, async (req: Request, res: Response) => {

@@ -3,6 +3,7 @@ import { ObjectId } from "mongodb";
 export interface IFile {
 	data: string,
 	date: Date,
+	user: string,
 	id: string
 }
 
