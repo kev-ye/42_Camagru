@@ -2,6 +2,8 @@ import { haveAccess } from "../service/auth.js";
 import { uploadImage } from "../service/file.js";
 import AbstractView from "./AbstractView.js";
 
+// filter: sepia(100%), grayscale(100%), brightness(0.35), contrast(140%)
+
 export default class extends AbstractView {
   constructor() {
     super();
@@ -61,6 +63,8 @@ export default class extends AbstractView {
         publishBtn.onclick = () => {
           this.uploadThumbnails();
         }
+
+        // openCamera.style.filter = 'sepia(100%)'; // add a filter to camera
       });
     })
     .catch(err => {
@@ -96,6 +100,7 @@ export default class extends AbstractView {
 
     imageCanvas.width = imageInfo.width;
     imageCanvas.height = imageInfo.height;
+    // imageCanvas.getContext('2d').filter = 'sepia(100%)'; // add filter to canvas
     imageCanvas.getContext('2d').drawImage(src, 0, 0);
 
     imageDelete.onclick = () => {
