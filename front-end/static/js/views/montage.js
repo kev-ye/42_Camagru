@@ -115,7 +115,6 @@ export default class extends AbstractView {
     })
   
     const res = await uploadImage(images).then(data => data);
-
     if (!res) alert('Some upload failed!');
     else {
       alert('Upload success!');

@@ -10,7 +10,7 @@ export async function createFolder(dirpath: string) {
 }
 
 export async function uploadFile(files: string[], path: string, user: string) {
-  files.forEach(async file => {
+  for (const file of files) {
     const addFile = await collections.files?.insertOne({
       path: path,
       user: user,
@@ -19,7 +19,7 @@ export async function uploadFile(files: string[], path: string, user: string) {
     });
 
     await promises.writeFile(`${path}/${addFile?.insertedId.toJSON()}`, file);
-  });
+  }
 }
 
 export async function getAllFileContent(dirPath: string, data: IFile[]) {
@@ -32,7 +32,7 @@ export async function getAllFileContent(dirPath: string, data: IFile[]) {
         const content = await promises.readFile(`${dirPath}/${file}`)
         const newData: IFile = {
           data: content.toString(),
-          date: (await promises.stat(`${dirPath}/${file}`)).birthtime,
+          date: fileInfo?._date || new Date(),
           user: fileInfo?.user || '',
           id: fileInfo?._id?.toString() || '',
           social: fileInfo?._social || { like: [], comment: [] },
@@ -51,5 +51,4 @@ export async function unlinkFile(path: string) {
     await promises.unlink(path);
   }
   catch(e) {}
-
 }

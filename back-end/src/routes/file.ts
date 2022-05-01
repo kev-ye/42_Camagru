@@ -41,7 +41,8 @@ uploadRouter.get("/:id", authWithJwt, async (req: Request, res: Response) => {
 		if (fileInfo.user === String(decode.username)) {
 			const sendInfo = {
 				"user": fileInfo.user,
-				"id": fileInfo._id
+				"id": fileInfo._id,
+				"social": fileInfo._social
 			}
 			res.send(sendInfo);
 		}
@@ -77,15 +78,13 @@ uploadRouter.put("/:id", authWithJwt, async (req: Request, res: Response) => {
 	}
 	const decode = decodeToken(token);
 
-	console.log(id);
-
 	try {
-		let fileInfo = await collections.files?.findOne({ _id: new ObjectId(String(id)) }) as unknown as File;
-
-		console.log('file:', fileInfo);
+		const fileInfo = await collections.files?.findOne({ _id: new ObjectId(String(id)) }) as unknown as File;
 
 		if (String(Object.keys(body)[0]) === 'like') {
-			fileInfo._social?.like.push(decode.username);
+			const index = fileInfo._social?.like.indexOf(decode.username);
+			if (index !== undefined && index !== -1) fileInfo._social?.like.splice(index, 1);
+			else fileInfo._social?.like.push(decode.username);
 		}
 		else if (String(Object.keys(body)[0]) === 'comment') {
 			const comment: Comment = {
@@ -100,7 +99,6 @@ uploadRouter.put("/:id", authWithJwt, async (req: Request, res: Response) => {
 		res.send({ "social": true });
 	}
 	catch(e) {
-		console.log('error:', e);
 		res.send({});
 	}
 });

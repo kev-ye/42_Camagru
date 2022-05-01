@@ -1,0 +1,11 @@
+.gallery-image {
+  width: 25%;
+}
+
+.gallery-container {
+  text-align: center;
+}
+
+.gallery-pagination-container {
+  margin: 25px auto;
+}
