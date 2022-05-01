@@ -148,7 +148,6 @@ userRouter.put('/update/:username', authWithJwt, async (req: Request, res: Respo
       });
     }
     else res.send({});
-
   }
   catch (error) {
     console.error(error);

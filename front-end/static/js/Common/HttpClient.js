@@ -52,4 +52,21 @@ export default class {
       return {};
     })
   }
+
+  async delete (url, header) {
+    const newH = {
+      ...header,
+      "Content-Type": "application/json",
+    };
+
+    return await fetch(url, {
+      method: 'delete',
+      headers: newH
+    })
+    .then(res => res.json())
+    .catch(e => {
+      console.log('Log: Delete: Error:', e);
+      return {};
+    })
+  }
 }

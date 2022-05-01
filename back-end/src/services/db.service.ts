@@ -116,6 +116,10 @@ function fileSchema() {
         bsonType: "date",
         description: "'date' is a Date"
       },
+      _social: {
+        bsonType: "object",
+        description: "'social' is a Oject"
+      },
       user: {
         bsonType: "string",
         description: "'user' is required and is a string"

@@ -14,7 +14,8 @@ export async function uploadFile(files: string[], path: string, user: string) {
     const addFile = await collections.files?.insertOne({
       path: path,
       user: user,
-      _date: new Date()
+      _date: new Date(),
+      _social: { like: [], comment: [] }
     });
 
     await promises.writeFile(`${path}/${addFile?.insertedId.toJSON()}`, file);
@@ -33,7 +34,8 @@ export async function getAllFileContent(dirPath: string, data: IFile[]) {
           data: content.toString(),
           date: (await promises.stat(`${dirPath}/${file}`)).birthtime,
           user: fileInfo?.user || '',
-          id: fileInfo?._id?.toString() || ''
+          id: fileInfo?._id?.toString() || '',
+          social: fileInfo?._social || { like: [], comment: [] },
         };
 
         data.push(newData);
@@ -42,4 +44,12 @@ export async function getAllFileContent(dirPath: string, data: IFile[]) {
     }
   }
   catch(e) {}
+}
+
+export async function unlinkFile(path: string) {
+  try {
+    await promises.unlink(path);
+  }
+  catch(e) {}
+
 }
