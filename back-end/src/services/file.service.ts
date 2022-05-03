@@ -9,17 +9,15 @@ export async function createFolder(dirpath: string) {
   await promises.mkdir(`upload/${dirpath}`, { recursive: true }).then();
 }
 
-export async function uploadFile(files: string[], path: string, user: string) {
-  for (const file of files) {
-    const addFile = await collections.files?.insertOne({
-      path: path,
-      user: user,
-      _date: new Date(),
-      _social: { like: [], comment: [] }
-    });
+export async function uploadFile(file: string, path: string, user: string) {
+  const addFile = await collections.files?.insertOne({
+    path: path,
+    user: user,
+    _date: new Date(),
+    _social: { like: [], comment: [] }
+  });
 
-    await promises.writeFile(`${path}/${addFile?.insertedId.toJSON()}`, file);
-  }
+  await promises.writeFile(`${path}/${addFile?.insertedId.toJSON()}`, file);
 }
 
 export async function getAllFileContent(dirPath: string, data: IFile[]) {

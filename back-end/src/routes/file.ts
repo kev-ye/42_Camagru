@@ -63,7 +63,7 @@ uploadRouter.post("/upload", authWithJwt, async (req: Request, res: Response) =>
 	const decode = decodeToken(String(token));
 
 	await createFolder(decode.username).then();
-	await uploadFile(req.body.data as string[], `upload/${decode.username}`, decode.username);
+	await uploadFile(req.body.data, `upload/${decode.username}`, decode.username);
 
 	res.send({ "uploaded": true });
 });

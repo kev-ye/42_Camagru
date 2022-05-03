@@ -87,6 +87,7 @@ const router = async () => {
       break ;
     case '/montage':
       await view.openCamera();
+      await view.loadCollectImage();
       break ;
     default :
       break ;

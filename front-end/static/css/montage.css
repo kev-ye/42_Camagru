@@ -3,6 +3,8 @@
 }
 
 .open-camera {
+  width: 640px;
+  height: 480px;
   width: 80%;
   border-radius: 10px;
 }

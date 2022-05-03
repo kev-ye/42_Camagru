@@ -91,19 +91,6 @@ export default class extends AbstractView {
 
     const newList = document.createElement('li');
     const newImage = document.createElement('img');
-    let deleteImgBtn = undefined;
-
-    const data = await getImage(file.id);
-    if (data && data.user === file.user) {
-      deleteImgBtn = document.createElement('span');
-      deleteImgBtn.id = data.id;
-      deleteImgBtn.classList.add('material-icons');
-      deleteImgBtn.innerHTML = 'close';
-      deleteImgBtn.onclick = async () => {
-        this.fileArray.splice(this.fileArray.indexOf(file), 1);
-        await this.deleteImage(newList, file.id);
-      }
-    }
 
     newImage.classList.add('gallery-image');
     newImage.id = file.id;
@@ -111,9 +98,6 @@ export default class extends AbstractView {
 
     collect.appendChild(newList);
     newList.appendChild(newImage);
-    if (data && deleteImgBtn) {
-      newList.appendChild(deleteImgBtn);
-    }
 
     this.createSocialInfo(newList, file);
   }
@@ -140,18 +124,6 @@ export default class extends AbstractView {
 
     this.socialComment(parentNode, fileInfo.id);
     this.socialClick(socialLike, socialComment, document.getElementById(`${fileInfo.id}-form`));
-  }
-
-  async deleteImage(imageNode, nodeId) {
-    const collect = document.getElementById('gallery-collect');
-
-    const res = await removeImage(nodeId).then(data => data);
-    if (res) alert(`Image ${nodeId} has delete!`);
-    else {
-      alert('Something wrong!');
-      return ;
-    }
-    collect.removeChild(imageNode);
   }
 
   async socialClick(likeNode, commentNode, postNode) {
