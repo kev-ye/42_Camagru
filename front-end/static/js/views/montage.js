@@ -22,14 +22,20 @@ export default class extends AbstractView {
           <hr>
 
           <div class="camera-container">
-            <div>
+            <div class="camera-content">
               <video id="open-camera" class="open-camera" autoplay playsinline></video>
+              <ul class="filter-container">
+                <li><canvas id="filter-sepia" class="filter-sepia"></canvas></li>
+                <li><canvas id="filter-grayscale" class="filter-grayscale"></canvas></li>
+                <li><canvas id="filter-brightness" class="filter-brightness"></canvas></li>
+                <li><canvas id="filter-contrast" class="filter-contrast"></canvas></li>
+              </ul>
               <canvas id="take-by-camera" class="open-camera" style="display: none;"></canvas>
-            </div>
-            <div>
-              <button id="button-snap" class="material-icons"">photo_camera</button>
-              <button id="collect-publish" style="display: none;">Publish</button>
-              <button id="collect-cancel" style="display: none;">Cancel</button>
+
+                <button id="button-snap" class="camera-snap-btn material-icons">photo_camera</button>
+                <button id="collect-publish" class="camera-publish-btn material-icons" style="display: none;">publish</button>
+                <button id="collect-cancel" class="camera-cancel-btn material-icons" style="display: none;">cancel</button>
+
             </div>
             <div>
               <ul id="image-collect" class="image-collect-container"></ul>
@@ -46,6 +52,8 @@ export default class extends AbstractView {
     const snapBtn = document.getElementById('button-snap');
     const publishBtn = document.getElementById('collect-publish')
     const cancelBtn = document.getElementById('collect-cancel');
+
+    this.addFilter();
   
     await navigator.mediaDevices.getUserMedia({
       audio: false,
@@ -81,6 +89,32 @@ export default class extends AbstractView {
     .catch(err => {
       alert('Your browser don\'t support camera!');
     });
+  }
+
+  addFilter() {
+    const filterSepia = document.getElementById('filter-sepia');
+    const filterGrayscal = document.getElementById('filter-grayscale');
+    const filterBrightness = document.getElementById('filter-brightness');
+    const filterContrast = document.getElementById('filter-contrast');
+
+    const filterArray = [filterSepia, filterGrayscal, filterBrightness, filterContrast];
+    for (const filter of filterArray) {
+      filter.width = 150;
+      filter.height = 150;
+      this.exampleCtx(filter.getContext("2d"))
+    }
+  }
+
+  exampleCtx(ctx) {
+    ctx.beginPath();
+    ctx.arc(75, 75, 50, 0,Math.PI*2,true); // Outer circle
+    ctx.moveTo(110,75);
+    ctx.arc(75,75,35,0,Math.PI,false);   // Mouth (clockwise)
+    ctx.moveTo(65,65);
+    ctx.arc(60,65,5,0,Math.PI*2,true);  // Left eye
+    ctx.moveTo(95,65);
+    ctx.arc(90,65,5,0,Math.PI*2,true);  // Right eye
+    ctx.stroke();
   }
 
   activeCamera(camera, stream, on) {

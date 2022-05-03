@@ -1,5 +1,11 @@
 .camera-container {
+  width: 100%;
   text-align: center;
+}
+
+.camera-content {
+  width: 100%;
+  position: relative;
 }
 
 .open-camera {
@@ -7,6 +13,7 @@
   height: 480px;
   width: 80%;
   border-radius: 10px;
+  filter: contrast(140%);
 }
 
 .image-collect-container {
@@ -35,7 +42,7 @@
 
 .image-delete {
   position: absolute;
-  top: 0;
+  top: 0%;
   right: 0%;
   color: white;
   background-color: red;
@@ -46,4 +53,47 @@
 .image-delete:hover {
   opacity: 0.8;
   cursor: pointer;
+}
+
+.camera-snap-btn,
+.camera-publish-btn,
+.camera-cancel-btn {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  opacity: 0.75;
+  position: absolute;
+  bottom: 7.5%;
+  left: 50%;
+}
+
+.filter-container {
+  list-style: none;
+  position: absolute;
+  top: 1%;
+  right: 10%;
+}
+
+.filter-sepia,
+.filter-grayscale,
+.filter-brightness,
+.filter-contrast {
+  opacity: 0.75;
+  width: 75%;
+  border-radius: 50%;
+  background-color: grey;
+}
+
+.filter-sepia {
+  filter: sepia(100%);
+}
+
+.filter-grayscale {
+  filter: grayscale(100%);
+}
+.filter-brightness {
+  filter: brightness(0.35);
+}
+.filter-contrast {
+  filter: contrast(140%);
 }
