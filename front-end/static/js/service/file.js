@@ -15,7 +15,6 @@ export async function uploadImage(data) {
 	return Object.entries(res).length === 0 ? undefined : res;
 }
 
-
 export async function getAllImage() {
 	const res = await http.get(`${urlUser}`).then(data => data);
 

@@ -3,8 +3,6 @@ import { uploadImage } from "../service/file.js";
 import { getAllImage, getImage, removeImage } from "../service/file.js";
 import AbstractView from "./AbstractView.js";
 
-// filter: sepia(100%), grayscale(100%), brightness(0.35), contrast(140%)
-
 export default class extends AbstractView {
   constructor() {
     super();
@@ -38,6 +36,10 @@ export default class extends AbstractView {
             </div>
             <div>
               <ul id="image-collect" class="image-collect-container"></ul>
+            </div>
+            <div>
+              <input type="file" id="load-image" name="load-image" accept=image/jpeg>
+              <button id="upload-image">upload</button>
             </div>
           </div>
         `;
@@ -82,13 +84,40 @@ export default class extends AbstractView {
         cancelBtn.onclick = () => {
           this.activeCamera(openCamera, stream, false);
         }
-
-        // openCamera.style.filter = 'sepia(100%)'; // add a filter to camera
       });
     })
     .catch(err => {
       alert('Your browser don\'t support camera!');
     });
+  }
+
+  async uploadImageFromFile() {
+    const fileLoaded = document.getElementById('load-image');
+    const uploadBtn = document.getElementById('upload-image');
+
+    uploadBtn.onclick = async() => {
+      const file = fileLoaded.files[0];
+      if (file && file.type !== 'image/jpeg') {
+        alert('You only can upload a jpeg image');
+        return ;
+      }
+
+      const fileData = await this.blobToDataUrl(file);
+      const res = await uploadImage(fileData).then(data => data);
+      if (!res) alert('Some upload failed!');
+      else {
+        alert('Upload success!');
+        await this.loadCollectImage().then();
+      }
+    }
+  }
+
+  async blobToDataUrl(blob) {
+    return new Promise(resolve => {
+      const reader = new FileReader();
+      reader.onload = (e) => { return resolve(e); }
+      reader.readAsDataURL(blob);
+    }).then(e => e.target.result);
   }
 
   addFilter() {
@@ -228,7 +257,7 @@ export default class extends AbstractView {
 
     canvas.width = imageInfo.width;
     canvas.height = imageInfo.height;
-    canvas.getContext('2d').filter = this.filter; // add filter to canvas
+    canvas.getContext('2d').filter = this.filter;
     canvas.getContext('2d').drawImage(src, 0, 0);
   }
 

@@ -37,12 +37,12 @@ Gallery features:
 
 Editing features:
 
-- [ ] a main section containing the preview of the user’s webcam, the list of superposable images and a button allowing to capture a picture.
+- [x] a main section containing the preview of the user’s webcam, the list of superposable images and a button allowing to capture a picture.
 - [x] a side section displaying thumbnails of all previous pictures taken.
-- [ ] Superposable images must be selectable and the button allowing to take the picture should be inactive (not clickable) as long as no superposable image has been selected.
-- [ ] creation of the final image must be done on the server side.
-- [ ] allow the upload of a user image instead of capturing one with the webcam.
-- [ ] user should be able to delete his edited images, but only his, not other users creations
+- [x] Superposable images must be selectable and the button allowing to take the picture should be inactive (not clickable) as long as no superposable image has been selected.
+- [x] creation of the final image must be done on the server side.
+- [x] allow the upload of a user image instead of capturing one with the webcam.
+- [x] user should be able to delete his edited images, but only his, not other users creations
 
 Deployment:
 

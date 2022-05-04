@@ -106,6 +106,8 @@ export default class extends AbstractView {
     const socialDiv = document.createElement('div');
     const socialLike = document.createElement('span');
     const socialComment = document.createElement('span');
+    const socialLikeNumberDiv = document.createElement('div');
+    const socialLikeNumber = document.createElement('span');
 
     socialLike.classList.add('material-icons');
     socialComment.classList.add('material-icons');
@@ -114,6 +116,7 @@ export default class extends AbstractView {
     if (user) socialLike.innerHTML = fileInfo.social.like.find(like => like === user.username) ? 'favorite' : 'favorite_border';
     else socialLike.innerHTML = 'favorite_border';
     socialComment.innerHTML = 'chat';
+    socialLikeNumber.innerHTML = `${fileInfo.social.like.length} people like it!`;
 
     socialLike.id = `${fileInfo.id}-like`;
     socialComment.id = `${fileInfo.id}-comment`;
@@ -121,6 +124,9 @@ export default class extends AbstractView {
     parentNode.appendChild(socialDiv);
     socialDiv.appendChild(socialLike);
     socialDiv.appendChild(socialComment);
+    
+    parentNode.appendChild(socialLikeNumberDiv)
+    socialLikeNumberDiv.appendChild(socialLikeNumber);
 
     this.socialComment(parentNode, fileInfo.id);
     this.socialClick(socialLike, socialComment, document.getElementById(`${fileInfo.id}-form`));
