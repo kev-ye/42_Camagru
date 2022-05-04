@@ -206,7 +206,7 @@ export default class extends AbstractView {
 
     canvas.width = imageInfo.width;
     canvas.height = imageInfo.height;
-    // canvas.getContext('2d').filter = 'sepia(100%)'; // add filter to canvas
+    canvas.getContext('2d').filter = 'sepia(100%)'; // add filter to canvas
     canvas.getContext('2d').drawImage(src, 0, 0);
   }
 
