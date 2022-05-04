@@ -11,6 +11,7 @@ export default class extends AbstractView {
 
     this.setTitle('Montage');
     this.fileArray = [];
+    this.filter = '';
   }
 
   async getHtml() {
@@ -31,11 +32,9 @@ export default class extends AbstractView {
                 <li><canvas id="filter-contrast" class="filter-contrast"></canvas></li>
               </ul>
               <canvas id="take-by-camera" class="open-camera" style="display: none;"></canvas>
-
-                <button id="button-snap" class="camera-snap-btn material-icons">photo_camera</button>
-                <button id="collect-publish" class="camera-publish-btn material-icons" style="display: none;">publish</button>
-                <button id="collect-cancel" class="camera-cancel-btn material-icons" style="display: none;">cancel</button>
-
+              <button id="button-snap" class="camera-snap-btn material-icons">photo_camera</button>
+              <button id="collect-publish" class="camera-publish-btn material-icons" style="display: none;">publish</button>
+              <button id="collect-cancel" class="camera-cancel-btn material-icons" style="display: none;">cancel</button>
             </div>
             <div>
               <ul id="image-collect" class="image-collect-container"></ul>
@@ -53,6 +52,7 @@ export default class extends AbstractView {
     const publishBtn = document.getElementById('collect-publish')
     const cancelBtn = document.getElementById('collect-cancel');
 
+    this.snapBtnSwitch(false);
     this.addFilter();
   
     await navigator.mediaDevices.getUserMedia({
@@ -73,9 +73,9 @@ export default class extends AbstractView {
           this.activeCamera(openCamera, stream, true);
         }
 
-        publishBtn.onclick = () => {
-          this.uploadThumbnail();
-          this.loadCollectImage();
+        publishBtn.onclick = async () => {
+          await this.uploadThumbnail().then();
+          await this.loadCollectImage().then();
           this.activeCamera(openCamera, stream, false);
         }
 
@@ -103,17 +103,39 @@ export default class extends AbstractView {
       filter.height = 150;
       this.exampleCtx(filter.getContext("2d"))
     }
+
+    const openCameraFilter = document.getElementById('open-camera').style;
+
+    filterSepia.onclick = () => {
+      this.snapBtnSwitch(true);
+      openCameraFilter.filter = this.filter = this.filterSepia();
+    }
+
+    filterGrayscal.onclick = () => {
+      this.snapBtnSwitch(true);
+      openCameraFilter.filter = this.filter = this.filterGrayscal();
+    }
+
+    filterBrightness.onclick = () => {
+      this.snapBtnSwitch(true);
+      openCameraFilter.filter = this.filter = this.filterBrightness();
+    }
+
+    filterContrast.onclick = () => {
+      this.snapBtnSwitch(true);
+      openCameraFilter.filter = this.filter = this.filterContrast();
+    }
   }
 
   exampleCtx(ctx) {
     ctx.beginPath();
-    ctx.arc(75, 75, 50, 0,Math.PI*2,true); // Outer circle
-    ctx.moveTo(110,75);
-    ctx.arc(75,75,35,0,Math.PI,false);   // Mouth (clockwise)
-    ctx.moveTo(65,65);
-    ctx.arc(60,65,5,0,Math.PI*2,true);  // Left eye
-    ctx.moveTo(95,65);
-    ctx.arc(90,65,5,0,Math.PI*2,true);  // Right eye
+    ctx.arc(75, 75, 50, 0, Math.PI * 2, true);
+    ctx.moveTo(110, 75);
+    ctx.arc(75, 75, 35, 0, Math.PI, false);
+    ctx.moveTo(65, 65);
+    ctx.arc(60, 65, 5, 0, Math.PI * 2, true);
+    ctx.moveTo(95, 65);
+    ctx.arc(90, 65, 5, 0, Math.PI * 2, true);
     ctx.stroke();
   }
 
@@ -139,7 +161,6 @@ export default class extends AbstractView {
       publishBtn.style.display = 'none'
       cancelBtn.style.display = 'none';
     }
-
   }
 
   async loadCollectImage() {
@@ -151,7 +172,8 @@ export default class extends AbstractView {
       return 0;
     });
 
-    for (const child of collect.childNodes)
+    const childNodeFromCollect = Array.from(collect.childNodes);
+    for (const child of childNodeFromCollect)
       collect.removeChild(child);
 
     for (const file of this.fileArray)
@@ -206,7 +228,7 @@ export default class extends AbstractView {
 
     canvas.width = imageInfo.width;
     canvas.height = imageInfo.height;
-    canvas.getContext('2d').filter = 'sepia(100%)'; // add filter to canvas
+    canvas.getContext('2d').filter = this.filter; // add filter to canvas
     canvas.getContext('2d').drawImage(src, 0, 0);
   }
 
@@ -222,4 +244,15 @@ export default class extends AbstractView {
       context.clearRect(0, 0, thumbnail.width, thumbnail.height);
     }
   }
+
+  snapBtnSwitch(onOff) {
+    const snapBtn = document.getElementById('button-snap');
+
+    snapBtn.disabled = onOff ? false : true;
+  }
+
+  filterSepia() { return 'sepia(100%)' };
+  filterGrayscal() { return 'grayscale(100%)' };
+  filterBrightness() { return 'brightness(0.35)' };
+  filterContrast() { return 'contrast(140%)' };
 }

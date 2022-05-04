@@ -67,6 +67,14 @@
   left: 50%;
 }
 
+.camera-publish-btn {
+  left: 45%;
+}
+
+.camera-cancel-btn {
+  left: 55%;
+}
+
 .filter-container {
   list-style: none;
   position: absolute;
