@@ -35,12 +35,6 @@ export default class {
     this.cancelBtn.onclick  = () => {
       this.modal.style.display = "none";
     };
-
-    window.onclick = (e) => {
-      if (e.target === this.modal) {
-        this.modal.style.display = "none";
-      }
-    }
   }
 
   // show dialog manually

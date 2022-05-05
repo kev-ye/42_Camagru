@@ -71,12 +71,21 @@ export default class extends AbstractModal {
 
   async forgetPassword() {
     this.forget = document.getElementById('mod-forget-password');
+    const forgetMod = document.getElementById('mod-forget');
+  
+    if (!forgetMod) {
+      this.$forgetMod = new Forget();
+      await this.$forgetMod.sendReset();
+
+      const fm = document.getElementById('mod-forget');
+      fm.style.display = 'none';
+    }
     this.forget.onclick = async (e) => {
       e.preventDefault();
-      this.modal.style.display = "none";
+      this.modal.style.display = 'none';
 
-      const $forget = new Forget();
-      await $forget.sendReset();
+      const fm = document.getElementById('mod-forget');
+      fm.style.display = 'block';
     }
   }
 
