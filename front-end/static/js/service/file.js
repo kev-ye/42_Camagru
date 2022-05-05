@@ -33,6 +33,12 @@ export async function getImage(id) {
 	return Object.entries(res).length === 0 ? undefined : res;
 }
 
+export async function getImageWithoutAuth(id) {
+	const res = await http.get(`${urlUser}/info/${id}`).then(data => data);
+
+	return Object.entries(res).length === 0 ? undefined : res;
+}
+
 export async function removeImage(id) {
 	const token = localStorage.getItem('__token__');
 	if (!token)

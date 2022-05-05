@@ -7,7 +7,7 @@ export default class extends AbstractModal {
 
     this.init({
       modal: 'mod-signUp',
-      openBtn: 'mod-sign-up',
+      openBtn: 'sign-up',
       cancelBtn: 'mod-signUp-cancelbtn',
       close: 'mod-signUp-close',
       template: `

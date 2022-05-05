@@ -102,12 +102,18 @@ export default class extends AbstractView {
         return ;
       }
 
+      if (!file) {
+        alert('Upload a jpeg image!');
+        return ;
+      }
+
       const fileData = await this.blobToDataUrl(file);
       const res = await uploadImage(fileData).then(data => data);
       if (!res) alert('Some upload failed!');
       else {
         alert('Upload success!');
         await this.loadCollectImage().then();
+        fileLoaded.value = '';
       }
     }
   }

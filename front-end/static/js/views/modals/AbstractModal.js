@@ -32,9 +32,11 @@ export default class {
       this.modal.style.display = "none";
     };
 
-    this.cancelBtn.onclick  = () => {
-      this.modal.style.display = "none";
-    };
+    if (this.cancelBtn) {
+      this.cancelBtn.onclick  = () => {
+        this.modal.style.display = "none";
+      };
+    }
   }
 
   // show dialog manually

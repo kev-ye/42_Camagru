@@ -7,7 +7,7 @@ export default class extends AbstractModal {
 
     this.init({
       modal: 'mod-forget',
-      openBtn: 'mod-forget-password',
+      openBtn: 'forget-password',
       cancelBtn: 'mod-forget-cancelbtn',
       close: 'mod-forget-close',
       template: `

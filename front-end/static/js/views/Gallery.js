@@ -1,6 +1,7 @@
 import AbstractView from "./AbstractView.js"
-import { getAllImage, getImage, removeImage, updateSocialInfo } from "../service/file.js";
+import { getAllImage, updateSocialInfo } from "../service/file.js";
 import { userInfo } from "../service/user.js";
+import ImageMod from "./modals/Image.js";
 
 export default class extends AbstractView {
   constructor() {
@@ -147,7 +148,12 @@ export default class extends AbstractView {
     }
 
     commentNode.onclick = async (e) => {
-      console.log(e.target);
+      const imageMod = document.getElementById(`mod-image-${String(e.target.id).split('-')[0]}`);
+      if (!imageMod) {
+        const $imageMod = new ImageMod(String(e.target.id).split('-')[0]);
+        await $imageMod.listImageComment();
+        await $imageMod.comment();
+      }
     }
 
     postNode.onsubmit = async (e) => {

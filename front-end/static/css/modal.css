@@ -12,7 +12,8 @@
   background: rgba(0, 0, 0, 0.3);
 }
 
-.mod-content {
+.mod-content,
+.mod-content-image {
   background: #fefefe;
   margin: 5% auto 15% auto;
   padding: 20px;
@@ -108,7 +109,7 @@ span.mod-psw {
   }
 }
 
-/*  SignUp + forget modal set */
+/* SignUp + forget modal set */
 
 .mod-signUp-acceptbtn,
 .mod-signUp-cancelbtn,
@@ -132,4 +133,24 @@ span.mod-psw {
 .mod-forget-button-container {
   display: flex;
   justify-content: space-between;
+}
+
+/* Image modal */
+
+.mod-content-image {
+  width: 90%;
+  height: 100%;
+}
+
+.mod-image-container {
+  margin: 0 15px;
+  background-color: #000;
+  vertical-align: middle;
+}
+
+.mod-image-content {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
 }

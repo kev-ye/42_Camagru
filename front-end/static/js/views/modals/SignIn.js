@@ -8,7 +8,7 @@ export default class extends AbstractModal {
 
     this.init({
       modal: 'mod-signIn',
-      openBtn: 'mod-sign-in',
+      openBtn: 'sign-in',
       cancelBtn: 'mod-signIn-cancelbtn',
       close: 'mod-signIn-close',
       template: `
@@ -37,7 +37,7 @@ export default class extends AbstractModal {
 
             <div class="mod-common-main-container">
               <button type="button" id="mod-signIn-cancelbtn" class="mod-signIn-cancelbtn">Cancel</button>
-              <span class="mod-psw">Forgot <a id="mod-forget-password" href="">password?</a></span>
+              <span class="mod-psw">Forgot <a id="forget-password" href="">password?</a></span>
             </div>
           </form>
         </div>
@@ -70,7 +70,7 @@ export default class extends AbstractModal {
   }
 
   async forgetPassword() {
-    this.forget = document.getElementById('mod-forget-password');
+    this.forget = document.getElementById('forget-password');
     const forgetMod = document.getElementById('mod-forget');
   
     if (!forgetMod) {

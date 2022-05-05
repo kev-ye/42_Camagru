@@ -2,7 +2,8 @@ import { ObjectId } from "mongodb";
 
 export interface Comment {
 	user: string,
-	comment: string
+	comment: string,
+	date: Date
 }
 
 export interface Social {

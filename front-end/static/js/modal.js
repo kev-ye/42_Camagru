@@ -31,10 +31,10 @@ document.addEventListener("DOMContentLoaded", () => {
   document.body.addEventListener("click", async e => {
     if (e.target) {
       switch(e.target.id) {
-        case 'mod-sign-in':
+        case 'sign-in':
           await signIn();
           break ;
-        case 'mod-sign-up':
+        case 'sign-up':
           await signUp();
           break ;
         default:

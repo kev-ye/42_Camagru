@@ -20,8 +20,8 @@ export default class extends AbstractView {
         : `
           <nav class="nav-container">
             <a href="/" data-link>Gallery</a>
-            <button id="mod-sign-in">Sign in</button>
-            <button id="mod-sign-up">Sign up</button>
+            <button id="sign-in">Sign in</button>
+            <button id="sign-up">Sign up</button>
           </nav>
         `
     });
