@@ -7,7 +7,6 @@ export default class extends AbstractView {
     super();
 
     this.setTitle("User");
-    this.user = {};
   }
 
   async getHtml() {
@@ -39,12 +38,39 @@ export default class extends AbstractView {
                   <button id="password-edit-btn">Change password</button>
                 </li>
               </ul>
+
+              <label class="user-notify-switch">
+                <input type="checkbox" id="user-notify-input" class="user-notify-input">
+                <span class="user-notify-slider user-notify-round"></span>
+              </label>
             `;
           }
           else return '';
         });
       } else return '';
     });
+  }
+
+/* notify */
+  async notify() {
+    const userNotify = document.getElementById('user-notify-input');
+    const user = await userInfo().then(data => data);
+
+    userNotify.checked = user && user.notify === true ? 'checked' : '';
+
+    userNotify.onclick = async () => {
+      const user = await userInfo().then(data => data);
+      await updateUser(
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        user.notify === true ? false : true
+      ).then(res => {
+        if (res) alert(`Notify ${user.notify === true ? 'close' : 'open'}!`);
+        else alert('Something wrong');
+      });
+    }
   }
 
 /* click event control */
@@ -126,11 +152,12 @@ export default class extends AbstractView {
     if (['username', 'email'].find(el => el === info)) {
       const value = document.getElementById(`${info}-input`).value;
 
-      const res = await updateUser(
+      await updateUser(
         info === 'username'? value : undefined,
         undefined,
         undefined,
-        info === 'username'? undefined : value).then(async res => {
+        info === 'username'? undefined : value,
+        undefined).then(async res => {
           if (!res) alert('Username already exist!');
           else {
             alert(`${info} updated!`);
@@ -147,6 +174,7 @@ export default class extends AbstractView {
         undefined,
         newValue,
         oldValue,
+        undefined,
         undefined).then(async res => {
           if (!res) alert('Old password wrong!');
           else {

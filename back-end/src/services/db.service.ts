@@ -80,7 +80,7 @@ function userSchema() {
   return {
     title: "users",
     bsonType: "object",
-    required: ["username", "password", "email"],
+    required: ["username", "password", "email", "notify"],
     additionalProperties: false,
     properties: {
       _id: {},
@@ -99,6 +99,10 @@ function userSchema() {
       email: {
         bsonType: "string",
         description: "'email' is required and is a string"
+      },
+      notify: {
+        bsonType: "bool",
+        description: "'notify' is required and is a boolean"
       }
     }
   };

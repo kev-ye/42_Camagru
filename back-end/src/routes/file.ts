@@ -120,7 +120,8 @@ uploadRouter.put("/:id", authWithJwt, async (req: Request, res: Response) => {
 				date: new Date()
 			};
 			fileInfo._social?.comment.push(comment);
-			sendMail(userInfo.email, `Your have a new comment: "${comment.comment}" on your picture: ${fileInfo._id}"`, "New notification!");
+			if (userInfo.notify === true)
+				sendMail(userInfo.email, `Your have a new comment: "${comment.comment}" on your picture: ${fileInfo._id}"`, "New notification!");
 		}
 
 		const newFIleInfo = { ...fileInfo };

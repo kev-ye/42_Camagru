@@ -53,7 +53,8 @@ userRouter.get("/user", authWithJwt, async (req: Request, res: Response) => {
       ? res.send({
           "info": true,
           "username": user.username,
-          "email": user.email
+          "email": user.email,
+          "notify": user.notify
         })
       : res.send({});
   } catch (error) {
@@ -76,6 +77,7 @@ userRouter.post('/create', async (req: Request, res: Response) => {
     }
     const result = await collections.users?.insertOne({
       ...newUser,
+      notify: true,
       password: encrypt(newUser.password),
       _activated: false,
     });

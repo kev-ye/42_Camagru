@@ -17,7 +17,7 @@ export async function userInfo() {
   return Object.entries(userInfo).length === 0 ? undefined : userInfo;
 }
 
-export async function updateUser(u, p, oldP, m) {
+export async function updateUser(u, p, oldP, m, n) {
   const token = localStorage.getItem('__token__');
   if (!token)
     return undefined;
@@ -29,7 +29,8 @@ export async function updateUser(u, p, oldP, m) {
     "username": u ? u : user.username,
     "password": p ? p : undefined,
     "email": m ? m : user.email,
-    "_oldPassword": oldP ? oldP : undefined
+    "_oldPassword": oldP ? oldP : undefined,
+    "notify": n === undefined? true : n
   }, {
     'authorization': `Bearer ${token}`
   }).then(res => res);

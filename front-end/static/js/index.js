@@ -78,6 +78,7 @@ const router = async () => {
     case '/user':
       await view.globalUserInfoEditControl().then();
       await view.userInfoEdit().then();
+      await view.notify().then();
       break ;
     case '/reset':
       await view.reset().then();

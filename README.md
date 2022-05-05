@@ -32,7 +32,7 @@ Gallery features:
 - [x] accessible without authentication
 - [x] list of images sort by date creation
 - [x] image must be able to allow the user comment and like them if he is authenticated
-- [ ] when an image receives a new comment, the author of this image must be informed by email (This preference is enabled by default, but can be disabled in the user preferences)
+- [x] when an image receives a new comment, the author of this image must be informed by email (This preference is enabled by default, but can be disabled in the user preferences)
 - [x] list of images should be paginated, with at least 5 items per page.
 
 Editing features:
