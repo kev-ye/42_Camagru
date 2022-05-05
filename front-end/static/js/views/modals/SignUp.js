@@ -1,5 +1,4 @@
 import AbstractModal from "./AbstractModal.js";
-import HttpClient from "../../Common/HttpClient.js";
 import { createNewUser } from "../../service/user.js";
 
 export default class extends AbstractModal {
@@ -7,37 +6,37 @@ export default class extends AbstractModal {
     super();
 
     this.init({
-      modal: 'signUpModal',
-      openBtn: 'sign-up',
-      cancelBtn: 'signUp-cancelbtn',
-      close: 'signUp-close',
+      modal: 'mod-signUp',
+      openBtn: 'mod-sign-up',
+      cancelBtn: 'mod-signUp-cancelbtn',
+      close: 'mod-signUp-close',
       template: `
-      <div id="signUpModal" class="modal">
-        <form name="signUp-form" id="signUp-form" class="modal-content" method="post">
+      <div id="mod-signUp" class="mod">
+        <form name="mod-signUp-form" id="mod-signUp-form" class="mod-content" method="post">
 
-          <div class="close-container">
-            <span id="signUp-close" class="common-close">&times;</span>
+          <div class="mod-close-container">
+            <span id="mod-signUp-close" class="mod-common-close">&times;</span>
           </div>
 
-          <div class="modal-title-container">
+          <div class="mod-title-container">
             <h1>Sign Up</h1>
           </div>
 
-          <hr class="modal-separator">
+          <hr class="mod-separator">
 
-          <div class="common-modal-main-container">
-            <label for="signUp-username"><b>Username</b></label>
-            <input id="signUpUsername" type="text" placeholder="Enter Username" name="signUp-username" class="common-input" required>
+          <div class="mod-common-main-container">
+            <label for="mod-signUp-username"><b>Username</b></label>
+            <input id="mod-signUpUsername" type="text" placeholder="Enter Username" name="mod-signUp-username" class="mod-common-input" required>
 
-            <label for="signUp-psw"><b>Password</b></label>
-            <input id="signUpPassword" type="password" placeholder="Enter Password" name="signUp-psw" class="common-input" required>
+            <label for="mod-signUp-psw"><b>Password</b></label>
+            <input id="mod-signUpPassword" type="password" placeholder="Enter Password" name="mod-signUp-psw" class="mod-common-input" required>
 
-            <label for="signUp-email"><b>Email</b></label>
-            <input id="signUpemail" type="text" placeholder="Enter email" name="signUp-email" class="common-input" required>
+            <label for="mod-signUp-email"><b>Email</b></label>
+            <input id="mod-signUpemail" type="text" placeholder="Enter email" name="mod-signUp-email" class="mod-common-input" required>
 
-            <div class="signUp-button-container">
-              <button type="submit" class="signUp-acceptbtn">Sign up</button>
-              <button type="button" id="signUp-cancelbtn" class="signUp-cancelbtn">Cancel</button>
+            <div class="mod-signUp-button-container">
+              <button type="submit" class="mod-signUp-acceptbtn">Sign up</button>
+              <button type="button" id="mod-signUp-cancelbtn" class="mod-signUp-cancelbtn">Cancel</button>
             </div>
           </div>
         </form> 
@@ -49,13 +48,13 @@ export default class extends AbstractModal {
   }
 
   async accept() {
-    this.modalForm = document.getElementById('signUp-form');
+    this.modalForm = document.getElementById('mod-signUp-form');
     this.modalForm.onsubmit = async (e) => {
       e.preventDefault();
 
-      const u = document.forms["signUp-form"]["signUp-username"];
-      const p = document.forms["signUp-form"]["signUp-psw"];
-      const m = document.forms["signUp-form"]["signUp-email"];
+      const u = document.forms["mod-signUp-form"]["mod-signUp-username"];
+      const p = document.forms["mod-signUp-form"]["mod-signUp-psw"];
+      const m = document.forms["mod-signUp-form"]["mod-signUp-email"];
 
       // if (this.validateForm(u, p, m)) {
         await createNewUser(

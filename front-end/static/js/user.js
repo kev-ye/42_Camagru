@@ -16,10 +16,10 @@ document.addEventListener("DOMContentLoaded", () => {
   document.body.addEventListener("click", e => {
     if (e.target) {
       switch(e.target.id) {
-        case 'sign-in':
+        case 'mod-sign-in':
           signIn();
           break ;
-        case 'sign-up':
+        case 'mod-sign-up':
           signUp();
           break ;
         default:

@@ -20,8 +20,8 @@ export default class extends AbstractView {
       <div class="gallery-container">
         <ul id="gallery-collect"></ul>
         <div class="gallery-pagination-container">
-          <button id="prev-btn" class="material-icons">arrow_back_ios</button>
-          <button id="next-btn" class="material-icons">arrow_forward_ios</button>
+          <button id="gallery-prev-btn" class="material-icons">arrow_back_ios</button>
+          <button id="gallery-next-btn" class="material-icons">arrow_forward_ios</button>
         </div>
       </div>
     `;
@@ -60,8 +60,8 @@ export default class extends AbstractView {
   }
 
   async prevNextBtn() {
-    const prevBtn = document.getElementById('prev-btn');
-    const nextBtn = document.getElementById('next-btn');
+    const prevBtn = document.getElementById('gallery-prev-btn');
+    const nextBtn = document.getElementById('gallery-next-btn');
 
     this.showPrevNextBtn(prevBtn, nextBtn, this.fileArray);
 

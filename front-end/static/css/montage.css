@@ -1,14 +1,14 @@
-.camera-container {
+.cam-container {
   width: 100%;
   text-align: center;
 }
 
-.camera-content {
+.cam-content {
   width: 100%;
   position: relative;
 }
 
-.open-camera {
+.cam-open {
   /* width: 640px;
   height: 480px; */
   width: 80%;
@@ -16,7 +16,7 @@
   filter: contrast(140%);
 }
 
-.image-collect-container {
+.cam-image-collect-container {
   text-align: left;
   margin: auto;
   height: 100px;
@@ -27,7 +27,7 @@
   overflow-y: hidden;
 }
 
-.image-collect-thumbnail-container {
+.cam-image-collect-thumbnail-container {
   position: relative;
   height: 80px;
   margin: 5px 5px;
@@ -35,12 +35,12 @@
   overflow: hidden;
 }
 
-.image-collect-thumbnail {
+.cam-image-collect-thumbnail {
   border-radius: 10px;
   height: 100%;
 }
 
-.image-delete {
+.cam-image-delete {
   position: absolute;
   top: 0%;
   right: 0%;
@@ -50,14 +50,14 @@
   border-radius: 50%;
 }
 
-.image-delete:hover {
+.cam-image-delete:hover {
   opacity: 0.8;
   cursor: pointer;
 }
 
-.camera-snap-btn,
-.camera-publish-btn,
-.camera-cancel-btn {
+.cam-snap-btn,
+.cam-publish-btn,
+.cam-cancel-btn {
   width: 50px;
   height: 50px;
   border-radius: 50%;
@@ -67,41 +67,41 @@
   left: 50%;
 }
 
-.camera-publish-btn {
+.cam-publish-btn {
   left: 45%;
 }
 
-.camera-cancel-btn {
+.cam-cancel-btn {
   left: 55%;
 }
 
-.filter-container {
+.cam-filter-container {
   list-style: none;
   position: absolute;
   top: 1%;
   right: 10%;
 }
 
-.filter-sepia,
-.filter-grayscale,
-.filter-brightness,
-.filter-contrast {
+.cam-filter-sepia,
+.cam-filter-grayscale,
+.cam-filter-brightness,
+.cam-filter-contrast {
   opacity: 0.75;
   width: 75%;
   border-radius: 50%;
   background-color: grey;
 }
 
-.filter-sepia {
+.cam-filter-sepia {
   filter: sepia(100%);
 }
 
-.filter-grayscale {
+.cam-filter-grayscale {
   filter: grayscale(100%);
 }
-.filter-brightness {
+.cam-filter-brightness {
   filter: brightness(0.35);
 }
-.filter-contrast {
+.cam-filter-contrast {
   filter: contrast(140%);
 }

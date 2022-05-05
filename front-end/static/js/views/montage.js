@@ -20,26 +20,26 @@ export default class extends AbstractView {
 
           <hr>
 
-          <div class="camera-container">
-            <div class="camera-content">
-              <video id="open-camera" class="open-camera" autoplay playsinline></video>
-              <ul class="filter-container">
-                <li><canvas id="filter-sepia" class="filter-sepia"></canvas></li>
-                <li><canvas id="filter-grayscale" class="filter-grayscale"></canvas></li>
-                <li><canvas id="filter-brightness" class="filter-brightness"></canvas></li>
-                <li><canvas id="filter-contrast" class="filter-contrast"></canvas></li>
+          <div class="cam-container">
+            <div class="cam-content">
+              <video id="cam-open" class="cam-open" autoplay playsinline></video>
+              <ul class="cam-filter-container">
+                <li><canvas id="cam-filter-sepia" class="cam-filter-sepia"></canvas></li>
+                <li><canvas id="cam-filter-grayscale" class="cam-filter-grayscale"></canvas></li>
+                <li><canvas id="cam-filter-brightness" class="cam-filter-brightness"></canvas></li>
+                <li><canvas id="cam-filter-contrast" class="cam-filter-contrast"></canvas></li>
               </ul>
-              <canvas id="take-by-camera" class="open-camera" style="display: none;"></canvas>
-              <button id="button-snap" class="camera-snap-btn material-icons">photo_camera</button>
-              <button id="collect-publish" class="camera-publish-btn material-icons" style="display: none;">publish</button>
-              <button id="collect-cancel" class="camera-cancel-btn material-icons" style="display: none;">cancel</button>
+              <canvas id="cam-take-by-camera" class="cam-open" style="display: none;"></canvas>
+              <button id="cam-button-snap" class="cam-snap-btn material-icons">photo_camera</button>
+              <button id="cam-collect-publish" class="cam-publish-btn material-icons" style="display: none;">publish</button>
+              <button id="cam-collect-cancel" class="cam-cancel-btn material-icons" style="display: none;">cancel</button>
             </div>
             <div>
-              <ul id="image-collect" class="image-collect-container"></ul>
+              <ul id="cam-image-collect" class="cam-image-collect-container"></ul>
             </div>
             <div>
-              <input type="file" id="load-image" name="load-image" accept=image/jpeg>
-              <button id="upload-image">upload</button>
+              <input type="file" id="cam-load-image" name="cam-load-image" accept=image/jpeg>
+              <button id="cam-upload-image">upload</button>
             </div>
           </div>
         `;
@@ -49,10 +49,10 @@ export default class extends AbstractView {
   }
 
   async openCamera() {
-    const openCamera = document.getElementById('open-camera');
-    const snapBtn = document.getElementById('button-snap');
-    const publishBtn = document.getElementById('collect-publish')
-    const cancelBtn = document.getElementById('collect-cancel');
+    const openCamera = document.getElementById('cam-open');
+    const snapBtn = document.getElementById('cam-button-snap');
+    const publishBtn = document.getElementById('cam-collect-publish')
+    const cancelBtn = document.getElementById('cam-collect-cancel');
 
     this.snapBtnSwitch(false);
     this.addFilter();
@@ -92,8 +92,8 @@ export default class extends AbstractView {
   }
 
   async uploadImageFromFile() {
-    const fileLoaded = document.getElementById('load-image');
-    const uploadBtn = document.getElementById('upload-image');
+    const fileLoaded = document.getElementById('cam-load-image');
+    const uploadBtn = document.getElementById('cam-upload-image');
 
     uploadBtn.onclick = async() => {
       const file = fileLoaded.files[0];
@@ -121,10 +121,10 @@ export default class extends AbstractView {
   }
 
   addFilter() {
-    const filterSepia = document.getElementById('filter-sepia');
-    const filterGrayscal = document.getElementById('filter-grayscale');
-    const filterBrightness = document.getElementById('filter-brightness');
-    const filterContrast = document.getElementById('filter-contrast');
+    const filterSepia = document.getElementById('cam-filter-sepia');
+    const filterGrayscal = document.getElementById('cam-filter-grayscale');
+    const filterBrightness = document.getElementById('cam-filter-brightness');
+    const filterContrast = document.getElementById('cam-filter-contrast');
 
     const filterArray = [filterSepia, filterGrayscal, filterBrightness, filterContrast];
     for (const filter of filterArray) {
@@ -133,7 +133,7 @@ export default class extends AbstractView {
       this.exampleCtx(filter.getContext("2d"))
     }
 
-    const openCameraFilter = document.getElementById('open-camera').style;
+    const openCameraFilter = document.getElementById('cam-open').style;
 
     filterSepia.onclick = () => {
       this.snapBtnSwitch(true);
@@ -169,10 +169,10 @@ export default class extends AbstractView {
   }
 
   activeCamera(camera, stream, on) {
-    const canvas = document.getElementById('take-by-camera');
-    const snapBtn = document.getElementById('button-snap');
-    const publishBtn = document.getElementById('collect-publish')
-    const cancelBtn = document.getElementById('collect-cancel');
+    const canvas = document.getElementById('cam-take-by-camera');
+    const snapBtn = document.getElementById('cam-button-snap');
+    const publishBtn = document.getElementById('cam-collect-publish')
+    const cancelBtn = document.getElementById('cam-collect-cancel');
 
     if (on === true) {
       camera.srcObject = null;
@@ -193,7 +193,7 @@ export default class extends AbstractView {
   }
 
   async loadCollectImage() {
-    const collect = document.getElementById('image-collect');
+    const collect = document.getElementById('cam-image-collect');
     const res = await getAllImage().then(res => res);
     this.fileArray = Array.from(res.files).sort((file1, file2) => {
       if (file1.date > file2.date) return 1;
@@ -210,7 +210,7 @@ export default class extends AbstractView {
   }
 
   async createImage(file) {
-    const collect = document.getElementById('image-collect');
+    const collect = document.getElementById('cam-image-collect');
 
     const data = await getImage(file.id);
     if (data && data.user === file.user) {
@@ -218,14 +218,14 @@ export default class extends AbstractView {
       const newImage = document.createElement('img');
       const deleteImgBtn = document.createElement('span');
 
-      newList.classList.add('image-collect-thumbnail-container');
+      newList.classList.add('cam-image-collect-thumbnail-container');
 
       newImage.id = file.id;
       newImage.src = file.data;
-      newImage.classList.add('image-collect-thumbnail');
+      newImage.classList.add('cam-image-collect-thumbnail');
 
       deleteImgBtn.id = data.id;
-      deleteImgBtn.classList.add('image-delete', 'material-icons');;
+      deleteImgBtn.classList.add('cam-image-delete', 'material-icons');;
       deleteImgBtn.innerHTML = 'close';
       deleteImgBtn.onclick = async () => {
         if (confirm('You really want delete this image?') === true) {
@@ -241,7 +241,7 @@ export default class extends AbstractView {
   }
 
   async deleteImage(imageNode, nodeId) {
-    const collect = document.getElementById('image-collect');
+    const collect = document.getElementById('cam-image-collect');
 
     const res = await removeImage(nodeId).then(data => data);
     if (res) alert(`Image ${nodeId} has delete!`);
@@ -253,7 +253,7 @@ export default class extends AbstractView {
   }
 
   createNewThumbnail(src, imageInfo) {
-    const canvas = document.getElementById('take-by-camera')
+    const canvas = document.getElementById('cam-take-by-camera')
 
     canvas.width = imageInfo.width;
     canvas.height = imageInfo.height;
@@ -262,7 +262,7 @@ export default class extends AbstractView {
   }
 
   async uploadThumbnail() {
-    const thumbnail = document.getElementById('take-by-camera');
+    const thumbnail = document.getElementById('cam-take-by-camera');
     const context = thumbnail.getContext('2d');
     const image = thumbnail.toDataURL('image/jpeg', 1.0);
   
@@ -275,7 +275,7 @@ export default class extends AbstractView {
   }
 
   snapBtnSwitch(onOff) {
-    const snapBtn = document.getElementById('button-snap');
+    const snapBtn = document.getElementById('cam-button-snap');
 
     snapBtn.disabled = onOff ? false : true;
   }
