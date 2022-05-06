@@ -5,57 +5,37 @@
 * [Presentation](#Presentation)
 * [Todo](#Todo)
 * [Tech](#Tech)
+* [Project_struct]
 
 ## Presentation
 
 42 School Project  
-The goal of this project is to build a web application a little more complex than the previous ones with a little less means.
+The goal of this project is to build a instagram-like website.
 
 ## Todo
 
-Mandatory Part:
+[Todo](./todo.md)
 
-- [ ] header + main + footer
-- [ ] requirement about form (password in db not encrypted, injection sql, upload undesirable content, can modify a sql request ...)
+## Tech
 
-User features:
+- Back-end: Typescript + NodeJs
+- Front-end: Html + css + Javascript
+- Framework:
+  - Back-end: express
+  - Front-end: no framework (web api)
+- Database: MongoDB
+- Containerization: docker-compose
 
-- [x] user subscription: email + username + password(security)
-- [x] user must have validated his account with url receive by email
-- [x] user should be able to connect with username + password
-- [x] user can reset her password with url receive by email if he forgets
-- [x] user must be able to disconnect with a single click from any page on the site
-- [x] user will be able to modify username, email and password, once logged in
+## Project_struct
 
-Gallery features:
+- Front-end: A SPA (Single Page Application) without framework.  
+  Using Javascript vanilla.  
+  [index.html](./front-end/index.html)
 
-- [x] accessible without authentication
-- [x] list of images sort by date creation
-- [x] image must be able to allow the user comment and like them if he is authenticated
-- [x] when an image receives a new comment, the author of this image must be informed by email (This preference is enabled by default, but can be disabled in the user preferences)
-- [x] list of images should be paginated, with at least 5 items per page.
+- Back-end: RESTful API.  
+  Using Express (NodeJs).  
+  [api.ts](./back-end/api.ts)
 
-Editing features:
-
-- [x] a main section containing the preview of the user’s webcam, the list of superposable images and a button allowing to capture a picture.
-- [x] a side section displaying thumbnails of all previous pictures taken.
-- [x] Superposable images must be selectable and the button allowing to take the picture should be inactive (not clickable) as long as no superposable image has been selected.
-- [x] creation of the final image must be done on the server side.
-- [x] allow the upload of a user image instead of capturing one with the webcam.
-- [x] user should be able to delete his edited images, but only his, not other users creations
-
-Deployment:
-
-- [ ] docker-compose
-
-# Tech
-
-Authorized languages:
-- Server: All
-- Client: HTML + CSS + Javascript
-
-Authorized frameworks:
-- Server: Limited to standard PHP library functions
-- Client: CSS frameworks tolerated, as long as it does not add JavaScript
-
-Containerization (deployment)
+- Database: NoSQL database.  
+  Using MongoDB.  
+  [Database](./back-end/src/services/db.service.ts)
