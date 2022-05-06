@@ -1,9 +1,44 @@
-.gallery-image {
-  width: 25%;
+/* .gallery-title {
+
+} */
+
+.gallery-separator {
+  margin: 20px auto;
 }
 
 .gallery-container {
-  text-align: center;
+  margin: auto 20%;
+}
+
+.gallery-container ul {
+  list-style-type: none;
+}
+
+.gallery-image-container {
+  margin: 30px auto;
+  width: 75%;
+}
+
+.gallery-image {
+  width: 100%;
+  border-radius: 10px;
+}
+
+.gallery-social-container {
+  margin-left: 1%;
+  text-align: left;
+}
+
+.gallery-social-content:hover {
+  cursor: pointer;
+}
+
+.gallery-social-content-form input {
+  width: 100%;
+}
+
+.gallery-social-container span {
+  font-size: 25px;
 }
 
 .gallery-pagination-container {

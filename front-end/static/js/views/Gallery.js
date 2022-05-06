@@ -14,9 +14,9 @@ export default class extends AbstractView {
 
   async getHtml() {
     return `
-      <h1>Gallery</h1>
+      <h1 class="gallery-title" >Gallery</h1>
 
-      <hr>
+      <hr class="gallery-separator">
 
       <div class="gallery-container">
         <ul id="gallery-collect"></ul>
@@ -95,6 +95,8 @@ export default class extends AbstractView {
     const newList = document.createElement('li');
     const newImage = document.createElement('img');
 
+    newList.classList.add('gallery-image-container')
+
     newImage.classList.add('gallery-image');
     newImage.id = file.id;
     newImage.src = file.data;
@@ -112,8 +114,11 @@ export default class extends AbstractView {
     const socialLikeNumberDiv = document.createElement('div');
     const socialLikeNumber = document.createElement('span');
 
-    socialLike.classList.add('material-icons');
-    socialComment.classList.add('material-icons');
+    socialDiv.id = `gallery-social-${fileInfo.id}`;
+    socialDiv.classList.add('gallery-social-container');
+
+    socialLike.classList.add('material-icons', 'gallery-social-content');
+    socialComment.classList.add('material-icons', 'gallery-social-content');
 
     const user = await userInfo().then(data => data);
     if (user) socialLike.innerHTML = fileInfo.social.like.find(like => like === user.username) ? 'favorite' : 'favorite_border';
@@ -128,10 +133,10 @@ export default class extends AbstractView {
     socialDiv.appendChild(socialLike);
     socialDiv.appendChild(socialComment);
     
-    parentNode.appendChild(socialLikeNumberDiv)
+    socialDiv.appendChild(socialLikeNumberDiv)
     socialLikeNumberDiv.appendChild(socialLikeNumber);
 
-    this.socialComment(parentNode, fileInfo.id);
+    this.socialComment(fileInfo.id);
     this.socialClick(socialLike, socialComment, document.getElementById(`${fileInfo.id}-form`));
   }
 
@@ -176,7 +181,8 @@ export default class extends AbstractView {
     }
   }
 
-  async socialComment(parentNode, id) {
+  async socialComment(id) {
+    const socialDiv = document.getElementById(`gallery-social-${id}`);
     const commentForm = document.createElement('form');
     const commentInput = document.createElement('input');
     const commentPost = document.createElement('button');
@@ -185,6 +191,8 @@ export default class extends AbstractView {
     commentForm.id = `${id}-form`;
     commentForm.method = 'post';
 
+    commentForm.classList.add('gallery-social-content-form');
+
     commentInput.placeholder = 'add a comment ...';
     commentInput.name = `${id}-form-input`;
     commentInput.required = true;
@@ -192,7 +200,7 @@ export default class extends AbstractView {
     commentPost.type = 'submit';
     commentPost.innerHTML = 'Post';
 
-    parentNode.appendChild(commentForm);
+    socialDiv.appendChild(commentForm);
     commentForm.appendChild(commentInput);
     commentForm.appendChild(commentPost);
   }
