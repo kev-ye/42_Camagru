@@ -1,3 +1,10 @@
+/* common */
+
+@font-face {
+	font-family: BioRhyme;
+	src: url(../fonts/BioRhyme-Regular.ttf)
+}
+
 * {
   margin: 0;
   padding: 0; 
@@ -6,4 +13,131 @@
 body {
   width: 100%;
   background-color: white;
+  font-family: BioRhyme, Roboto, "Helvetica Neue", sans-serif;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+ 
+::-webkit-scrollbar-thumb {
+  background: #888; 
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+}
+
+/* index */
+
+.index-header {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  height: 75px;
+  right: 0px;
+  overflow: hidden;
+  border: 3px solid black;
+  border-radius: 15px;
+}
+
+.app {
+  position: absolute;
+  top: 80px;
+  bottom: 80px;
+  left: 0px;
+  right: 0px;
+  overflow: auto;
+}
+
+.index-footer {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  position: absolute;
+  bottom: 0px;
+  height: 75px;
+  left: 0px;
+  right: 0px;
+  overflow: hidden;
+  border: 3px solid black;
+  border-radius: 15px;
+}
+
+.index-footer p {
+  font-size: 30px;
+  font-style: italic;
+  font-weight: bold;
+}
+
+.index-footer p span {
+  margin: 20px;
+}
+
+/* nav */
+
+.nav-container {
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-container a {
+  text-decoration: none;
+}
+
+.nav-content-index,
+.nav-content-montage,
+.nav-content-user,
+.nav-content-exit,
+.nav-content-login,
+.nav-content-logout {
+  color: black;
+  font-weight: bold;
+  font-size: 45px;
+}
+
+.nav-content-index {
+  margin-left: 10px;
+  font-style: italic;
+}
+
+.nav-content-montage {
+  margin-top: 10px;
+  margin-right: 55px;
+}
+
+.nav-content-user,
+.nav-content-exit,
+.nav-content-login,
+.nav-content-logout {
+  margin-right: 10px;
+  border: none;
+  background: none;
+}
+
+.nav-content-login,
+.nav-content-logout {
+  margin-right: 50px;
+  font-size: 30px;
+  font-style: italic;
+}
+
+.nav-content-login {
+  margin-right: 25px;
+}
+
+.nav-content-index:hover,
+.nav-content-montage:hover,
+.nav-content-user:hover,
+.nav-content-exit:hover,
+.nav-content-login:hover,
+.nav-content-logout:hover {
+  opacity: 0.5;
 }

@@ -2,8 +2,9 @@
 
 Mandatory Part:
 
-- [ ] header + main + footer
+- [x] header + main + footer
 - [ ] requirement about form (password in db not encrypted, injection sql, upload undesirable content, can modify a sql request ...)
+- [ ] CSS design
 
 User features:
 

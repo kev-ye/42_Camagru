@@ -11,17 +11,27 @@ export default class extends AbstractView {
       return res
         ? `
           <nav class="nav-container">
-            <a href="/" data-link>Gallery</a>
-            <a href="/montage" data-link>Montage</a>
-            <a href="/user" data-link>User</a>
-            <button id="user-exit">Exit</button>
+            <div>
+              <a href="/" class="nav-content-index" data-link>Camagru</a>
+            </div>
+            <div>
+              <a href="/montage" class="nav-content-montage material-icons" data-link>photo_camera</a>
+            </div>
+            <div>
+              <a href="/user" class="nav-content-user material-icons" data-link>person</a>
+              <button id="user-exit" class="nav-content-exit material-icons"">logout</button>
+            </div>
           </nav>
         `
         : `
           <nav class="nav-container">
-            <a href="/" data-link>Gallery</a>
-            <button id="sign-in">Sign in</button>
-            <button id="sign-up">Sign up</button>
+            <div>
+              <a href="/" class="nav-content-index" data-link>Gallery</a>
+            </div>
+            <div>
+              <button id="sign-in" class="nav-content-login">Sign-in</button>
+              <button id="sign-up" class="nav-content-logout">Sign-up</button>
+            </div>          
           </nav>
         `
     });

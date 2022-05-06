@@ -42,10 +42,12 @@ export default class extends AbstractView {
 
   async collectCanShow() {
     const collect = document.getElementById('gallery-collect');
-    const childNodes = collect.childNodes;
+    const childNodes = Array.from(collect.childNodes);
   
     for (const childNode of childNodes)
       collect.removeChild(childNode);
+
+    collect.innerHTML = '';
 
     const currentFirstElIdx = this.page === 0 ? 0 : this.page * 5;
     const nextFIrstrElIdx = this.page === 0 ? 5 : this.page * 5 + 5;
@@ -83,7 +85,7 @@ export default class extends AbstractView {
     if (this.page === 0) pB.style.visibility = 'hidden';
     else pB.style.visibility = 'visible';
 
-    if (this.page * 5 + 5 > this.fileArray.length) nB.style.visibility = 'hidden';
+    if (this.page * 5 + 5 >= this.fileArray.length) nB.style.visibility = 'hidden';
     else nB.style.visibility = 'visible'
   }
 
