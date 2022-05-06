@@ -16,9 +16,9 @@ export default class extends AbstractView {
     return await haveAccess().then(async res => {
       if (res) {
         return `
-          <h1>Montage</h1>
+        <h1 class="common-title" >Montage</h1>
 
-          <hr>
+        <hr class="common-separator">
 
           <div class="cam-container">
             <div class="cam-content">

@@ -14,7 +14,7 @@ export default class extends AbstractView {
         ? `
           <h1>Confirmation</h1>
 
-          <hr>
+          <hr class="common-separator">
 
           <h2>Your account are not confirmed</h2>
           <button id="account-confirmation">Click it</button>

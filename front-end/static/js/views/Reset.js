@@ -14,9 +14,9 @@ export default class extends AbstractView {
         return await tokenVerify().then(res => {
           return res
             ? `
-              <h1>Reset password</h1>
-        
-              <hr>
+              <h1 class="common-title" >Reset Password</h1>
+
+              <hr class="common-separator">
         
               <form name="new-password-form" id="new-password-form" method="post">
                 <label for="new-password">New password</label>

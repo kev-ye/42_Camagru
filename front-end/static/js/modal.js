@@ -1,6 +1,5 @@
 import SignIn from "./views/modals/SignIn.js"
 import SignUp from "./views/modals/SignUp.js";
-import Forget from "./views/modals/Forget.js"
 
 const signIn = async () => {
   const signInMod = document.getElementById('mod-signIn');
@@ -19,11 +18,17 @@ const signUp = async () => {
   }
 }
 
-const signInDefaultClose = (id) => {
+const modDefaultClose = (id) => {
   const toclose = document.getElementById(id);
 
-  if (['mod-signIn', 'mod-signUp', 'mod-forget'].find(el => el === id)) {
+  if (['mod-mod', 'mod-signUp', 'mod-forget'].find(el => el === id)) {
     toclose.style.display = 'none';
+  }
+
+  const imgModId = String(id).split('-');
+  if (imgModId.length === 3 && `${imgModId[0]}-${imgModId[1]}` === 'mod-image') {
+    const toCloseImgMod = document.getElementById(id);
+    toCloseImgMod.style.display = 'none';
   }
 }
 
@@ -38,7 +43,7 @@ document.addEventListener("DOMContentLoaded", () => {
           await signUp();
           break ;
         default:
-          signInDefaultClose(e.target.id);
+          modDefaultClose(e.target.id);
           break ;
       }
     }

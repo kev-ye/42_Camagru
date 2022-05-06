@@ -16,6 +16,32 @@ body {
   font-family: BioRhyme, Roboto, "Helvetica Neue", sans-serif;
 }
 
+button {
+  background-color: black; /* Green */
+  border: none;
+  border-radius: 10px;
+  color: white;
+  padding: 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+}
+
+button {
+  background-color: white; 
+  color: black; 
+  border: 2px solid black;
+}
+
+button:hover {
+  background-color: black;
+  color: white;
+}
+
 ::-webkit-scrollbar {
   width: 10px;
 }
@@ -30,6 +56,10 @@ body {
 
 ::-webkit-scrollbar-thumb:hover {
   background: #555; 
+}
+
+.common-separator {
+  margin: 20px auto;
 }
 
 /* index */

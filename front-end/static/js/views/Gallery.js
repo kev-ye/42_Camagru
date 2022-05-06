@@ -14,9 +14,9 @@ export default class extends AbstractView {
 
   async getHtml() {
     return `
-      <h1 class="gallery-title" >Gallery</h1>
+      <h1 class="common-title" >Gallery</h1>
 
-      <hr class="gallery-separator">
+      <hr class="common-separator">
 
       <div class="gallery-container">
         <ul id="gallery-collect"></ul>
