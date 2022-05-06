@@ -1,8 +1,7 @@
 FROM nginx:alpine AS development
 
-WORKDIR /camagru/front-end
-
 RUN rm -rf /usr/share/nginx/html/*
+RUN mkdir /usr/share/nginx/html/front-end
 
-COPY /camagru/front-end /usr/share/nginx/html
-COPY /camagru/front-end/default.conf /etc/nginx/conf.d/default.conf
+COPY . /usr/share/nginx/html/
+COPY default.conf /etc/nginx/conf.d/default.conf
