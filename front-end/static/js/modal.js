@@ -1,7 +1,7 @@
 import SignIn from "./views/modals/SignIn.js"
 import SignUp from "./views/modals/SignUp.js";
 
-const signIn = async () => {
+export const signIn = async () => {
   const signInMod = document.getElementById('mod-signIn');
   if (!signInMod) {
     const $signIn = new SignIn();
@@ -10,7 +10,7 @@ const signIn = async () => {
   }
 }
 
-const signUp = async () => {
+export const signUp = async () => {
   const signUpMod = document.getElementById('mod-signUp');
   if (!signUpMod) {
     const $signUp = new SignUp();

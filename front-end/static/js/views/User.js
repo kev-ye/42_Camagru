@@ -72,8 +72,7 @@ export default class extends AbstractView {
         undefined,
         user.notify === true ? false : true
       ).then(res => {
-        if (res) alert(`Notify ${user.notify === true ? 'close' : 'open'}!`);
-        else alert('Something wrong');
+        if (!res) alert('Something wrong');
       });
     }
   }
@@ -165,7 +164,6 @@ export default class extends AbstractView {
         undefined).then(async res => {
           if (!res) alert('Username already exist!');
           else {
-            alert(`${info} updated!`);
             localStorage.setItem('__token__', res.token);
             await this.cancel(info);
           }
@@ -183,7 +181,6 @@ export default class extends AbstractView {
         undefined).then(async res => {
           if (!res) alert('Old password wrong!');
           else {
-            alert(`${info} updated!`);
             await this.cancel(info);
           }
         });

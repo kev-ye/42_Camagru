@@ -98,7 +98,6 @@ const router = async () => {
 
 const exit = async () => {
   localStorage.removeItem('__token__');
-  alert('You are logout!');
   location = '/';
 }
 

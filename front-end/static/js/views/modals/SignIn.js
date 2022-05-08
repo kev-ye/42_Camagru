@@ -72,6 +72,7 @@ export default class extends AbstractModal {
   }
 
   async forgetPassword() {
+    console.log('test?');
     this.forget = document.getElementById('forget-password');
     const forgetMod = document.getElementById('mod-forget');
   

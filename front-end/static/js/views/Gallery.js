@@ -2,6 +2,7 @@ import AbstractView from "./AbstractView.js"
 import { getAllImage, updateSocialInfo } from "../service/file.js";
 import { userInfo } from "../service/user.js";
 import ImageMod from "./modals/Image.js";
+import SignIn from "./modals/SignIn.js";
 
 export default class extends AbstractView {
   constructor() {
@@ -144,7 +145,7 @@ export default class extends AbstractView {
     likeNode.onclick = async (e) => {
       const token = localStorage.getItem('__token__');
       if (!token) {
-        alert('You are not login!');
+        await this.callSignIn();
         return ;
       }
       const id = String(e.target.id).split('-')[0];
@@ -167,7 +168,7 @@ export default class extends AbstractView {
       e.preventDefault();
       const token = localStorage.getItem('__token__');
       if (!token) {
-        alert('You are not login!');
+        this.callSignIn();
         return ;
       }
 
@@ -203,5 +204,19 @@ export default class extends AbstractView {
     socialDiv.appendChild(commentForm);
     commentForm.appendChild(commentInput);
     commentForm.appendChild(commentPost);
+  }
+
+
+  /* utils */
+  async callSignIn() {
+    const signInMod = document.getElementById('mod-signIn');
+    if (!signInMod) {
+      const $signIn = new SignIn();
+      await $signIn.accept();
+      await $signIn.forgetPassword();
+    }
+    else {
+      signInMod.style.display = 'block';
+    }
   }
 }

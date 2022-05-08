@@ -1,5 +1,6 @@
 import { getImageWithoutAuth, updateSocialInfo } from "../../service/file.js";
 import AbstractModal from "./AbstractModal.js";
+import SignIn from "./SignIn.js";
 
 export default class extends AbstractModal {
   constructor(id) {
@@ -107,7 +108,7 @@ export default class extends AbstractModal {
       e.preventDefault();
       const token = localStorage.getItem('__token__');
       if (!token) {
-        alert('You are not login!');
+        await this.callSignIn();
         return ;
       }
       const commentForm = document.forms[`mod-image-${this.id}-form`][`mod-image-${this.id}-form-input`];
@@ -152,5 +153,17 @@ export default class extends AbstractModal {
         this.deleteTimer()
       }
     });
+  }
+
+  async callSignIn() {
+    const signInMod = document.getElementById('mod-signIn');
+    if (!signInMod) {
+      const $signIn = new SignIn();
+      await $signIn.accept();
+      await $signIn.forgetPassword();
+    }
+    else {
+      signInMod.style.display = 'block';
+    }
   }
 }
