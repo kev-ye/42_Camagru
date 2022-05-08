@@ -12,7 +12,6 @@ export default class {
     })
     .then(res => res.json())
     .catch(e => {
-      console.log('Log: Get: Error:', e);
       return {};
     })
   }
@@ -30,7 +29,6 @@ export default class {
     })
     .then(res => res.json())
     .catch(e => {
-      console.log('Log: Post: Error:', e);
       return {};
     })
   }
@@ -48,7 +46,6 @@ export default class {
     })
     .then(res => res.json())
     .catch(e => {
-      console.log('Log: Put: Error:', e);
       return {};
     })
   }
@@ -65,7 +62,6 @@ export default class {
     })
     .then(res => res.json())
     .catch(e => {
-      console.log('Log: Delete: Error:', e);
       return {};
     })
   }

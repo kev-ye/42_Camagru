@@ -26,14 +26,12 @@ export function requireUsername(userName: string): boolean {
   return require.test(userName);
 }
 
-export function requirePassword(password?: string): boolean { // psw may not exist
-  // const require = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[a-zA-Z0-9]{8,16}$/;
-  // return require.test(password);
-  return true; // debug
+export function requirePassword(password: string): boolean {
+  const require = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[a-zA-Z0-9]{8,16}$/;
+  return require.test(password);
 }
 
 export function requireEmail(email: string) : boolean {
-  // const require = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-  // return require.test(email);
-  return true; // debug
+  const require = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+  return require.test(email);
 }

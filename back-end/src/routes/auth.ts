@@ -87,14 +87,12 @@ authRouter.get("/active/verify", authWithJwt, async (req: Request, res: Response
     }
     else user._activated = true;
 
-    const result = await collections.users?.updateOne({ username: String(decode.username) }, { $set: user });
-    result
-      ? res.send({ "activated": true })
-      : res.send({})
+    await collections.users?.updateOne({ username: String(decode.username) }, { $set: user });
+    res.redirect('http://localhost:5050');
   } catch (error) {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    res.send({});
+    res.redirect('http://localhost:5050');
   }
 });
 

@@ -56,7 +56,7 @@ export default class extends AbstractModal {
       const p = document.forms["mod-signUp-form"]["mod-signUp-psw"];
       const m = document.forms["mod-signUp-form"]["mod-signUp-email"];
 
-      // if (this.validateForm(u, p, m)) {
+      if (this.validateForm(String(u.value), String(p.value), String(m.value))) {
         await createNewUser(
           String(u.value),
           String(p.value),
@@ -69,7 +69,7 @@ export default class extends AbstractModal {
           }
           else alert(`User ${String(u.value)} already exist!`);
         });
-      // }
+      }
     }
   }
 
@@ -78,13 +78,15 @@ export default class extends AbstractModal {
     const pRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[a-zA-Z0-9]{8,16}$/;
     const mRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
 
+    console.log(u);
+
     if (!u || !uRegex.test(u)) {
-      alert("Username must contain letters or numbers, length between 6-16");
+      alert("- Username must contain letters or numbers\n- Length between 6-16");
       return false;
     }
 
     if (!p || !pRegex.test(p)) {
-      alert("Password must contain a combination of uppercase and lowercase letters and numbers, no special characters, length between 8-16");
+      alert("- Password must contain a combination of uppercase and lowercase letters and numbers\n- No special characters\n- Length between 8-16");
       return false;
     }
 

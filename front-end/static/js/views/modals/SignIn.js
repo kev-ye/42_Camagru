@@ -57,7 +57,7 @@ export default class extends AbstractModal {
       const u = String(document.forms["mod-signIn-form"]["mod-signIn-username"].value);
       const p = String(document.forms["mod-signIn-form"]["mod-signIn-psw"].value);
 
-      // if (this.validateForm(u, p)) {
+      if (this.validateForm(u, p)) {
         await userSignIn(u, p).then(token => {
           if (token) {
             localStorage.setItem('__token__', token);
@@ -65,14 +65,13 @@ export default class extends AbstractModal {
           }
           else alert('Username or password wrong');
         })
-    //   }
-    //   else
-    //     alert('Username or password wrong');
+      }
+      else
+        alert('Username or password wrong');
     }
   }
 
   async forgetPassword() {
-    console.log('test?');
     this.forget = document.getElementById('forget-password');
     const forgetMod = document.getElementById('mod-forget');
   

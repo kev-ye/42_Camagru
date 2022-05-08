@@ -49,14 +49,14 @@ export default class extends AbstractView {
         location = '/';
         return ;
       }
-      // if (this.validateForm(p)) {
+      if (this.validateForm(p)) {
         await resetPassword(token, p).then(res => {
           if (res) alert(`Password has been changed`);
           else alert(`Something wrong!`);
 
           location = '/';
         })
-      // }
+      }
     }
   }
 

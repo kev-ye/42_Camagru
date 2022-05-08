@@ -66,6 +66,13 @@ input[type=password].mod-common-input {
   padding: 16px;
 }
 
+@media only screen and (max-width: 640px) {
+  .mod-content {
+    padding: 0px;
+    width: 75%;
+  }
+}
+
 /* modal common btn */
 
 .mod-btn-container {
@@ -85,6 +92,10 @@ input[type=password].mod-common-input {
   background-color: #FF6347;
   color: white;
   border: none;
+}
+
+@media only screen and (max-width: 640px) {
+
 }
 
 /* signIn modal set */

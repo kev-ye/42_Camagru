@@ -131,3 +131,23 @@
 .user-notify-slider.user-notify-round:before {
   border-radius: 50%;
 }
+
+/* password reset */
+
+#new-password-form input {
+  width: 50%;
+  margin: 20px;
+  padding: 12px 10px;
+  box-sizing: border-box;
+  border: none;
+  border-bottom: 2px solid black;
+  transform: translateY(-25%);
+}
+
+#new-password-form button {
+  width: 30%;
+}
+
+#account-confirmation {
+  width: 30%;
+}
