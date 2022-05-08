@@ -85,6 +85,28 @@
   left: 55%;
 }
 
+@media only screen and (max-width: 640px) {
+  .cam-snap-btn,
+  .cam-publish-btn,
+  .cam-cancel-btn {
+    opacity: 0.5;
+    left: 45%;
+    bottom: 20%;
+  }
+
+  .cam-publish-btn {
+    left: 40%;
+  }
+
+  .cam-cancel-btn {
+    left: 55%;
+  }
+
+  .cam-image-delete {
+    display: block;
+  }
+}
+
 .cam-filter-container {
   list-style: none;
   position: absolute;
@@ -116,6 +138,15 @@
 }
 .cam-filter-contrast {
   filter: contrast(140%);
+}
+
+@media only screen and (max-width: 640px) {
+  .cam-filter-sepia,
+  .cam-filter-grayscale,
+  .cam-filter-brightness,
+  .cam-filter-contrast {
+    width: 95%;
+  }
 }
 
 .cam-image-upload-container {
@@ -163,4 +194,27 @@
 .cam-image-upload-container input:hover::before {
   background-color: black;
   color: white;
+}
+
+@media only screen and (max-width: 640px) {
+  .cam-image-upload-container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .cam-image-upload-container input {
+    margin: 10px 20px;
+    width: 80%;
+  }
+
+  .cam-image-upload-container input:hover::before {
+    background-color: white;
+    color: black;
+    }
+
+  .cam-image-upload-container button {
+    margin: 0px 20px;
+    width: 80%;
+    padding: 20px;
+  }
 }

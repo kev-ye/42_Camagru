@@ -47,6 +47,29 @@
   transform: translateY(-25%);
 }
 
+@media only screen and (max-width: 640px) {
+  .user-edit-content li,
+  .user-notify {
+    font-size: 15px;
+  }
+
+  .user-edit-content input {
+    /* width: 100%; */
+    transform: translateY(-30%);
+  }
+
+  #user-old-password-input,
+  #user-new-password-input {
+    transform: translateY(-10%);
+  }
+
+  .user-edit-btn {
+    padding: 5px;
+    margin: 0px;
+    margin-top: 5px;
+  }
+}
+
 /* switch */
 
 .user-notify-switch {

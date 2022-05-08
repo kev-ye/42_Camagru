@@ -125,6 +125,8 @@ export default class extends AbstractView {
     if (user) socialLike.innerHTML = fileInfo.social.like.find(like => like === user.username) ? 'favorite' : 'favorite_border';
     else socialLike.innerHTML = 'favorite_border';
     socialComment.innerHTML = 'chat';
+
+    socialLikeNumber.classList.add('gallery-social-likeNumber');
     socialLikeNumber.innerHTML = `${fileInfo.social.like.length} people like it!`;
 
     socialLike.id = `${fileInfo.id}-like`;

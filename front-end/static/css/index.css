@@ -66,6 +66,24 @@ button:hover {
   margin: 20px auto;
 }
 
+@media only screen and (max-width: 640px) {
+  ::-webkit-scrollbar {
+    display: none;
+  }
+
+  .common-separator {
+    margin: 10px 20px;
+  }
+
+  .common-title {
+    font-size: 20px;
+  }
+
+  button {
+    padding: 5px;
+  }
+}
+
 /* index */
 
 .index-header {
@@ -113,6 +131,27 @@ button:hover {
 
 .index-footer p span {
   margin: 20px;
+}
+
+@media only screen and (max-width: 640px) {
+  .index-header,
+  .index-footer {
+    height: 45px;
+  }
+
+  .app {
+    padding: 0px;
+    top: 50px;
+    bottom: 50px;
+  }
+
+  .index-footer p {
+    font-size: 12px;
+  }
+
+  .index-footer p span {
+    margin: 5px;
+  }
 }
 
 /* nav */
@@ -177,4 +216,36 @@ button:hover {
 .nav-content-login:hover,
 .nav-content-logout:hover {
   opacity: 0.5;
+}
+
+@media only screen and (max-width: 640px) {
+  .nav-content-index,
+  .nav-content-montage,
+  .nav-content-user,
+  .nav-content-exit,
+  .nav-content-login,
+  .nav-content-logout {
+    margin: 0px;
+    padding: 0px;
+    font-size: 20px; 
+  }
+
+  .nav-content-index {
+    padding-left: 5px;
+  }
+
+  .nav-content-logout {
+    padding-right: 5px;
+  }
+
+  .nav-content-montage {
+    margin-right: 0px;
+  }
+
+  .nav-content-montage,
+  .nav-content-user,
+  .nav-content-exit {
+    margin-top: 10px;
+    margin-right: 10px;
+  }
 }
