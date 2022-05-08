@@ -17,7 +17,9 @@
 
 .gallery-image {
   width: 100%;
-  border-radius: 10px;
+  margin-bottom: 20px;
+  border-radius: 20px;
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.90);
 }
 
 .gallery-social-container {
@@ -30,7 +32,19 @@
 }
 
 .gallery-social-content-form input {
-  width: 100%;
+  width: 70%;
+  padding: 12px 10px;
+  box-sizing: border-box;
+  border: none;
+  border-bottom: 2px solid black;
+  transform: translateY(-25%);
+}
+
+.gallery-social-content-form button {
+  width: 20%;
+  padding: 10px;
+  margin: 10px;
+  transform: translateY(-25%);
 }
 
 .gallery-social-container span {
@@ -39,4 +53,8 @@
 
 .gallery-pagination-container {
   margin: 25px auto;
+}
+
+.gallery-pagination-container button {
+  width: 45%;
 }

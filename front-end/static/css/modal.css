@@ -50,56 +50,51 @@ hr.mod-separator {
   cursor: pointer;
 }
 
-button {
-  cursor: pointer;
-}
-
-button:hover {
-  opacity: 0.8;
-}
-
 input[type=text].mod-common-input,
 input[type=password].mod-common-input {
   width: 100%;
   padding: 12px 20px;
-  margin: 8px 0;
+  margin: 10px 0;
   display: inline-block;
-  border: 2px solid #000;
   box-sizing: border-box;
+  border: none;
+  border-bottom: 2px solid black;
 }
 
 .mod-common-main-container {
+  margin: 10px;
   padding: 16px;
+}
+
+/* modal common btn */
+
+.mod-btn-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.mod-acceptbtn,
+.mod-cancelbtn {
+  padding: 14px 20px;
+  margin: 20px 0;
+  border-radius: 20px;
+  width: 45%;
+}
+
+.mod-cancelbtn {
+  background-color: #FF6347;
+  color: white;
+  border: none;
 }
 
 /* signIn modal set */
 
-.mod-signIn-acceptbtn {
-  background-color: #04AA6D;
-  color: white;
-  padding: 14px 20px;
-  margin: 8px 0;
-  border: none;
-  border-radius: 20px;
-  width: 100%;
-}
-
-.mod-signIn-cancelbtn {
-  background-color: #F44336;
-  width: auto;
-  color: white;
-  padding: 10px 18px;
-  border: none;
-  border-radius: 20px;
-}
-
-span.mod-psw {
+span.mod-signIn-psw {
   float: right;
-  padding-top: 16px;
 }
 
 @media screen and (max-width: 470px) {
-  span.mod-psw {
+  span.mod-signIn-psw {
     display: block;
     float: none;
   }
@@ -109,48 +104,62 @@ span.mod-psw {
   }
 }
 
-/* SignUp + forget modal set */
-
-.mod-signUp-acceptbtn,
-.mod-signUp-cancelbtn,
-.mod-forget-acceptbtn,
-.mod-forget-cancelbtn {
-  background-color: #04AA6D;
-  color: white;
-  padding: 14px 20px;
-  margin: 8px 0;
-  border: none;
-  border-radius: 20px;
-  width: 30%;
-}
-
-.mod-signUp-cancelbtn,
-.mod-forget-cancelbtn {
-  background-color: #F44336;
-}
-
-.mod-signUp-button-container,
-.mod-forget-button-container {
-  display: flex;
-  justify-content: space-between;
-}
-
 /* Image modal */
 
 .mod-content-image {
   width: 90%;
-  height: 100%;
 }
 
-.mod-image-container {
-  margin: 0 15px;
-  background-color: #000;
-  vertical-align: middle;
+.mod-image-social-content {
+  height: 680px;
+  display: flex;
+  flex-direction: row;
+}
+
+.mod-image-container,
+.mod-image-comment-container {
+  margin: 30px 20px;
+  float: left;
 }
 
 .mod-image-content {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 0;
+  position: relative;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  border-radius: 10px;
+  width: 100%;
+}
+
+.mod-image-comment-container {
   width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  bottom: 0;
+}
+
+.mod-image-comment-container button {
+  width: 20%;
+}
+
+.mod-image-comment-container input {
+  float: left;
+  width: 70%;
+  padding: 12px 10px;
+  box-sizing: border-box;
+  border: none;
+  border-bottom: 2px solid black;
+  transform: translateY(-25%);
+}
+
+.mod-image-comment-container ul {
+  display: flex;
+  flex-direction: column;
+  list-style-type: none;
+}
+
+.mod-image-comment-container ul li {
+  text-align: left;
 }

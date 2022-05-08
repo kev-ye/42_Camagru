@@ -28,9 +28,9 @@ export default class extends AbstractModal {
               <label for="mod-forget-username"><b>Username</b></label>
               <input id="mod-forget-username" type="text" placeholder="Enter Username" name="mod-forget-username" class="mod-common-input" required>
 
-              <div class="mod-forget-button-container">
-                <button type="submit" class="mod-forget-acceptbtn">Send</button>
-                <button type="button" id="mod-forget-cancelbtn" class="mod-forget-cancelbtn">Cancel</button>
+              <div class="mod-btn-container">
+                <button type="submit" class="mod-acceptbtn">Send</button>
+                <button type="button" id="mod-forget-cancelbtn" class="mod-cancelbtn">Cancel</button>
               </div>
             </div>
 

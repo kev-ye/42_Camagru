@@ -21,7 +21,7 @@ const signUp = async () => {
 const modDefaultClose = (id) => {
   const toclose = document.getElementById(id);
 
-  if (['mod-mod', 'mod-signUp', 'mod-forget'].find(el => el === id)) {
+  if (['mod-signIn', 'mod-signUp', 'mod-forget'].find(el => el === id)) {
     toclose.style.display = 'none';
   }
 

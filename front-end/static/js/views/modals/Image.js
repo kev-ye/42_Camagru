@@ -13,29 +13,33 @@ export default class extends AbstractModal {
         <div id="mod-image-${id}" class="mod">
           <div class="mod-content-image">
 
-            <div class="mod-close-container">
-              <span id="mod-image-${id}-close" class="mod-common-close">&times;</span>
+            <div class="mod-image-info-container">
+              <div class="mod-close-container">
+                <span id="mod-image-${id}-close" class="mod-common-close">&times;</span>
+              </div>
+
+              <div class="mod-title-container">
+                <h1>Picture: ${id}</h1>
+              </div>
+
+              <hr class="mod-separator">
             </div>
+            
+            <div class="mod-image-social-content">
+              <div class="mod-image-container">
+                <img src="${this.getImageSrc(id)}" class="mod-image-content">
+              </div>
 
-            <div class="mod-title-container">
-              <h1>Picture: ${id}</h1>
+              <div class="mod-image-comment-container">
+                <ul id="mod-image-${id}-comment-list">
+                </ul>
+              <div>
+
+              <form name="mod-image-${id}-form" id="mod-image-${id}-form" class="mod-image-comment-input-container" post>
+                <input name="mod-image-${id}-form-input" placeholder="add a comment ..." required>
+                <button type="submit">Post</button>
+              </form>
             </div>
-
-            <hr class="mod-separator">
-
-            <div class="mod-image-container">
-              <img src="${this.getImageSrc(id)}" class="mod-image-content">
-            </div>
-
-            <div class="mod-image-comment-container">
-              <ul id="mod-image-${id}-comment-list">
-              </ul>
-            <div>
-
-            <form name="mod-image-${id}-form" id="mod-image-${id}-form" class="mod-image-comment-input-container" post>
-              <input name="mod-image-${id}-form-input" placeholder="add a comment ..." required>
-              <button type="submit">Post</button>
-            </form>
 
           </div>
         </div>
@@ -85,7 +89,6 @@ export default class extends AbstractModal {
 
   createNewComment(parent, commentUser, comment) {
     const newLi = document.createElement('li');
-    const p = document.createElement('p');
     const user = document.createElement('b');
     const message = document.createElement('span');
 
@@ -93,9 +96,8 @@ export default class extends AbstractModal {
     message.innerText = comment;
 
     parent.appendChild(newLi);
-    newLi.appendChild(p);
-    p.appendChild(user);
-    p.appendChild(message);
+    newLi.appendChild(user);
+    newLi.appendChild(message)
   }
 
   async comment() {

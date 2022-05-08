@@ -32,12 +32,14 @@ export default class extends AbstractModal {
               <label for="mod-signIn-psw"><b>Password</b></label>
               <input type="password" placeholder="Enter Password" name="mod-signIn-psw" class="mod-common-input" required>
 
-              <button type="submit" class="mod-signIn-acceptbtn">Sign in</button>
+              <div class="mod-btn-container">
+                <button type="submit" class="mod-acceptbtn">Sign in</button>
+                <button type="button" id="mod-signIn-cancelbtn" class="mod-cancelbtn">Cancel</button>
+              </div>
             </div>
 
             <div class="mod-common-main-container">
-              <button type="button" id="mod-signIn-cancelbtn" class="mod-signIn-cancelbtn">Cancel</button>
-              <span class="mod-psw">Forgot <a id="forget-password" href="">password?</a></span>
+              <span class="mod-signIn-psw">Forgot <a id="forget-password" href="">password?</a></span>
             </div>
           </form>
         </div>

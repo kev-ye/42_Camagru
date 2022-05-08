@@ -34,9 +34,9 @@ export default class extends AbstractModal {
             <label for="mod-signUp-email"><b>Email</b></label>
             <input id="mod-signUpemail" type="text" placeholder="Enter email" name="mod-signUp-email" class="mod-common-input" required>
 
-            <div class="mod-signUp-button-container">
-              <button type="submit" class="mod-signUp-acceptbtn">Sign up</button>
-              <button type="button" id="mod-signUp-cancelbtn" class="mod-signUp-cancelbtn">Cancel</button>
+            <div class="mod-btn-container">
+              <button type="submit" class="mod-acceptbtn">Sign up</button>
+              <button type="button" id="mod-signUp-cancelbtn" class="mod-cancelbtn">Cancel</button>
             </div>
           </div>
         </form> 

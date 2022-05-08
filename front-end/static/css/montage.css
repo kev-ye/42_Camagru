@@ -9,33 +9,40 @@
 }
 
 .cam-open {
-  /* width: 640px;
-  height: 480px; */
   width: 80%;
   border-radius: 10px;
-  filter: contrast(140%);
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.50);
+  margin-bottom: 30px;
 }
 
 .cam-image-collect-container {
   text-align: left;
   margin: auto;
-  height: 100px;
+  height: 180px;
   width: 80%;
-  border: 2px solid black;
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.50);
   border-radius: 10px;
   white-space: nowrap;
   overflow-y: hidden;
 }
 
 .cam-image-collect-thumbnail-container {
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
   position: relative;
-  height: 80px;
-  margin: 5px 5px;
+  height: 160px;
+  margin: 0 5px;
   display: inline-block;
   overflow: hidden;
 }
 
+.cam-image-collect-thumbnail-container:hover .cam-image-delete {
+  display: block;
+}
+
 .cam-image-collect-thumbnail {
+  top: 50%;
   border-radius: 10px;
   height: 100%;
 }
@@ -48,6 +55,7 @@
   background-color: red;
   border: 2px solid red;
   border-radius: 50%;
+  display: none;
 }
 
 .cam-image-delete:hover {
@@ -58,13 +66,15 @@
 .cam-snap-btn,
 .cam-publish-btn,
 .cam-cancel-btn {
-  width: 50px;
-  height: 50px;
   border-radius: 50%;
   opacity: 0.75;
   position: absolute;
-  bottom: 7.5%;
+  bottom: 10%;
   left: 50%;
+}
+
+.cam-snap-btn-off:hover {
+  cursor: not-allowed;
 }
 
 .cam-publish-btn {
@@ -78,8 +88,10 @@
 .cam-filter-container {
   list-style: none;
   position: absolute;
-  top: 1%;
+  top: 10%;
   right: 10%;
+  width: 10%;
+  height: 10%;
 }
 
 .cam-filter-sepia,
@@ -104,4 +116,51 @@
 }
 .cam-filter-contrast {
   filter: contrast(140%);
+}
+
+.cam-image-upload-container {
+  display: flex;
+  justify-content: space-around;
+  margin: 20px;
+  margin-top: 40px;
+}
+
+.cam-image-upload-container button {
+  width: 20%;
+}
+
+.cam-image-upload-container input {
+  width: 30%;
+}
+
+.cam-image-upload-container input::-webkit-file-upload-button {
+  display: none;
+}
+
+.cam-image-upload-container input::before {
+  width: 50%;
+  content: "File";
+  background-color: black; /* Green */
+  border: none;
+  border-radius: 10px;
+  color: white;
+  padding: 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+}
+
+.cam-image-upload-container input::before {
+  background-color: white; 
+  color: black; 
+  border: 2px solid black;
+}
+
+.cam-image-upload-container input:hover::before {
+  background-color: black;
+  color: white;
 }

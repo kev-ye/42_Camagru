@@ -37,9 +37,9 @@ export default class extends AbstractView {
             <div>
               <ul id="cam-image-collect" class="cam-image-collect-container"></ul>
             </div>
-            <div>
+            <div class="cam-image-upload-container">
               <input type="file" id="cam-load-image" name="cam-load-image" accept=image/jpeg>
-              <button id="cam-upload-image">upload</button>
+              <button id="cam-upload-image">Upload</button>
             </div>
           </div>
         `;
@@ -284,6 +284,8 @@ export default class extends AbstractView {
     const snapBtn = document.getElementById('cam-button-snap');
 
     snapBtn.disabled = onOff ? false : true;
+    if (snapBtn.disabled === true) snapBtn.classList.add( 'cam-snap-btn-off');
+    else snapBtn.classList.remove('cam-snap-btn-off');
   }
 
   filterSepia() { return 'sepia(100%)' };

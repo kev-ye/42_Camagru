@@ -213,7 +213,16 @@ export default class extends AbstractView {
   }
 
   editTemplate (edit = {}) {
-    return `<b>${edit.info}: </b><input id="${edit.inputId}" type="text" value="${edit.value}"><button id="${edit.acceptBtnId}" class="user-edit-btn">Update</button><button id="${edit.cancelBtnId}" class="user-edit-btn">Cancel</button>`;
+    return `
+      <b>${edit.info}: </b>
+      <input id="${edit.inputId}" class="user-edit-${String(edit.info).toLowerCase()}"  type="text" value="${edit.value}">
+      <button id="${edit.acceptBtnId}" class="user-edit-btn">
+        Update
+      </button>
+      <button id="${edit.cancelBtnId}" class="user-edit-btn">
+        Cancel
+      </button>
+      `;
   }
 
   pswOriginalTemplate () {
