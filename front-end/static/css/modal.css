@@ -94,10 +94,6 @@ input[type=password].mod-common-input {
   border: none;
 }
 
-@media only screen and (max-width: 640px) {
-
-}
-
 /* signIn modal set */
 
 span.mod-signIn-psw {
@@ -149,10 +145,13 @@ span.mod-signIn-psw {
   flex-direction: column;
   justify-content: space-between;
   bottom: 0;
+  overflow: auto;
 }
 
 .mod-image-comment-container button {
+  transform: translateY(-50%);
   width: 20%;
+  padding: 10px;
 }
 
 .mod-image-comment-container input {
@@ -162,7 +161,7 @@ span.mod-signIn-psw {
   box-sizing: border-box;
   border: none;
   border-bottom: 2px solid black;
-  transform: translateY(-25%);
+  transform: translateY(-50%);
 }
 
 .mod-image-comment-container ul {
@@ -173,4 +172,36 @@ span.mod-signIn-psw {
 
 .mod-image-comment-container ul li {
   text-align: left;
+}
+
+@media only screen and (max-width: 640px) {
+  .mod-image-info-container .mod-common-close {
+    transform: translate(75%, -45%);
+  }
+
+  .mod-content-image {
+    width: 75%;
+  }
+
+  .mod-title-container {
+    font-size: 5px;
+  }
+
+  .mod-image-social-content {
+    /* height: 680px; */
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .mod-image-comment-input-container {
+    transform: translatey(50%);
+  }
+
+  .mod-image-comment-container {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+  }
 }

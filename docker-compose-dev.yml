@@ -10,8 +10,8 @@ services:
     restart: always
     volumes:
       - ./back-end:/camagru/back-end/
-      - ./back-end/node_modules:/camagru/back-end/node_modules/
-      - ./back-end/upload:/camagru/back-end/upload
+      - back-end-node-modules:/camagru/back-end/node_modules/
+      - back-end-upload:/camagru/back-end/upload
     command: npm run serve
     environment:
       DB_CONN: ${DB_CONN}
@@ -37,6 +37,7 @@ services:
     restart: always
     volumes:
       - ./front-end:/camagru/front-end/
+      - front-end-node-modules:/camagru/front-end/node_modules/
     command: node front.server.js
     depends_on:
       - back_end
@@ -44,6 +45,11 @@ services:
       - "5050:5050"
     networks:
       - camagru_net
+
+volumes:
+  back-end-node-modules:
+  back-end-upload:
+  front-end-node-modules:
 
 networks:
   camagru_net:
