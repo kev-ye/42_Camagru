@@ -11,36 +11,36 @@ export const userRouter: Router = express.Router();
 userRouter.use(express.json());
 
 // dev: get all users
-userRouter.get('/', async (req: Request, res: Response) => {
-  try {
-    const users = (await collections.users?.find({}).toArray()) as unknown as User[];
+// userRouter.get('/', async (req: Request, res: Response) => {
+//   try {
+//     const users = (await collections.users?.find({}).toArray()) as unknown as User[];
 
-    res.send(users);
-  } catch (error) {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    res.send(error?.message);
-  }
-})
+//     res.send(users);
+//   } catch (error) {
+//     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//     // @ts-ignore
+//     res.send(error?.message);
+//   }
+// })
 
 // dev: get user by name
-userRouter.get("/dev/:username", async (req: Request, res: Response) => {
-  const username = req?.params?.username;
+// userRouter.get("/dev/:username", async (req: Request, res: Response) => {
+//   const username = req?.params?.username;
 
-  try {
-    const query = { username: String(username) };
-    const user = (await collections.users?.findOne(query)) as unknown as User;
+//   try {
+//     const query = { username: String(username) };
+//     const user = (await collections.users?.findOne(query)) as unknown as User;
 
-    user
-      ? res.send({
-          ...user,
-          password: decrypt(user.password)
-        })
-      : res.send(`User with username: ${username} not found`);
-  } catch (error) {
-    res.send(`Unable to find matching document with username: ${req.params.username}`);
-  }
-});
+//     user
+//       ? res.send({
+//           ...user,
+//           password: decrypt(user.password)
+//         })
+//       : res.send(`User with username: ${username} not found`);
+//   } catch (error) {
+//     res.send(`Unable to find matching document with username: ${req.params.username}`);
+//   }
+// });
 
 // get user info
 userRouter.get("/user", authWithJwt, async (req: Request, res: Response) => {
@@ -85,7 +85,7 @@ userRouter.post('/create', async (req: Request, res: Response) => {
     if (result) {
       const activeToken = generateToken(jwtData(newUser), 60 * 5);
 
-      sendMail(newUser.email, `http://localhost:3000/api/auth/active/verify?token=${activeToken}`);
+      sendMail(newUser.email, `${process.env.API_URL || "http://localhost:3000"}/api/auth/active/verify?token=${activeToken}`);
       res.send({ "created": true });
     } else res.send({});
 
@@ -103,8 +103,11 @@ userRouter.put('/update/:username', authWithJwt, async (req: Request, res: Respo
 
   try {
     const user = req.body as IUser;
-    const encryptPsw = (await collections.users?.findOne() as unknown as User).password;
+    const encryptPsw = (await collections.users?.findOne({ username: String(username) }) as unknown as User).password;
     const decryptPsw = decrypt(encryptPsw);
+
+    console.log('user.oldPassword:', user._oldPassword);
+    console.log('user.password:', await collections.users?.findOne({ username: String(username) }) as unknown as User);
 
     if (!user.password) user.password = decryptPsw;
   
