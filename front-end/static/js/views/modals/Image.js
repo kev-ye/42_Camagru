@@ -125,7 +125,6 @@ export default class extends AbstractModal {
 
   addTimer() {
     this.timerId = setInterval(async () => {
-      console.log('test');
       await this.refreshListComment().then();
     }, 3 * 1000);
   }

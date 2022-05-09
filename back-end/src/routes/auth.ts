@@ -1,5 +1,5 @@
 import express, { Router, Response, Request } from "express"
-import * as dotenv from "dotenv";
+// import * as dotenv from "dotenv"; // only use without docker
 
 import { collections } from "../services/db.service";
 import { generateToken, decodeToken } from "../services/auth.service";
@@ -11,7 +11,7 @@ import { authWithJwt, jwtData } from "../services/auth.service";
 
 export const authRouter: Router = express.Router();
 authRouter.use(express.json());
-dotenv.config();
+// dotenv.config(); // only use without docker
 
 // JWT account auth
 authRouter.post("/login", async (req: Request, res: Response) => {

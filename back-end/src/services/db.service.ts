@@ -1,6 +1,6 @@
 // External Dependencies
 import * as mongoDB from "mongodb";
-import * as dotenv from "dotenv";
+// import * as dotenv from "dotenv"; // only use without docker
 
 // Global Variables
 export const collections: {
@@ -11,7 +11,7 @@ export const collections: {
 // Initialize Connection
 export async function connectToDB () {
   // init env
-  dotenv.config();
+  // dotenv.config(); // only use without docker
 
   // database information
   const dbInfo = {
@@ -32,7 +32,6 @@ export async function connectToDB () {
   db.listCollections({ name: dbInfo.userCollectionName })
     .next(async (error, collInfo) => {
       if (collInfo) {
-        console.log(`debug: collection exist: ${collInfo.name}: apply validator jasonSchema`);
         await db.command({
           "collMod": collInfo.name,
           "validator": {
@@ -42,20 +41,17 @@ export async function connectToDB () {
         collections.users = db.collection(collInfo.name);
       }
       else {
-        console.log(`debug: collection dont exist: create ${dbInfo.userCollectionName} & apply validator jasonSchema`);
         collections.users = await db.createCollection(dbInfo.userCollectionName, {
           "validator": {
             $jsonSchema: dbInfo.userSchema
           }
         })
       }
-      console.log(`Successfully connected to database: ${db.databaseName} and collection: ${collections.users.collectionName}`);
     });
 
     db.listCollections({ name: dbInfo.fileCollectionName })
     .next(async (error, collInfo) => {
       if (collInfo) {
-        console.log(`debug: collection exist: ${collInfo.name}: apply validator jasonSchema`);
         await db.command({
           "collMod": collInfo.name,
           "validator": {
@@ -65,14 +61,12 @@ export async function connectToDB () {
         collections.files = db.collection(collInfo.name);
       }
       else {
-        console.log(`debug: collection dont exist: create ${dbInfo.fileCollectionName} & apply validator jasonSchema`);
         collections.files = await db.createCollection(dbInfo.fileCollectionName, {
           "validator": {
             $jsonSchema: dbInfo.fileSchema
           }
         })
       }
-      console.log(`Successfully connected to database: ${db.databaseName} and collection: ${collections.files.collectionName}`);
     })
 }
 

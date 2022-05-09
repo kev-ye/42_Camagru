@@ -1,8 +1,8 @@
 import { createTransport } from "nodemailer";
-import * as dotenv from "dotenv"
+// import * as dotenv from "dotenv" // only use without docker
 
 export function sendMail (to: string, content: string, subject?: string) {
-  dotenv.config();
+  // dotenv.config(); // only use without docker
 
   const transporter = createTransport({
     host: 'smtp.outlook.com',
@@ -20,8 +20,5 @@ export function sendMail (to: string, content: string, subject?: string) {
     text: content
   }
 
-  transporter.sendMail(mailOptions, (error, info) => {
-    if (error) console.log(error);
-    else console.log('Email sent: ' + info.response);
-  });
+  transporter.sendMail(mailOptions, () => {});
 }

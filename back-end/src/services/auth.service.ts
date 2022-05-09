@@ -1,11 +1,11 @@
 import jwt from "jsonwebtoken"
-import * as dotenv from "dotenv"
+// import * as dotenv from "dotenv" // only use without docker
 
 import { IJwtData } from "../models/data";
 import { User, IUser } from "../models/user";
 import { NextFunction, Request, Response } from "express";
 
-dotenv.config();
+// dotenv.config(); // only use without docker
 
 // Jwt
 export function generateToken(data: IJwtData, time?: string | number) {

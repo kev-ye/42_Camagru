@@ -51,7 +51,6 @@ export default class extends AbstractModal {
       if (this.validateForm(String(u.value))) {
         await sendResetPassword(String(u.value))
           .then(res => {
-            console.log(res);
             if (res) {
               alert('Send! Check your email');
               u.value = "";

@@ -16,7 +16,7 @@ FROM nginx:alpine AS product
 
 RUN rm -rf /usr/share/nginx/html/*
 
-COPY --from=development /camagru/front-end/* /usr/share/nginx/html/
+COPY --from=development /camagru/front-end/ /usr/share/nginx/html/
 COPY --from=development /camagru/front-end/nginx/default.conf /etc/nginx/conf.d/default.conf
 
 EXPOSE 8080
