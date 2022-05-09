@@ -78,8 +78,6 @@ export default class extends AbstractModal {
     const pRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[a-zA-Z0-9]{8,16}$/;
     const mRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
 
-    console.log(u);
-
     if (!u || !uRegex.test(u)) {
       alert("- Username must contain letters or numbers\n- Length between 6-16");
       return false;

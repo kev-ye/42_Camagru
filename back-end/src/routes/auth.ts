@@ -1,4 +1,5 @@
 import express, { Router, Response, Request } from "express"
+import * as dotenv from "dotenv";
 
 import { collections } from "../services/db.service";
 import { generateToken, decodeToken } from "../services/auth.service";
@@ -10,6 +11,7 @@ import { authWithJwt, jwtData } from "../services/auth.service";
 
 export const authRouter: Router = express.Router();
 authRouter.use(express.json());
+dotenv.config();
 
 // JWT account auth
 authRouter.post("/login", async (req: Request, res: Response) => {
@@ -62,7 +64,7 @@ authRouter.post("/active", authWithJwt, async (req: Request, res: Response) => {
     else {
       const activeToken = generateToken(jwtData(user), 60 * 5);
     
-      sendMail(user.email, `http://localhost:3000/api/auth/active/verify?token=${activeToken}`);
+      sendMail(user.email, `${process.env.API_URL || "http://localhost:3000"}/api/auth/active/verify?token=${activeToken}`);
       res.send({
         "token": true,
         "email": user.email
@@ -88,11 +90,11 @@ authRouter.get("/active/verify", authWithJwt, async (req: Request, res: Response
     else user._activated = true;
 
     await collections.users?.updateOne({ username: String(decode.username) }, { $set: user });
-    res.redirect('http://localhost:5050');
+    res.redirect(`${process.env.FRONT_URL || "http://localhost:5050"}`);
   } catch (error) {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    res.redirect('http://localhost:5050');
+    res.redirect(`${process.env.FRONT_URL || "http://localhost:5050"}`);
   }
 });
 
@@ -105,7 +107,7 @@ authRouter.post("/reset/send", async (req: Request, res: Response) => {
     if (!user) res.send({});
     else {
       const resetToken = generateToken(jwtData(user), 60 * 5);
-      sendMail(user.email, `click this link: http://localhost:5050/reset?token=${resetToken}`, 'Camagru password reset');
+      sendMail(user.email, `click this link: ${process.env.FRONT_URL || "http://localhost:5050"}/reset?token=${resetToken}`, 'Camagru password reset');
       res.send({ "send": true });
     }
   } catch (error) {
