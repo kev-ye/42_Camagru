@@ -21,6 +21,8 @@ services:
       JWT_SECRET: ${JWT_SECRET}
       MAIL_USER: ${MAIL_USER}
       MAIL_PASS: ${MAIL_PASS}
+      FRONT_URL: ${FRONT_URL}
+      API_URL: ${API_URL}
     ports:
       - "3000:3000"
     networks:
