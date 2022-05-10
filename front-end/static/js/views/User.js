@@ -156,6 +156,20 @@ export default class extends AbstractView {
     if (['username', 'email'].find(el => el === info)) {
       const value = document.getElementById(`user-${info}-input`).value;
 
+      if (info === 'username') {
+        if (!this.validateFormU(String(value)) || String(value).length > 16) {
+          alert('Username format wrong!');
+          return ;
+        }
+      }
+
+      if (info === 'email') {
+        if (!this.validateFormM(String(value)) || String(value).length > 50) {
+          alert('Email format wrong!');
+          return ;
+        }
+      }
+
       await updateUser(
         info === 'username'? value : undefined,
         undefined,
@@ -172,6 +186,11 @@ export default class extends AbstractView {
     else {
       const oldValue = document.getElementById('user-old-password-input').value;
       const newValue = document.getElementById('user-new-password-input').value;
+
+      if (!this.validateFormP(String(oldValue) || !this.validateFormP(String(newValue)))) {
+        alert('Old/New password format wrong!');
+        return ;
+      }
 
       await updateUser(
         undefined,
@@ -212,7 +231,7 @@ export default class extends AbstractView {
   editTemplate (edit = {}) {
     return `
       <b>${edit.info}: </b>
-      <input id="${edit.inputId}" class="user-edit-${String(edit.info).toLowerCase()}"  type="text" value="${edit.value}">
+      <input id="${edit.inputId}" class="user-edit-${String(edit.info).toLowerCase()}"  type="text" value="${edit.value}" maxlength="${edit.info === 'Username' ? 16 : 50}" required>
       <button id="${edit.acceptBtnId}" class="user-edit-btn">
         Update
       </button>
@@ -229,15 +248,39 @@ export default class extends AbstractView {
   pswEditTemplate () {
     return `  
       <div>
-        <b>Old password: </b><input id="user-old-password-input" type="password" placeholder="Enter your old password">
+        <b>Old password: </b><input id="user-old-password-input" type="password" placeholder="Enter your old password" maxlength="16" required>
       </div>
       <div>
-        <b>New password: </b><input id="user-new-password-input" type="password" placeholder="Enter your new password">
+        <b>New password: </b><input id="user-new-password-input" type="password" placeholder="Enter your new password" maxlength="16" required>
       </div>
       <div>
         <button id="user-password-accept-btn">Update</button>
         <button id="user-password-cancel-btn">Cancel</button>
       </div>
     `;
+  }
+
+  validateFormU(u) {
+    const uRegex = /^[a-zA-Z0-9]{6,16}$/;
+  
+    if (!u || !uRegex.test(u)) return false;
+
+    return true;
+  }
+
+  validateFormP(p) {
+    const pRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[a-zA-Z0-9]{8,16}$/;
+  
+    if (!p || !pRegex.test(p)) return false;
+
+    return true;
+  }
+
+  validateFormM(m) {
+    const mRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+
+    if (!m || !mRegex.test(m)) return false;
+
+    return true;
   }
 }

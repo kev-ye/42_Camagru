@@ -20,7 +20,7 @@ export default class extends AbstractView {
         
               <form name="new-password-form" id="new-password-form" method="post">
                 <label for="new-password">New password</label>
-                <input type="password" placeholder="Enter new password" name="new-password" class="newpassword-input" required>
+                <input type="password" placeholder="Enter new password" name="new-password" class="newpassword-input" maxlength="16" required>
         
                 <button type="submit" class="newpasswprd">Reset</button>
               </form>
@@ -64,7 +64,7 @@ export default class extends AbstractView {
     const pRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[a-zA-Z0-9]{8,16}$/;
 
     if (!p || !pRegex.test(p)) {
-      alert("Password must contain a combination of uppercase and lowercase letters and numbers, no special characters, length between 8-16");
+      alert("- Password must contain a combination of uppercase\n- Lowercase letters and numbers\n- No special characters\n- Length between 8-16");
       return false;
     }
     return true;

@@ -106,9 +106,6 @@ userRouter.put('/update/:username', authWithJwt, async (req: Request, res: Respo
     const encryptPsw = (await collections.users?.findOne({ username: String(username) }) as unknown as User).password;
     const decryptPsw = decrypt(encryptPsw);
 
-    console.log('user.oldPassword:', user._oldPassword);
-    console.log('user.password:', await collections.users?.findOne({ username: String(username) }) as unknown as User);
-
     if (!user.password) user.password = decryptPsw;
   
     if (user._oldPassword && user.password && user._oldPassword !== decryptPsw) {
