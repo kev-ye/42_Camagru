@@ -198,6 +198,7 @@ export default class extends AbstractView {
 
     commentInput.placeholder = 'add a comment ...';
     commentInput.name = `${id}-form-input`;
+    commentInput.maxLength = '100';
     commentInput.required = true;
 
     commentPost.type = 'submit';

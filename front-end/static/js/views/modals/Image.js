@@ -37,7 +37,7 @@ export default class extends AbstractModal {
               <div>
 
               <form name="mod-image-${id}-form" id="mod-image-${id}-form" class="mod-image-comment-input-container" post>
-                <input name="mod-image-${id}-form-input" placeholder="add a comment ..." required>
+                <input name="mod-image-${id}-form-input" placeholder="add a comment ..." max-length="100" required>
                 <button type="submit">Post</button>
               </form>
             </div>

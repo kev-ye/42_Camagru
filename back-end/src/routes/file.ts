@@ -114,6 +114,10 @@ uploadRouter.put("/:id", authWithJwt, async (req: Request, res: Response) => {
 			else fileInfo._social?.like.push(decode.username);
 		}
 		else if (String(Object.keys(body)[0]) === 'comment') {
+			if (String(Object.values(body)[0]).length > 100) {
+				res.send({});
+				return ;
+			}
 			const comment: Comment = {
 				user: decode.username || '',
 				comment: String(Object.values(body)[0]),

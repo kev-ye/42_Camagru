@@ -26,13 +26,13 @@ export default class extends AbstractModal {
 
           <div class="mod-common-main-container">
             <label for="mod-signUp-username"><b>Username</b></label>
-            <input id="mod-signUpUsername" type="text" placeholder="Enter Username" name="mod-signUp-username" class="mod-common-input" required>
+            <input id="mod-signUpUsername" type="text" placeholder="Enter Username" name="mod-signUp-username" class="mod-common-input" max-length="16" required>
 
             <label for="mod-signUp-psw"><b>Password</b></label>
-            <input id="mod-signUpPassword" type="password" placeholder="Enter Password" name="mod-signUp-psw" class="mod-common-input" required>
+            <input id="mod-signUpPassword" type="password" placeholder="Enter Password" name="mod-signUp-psw" class="mod-common-input" max-length="16" required>
 
             <label for="mod-signUp-email"><b>Email</b></label>
-            <input id="mod-signUpemail" type="text" placeholder="Enter email" name="mod-signUp-email" class="mod-common-input" required>
+            <input id="mod-signUpemail" type="text" placeholder="Enter email" name="mod-signUp-email" class="mod-common-input" max-length="100" required>
 
             <div class="mod-btn-container">
               <button type="submit" class="mod-acceptbtn">Sign up</button>
